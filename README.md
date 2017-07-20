@@ -26,3 +26,11 @@ int32_t fn_addTwo(int32_t arg0, int32_t arg1) {
 	return arg0 + arg1;
 }
 ```
+
+# Support
+wdis is currently limited, and only supports a few WebAssembly expressions:
+- Blocks
+- Limited binary operations
+- get_local
+- return
+More are planned.
