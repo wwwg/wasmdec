@@ -42,14 +42,19 @@ namespace wdis {
 					emit << decl << endl;
 				}
 			} else {
-				emit.comment("No WASM imports");
+				emit.comment("No WASM imports.");
 				emit.ln();
 			}
 			// Process functions
-			emit.comment("WASM functions:");
-			emit.ln();
-			for (const auto &func : parser.functions) {
-				emit << Convert::getDecl(func) << Convert::getFuncBody(&module, func) << endl;
+			if (parser.functions.size()) {
+				emit.comment("WASM functions:");
+				emit.ln();
+				for (const auto &func : parser.functions) {
+					emit << Convert::getDecl(func) << Convert::getFuncBody(&module, func) << endl;
+				}
+			} else {
+				emit.comment("No WASM functions.");
+				emit.ln();
 			}
 			debug("Code generation complete.\n");
 		}
