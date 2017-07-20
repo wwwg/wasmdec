@@ -2,9 +2,12 @@ SRC=$(wildcard src/*.cc)
 LIB=$(wildcard src/binaryen/lib/*.a)
 OUT=./out
 CC=clang++
-OPTS=-std=c++14 -Isrc/binaryen/src
+OPTS=-g -std=c++14 -Isrc/binaryen/src -Lsrc/binaryen/lib -lbinaryen
 
 all:
-	$(CC) $(OPTS) $(SRC) $(LIB) -o $(OUT)
+	$(CC) $(OPTS) $(SRC) -o $(OUT)
+run:
+	make all
+	./$(OUT)
 binaryen:
 	cd src/binaryen; cmake .; make
