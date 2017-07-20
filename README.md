@@ -1,12 +1,12 @@
 # wdis
-wdis is a program that converts Web Assembly binaries to pseudo-C code.
+wdis is a program that converts WebAssembly binaries to pseudo-C code.
 
 # Building
 To build, run `make binaryen && make`.
 If the executable fails to locate `libbinaryen.so`, move / copy `src/binaryen/lib/libbinaryen.so` to `/usr/lib64`.
 
 # Example
-wdis will translate this Web Assembly binary:
+wdis will translate this WebAssembly binary:
 ```
 (module
 	(func $addTwo (param i32 i32) (result i32)
