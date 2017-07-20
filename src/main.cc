@@ -26,6 +26,7 @@ void writeFile(string path, string data) {
 	f << data;
 	f.close();
 }
+
 int main(int argc, const char** argv) {
 	auto vfile = readFile("samples/addTwo.wasm");
 	CodeGenerator generator(&vfile, true);
