@@ -17,7 +17,7 @@ namespace wdis {
 			return "v" + string(name.str);
 		}
 		static string getLocal(wasm::Index argIdx) {
-			return "lcl" + to_string((int)argIdx);
+			return "local_" + to_string((int)argIdx);
 		}
 		static string call(wasm::Function* fn) {
 			return getFName(fn->name) + "();";
