@@ -36,6 +36,65 @@ namespace wdis {
 				case SubFloat64:
 					return "-";
 					break;
+				case XorInt64:
+				case XorInt32:
+					return "^";
+					break;
+				case OrInt64:
+				case OrInt32:
+					return "||";
+					break;
+				case MulInt32:
+				case MulInt64:
+				case MulFloat32:
+				case MulFloat64:
+					return "*";
+					break;
+				case EqInt32:
+				case EqInt64:
+				case EqFloat32:
+				case EqFloat64:
+					return "=="; // TODO: Check if this is actually correct
+					break;
+				case NeInt32:
+				case NeInt64:
+				case NeFloat32:
+				case NeFloat64:
+					return "!="; // TODO: Check if this is actually correct
+					break;
+				case AndInt32:
+				case AndInt64:
+					return "&&";
+					break;
+				case LeSInt64:
+				case LeSInt32:
+					return "<=";
+					break;
+				case LtUInt32:
+				case LtSInt32:
+				case LtSInt64:
+				case LtFloat32:
+				case LtFloat64:
+					return "<";
+					break;
+				case DivSInt32:
+				case DivUInt32:
+				case DivSInt64:
+				case DivUInt64:
+				case DivFloat32:
+				case DivFloat64:
+					return "/";
+					break;
+				case GtSInt64:
+				case GtUInt64:
+				case GtFloat64:
+				case GtFloat32:
+					return ">";
+					break;
+				case GeSInt64:
+				case GeSInt32:
+				case GeFloat64:
+					return ">=";
 			}
 			return "NONE";
 		}
