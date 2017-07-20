@@ -82,7 +82,6 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex) {
 string wdis::Convert::getBlockBody(Module* mod, Block* blck) {
 	stringstream s;
 	for (auto& expr : blck->list) {
-		cout << "Parse block body Expression\n";
 		s << parseExpr(mod, expr);
 	}
 	return s.str();
