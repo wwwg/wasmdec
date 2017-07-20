@@ -34,11 +34,16 @@ namespace wdis {
 		void gen() {
 			debug("Starting code generation...\n");
 			// Process imports
-			emit.comment("WASM imports:");
-			for (auto& i : module.imports) {
-				// cout << "Got import: " << i->name << endl;
-				string decl = Convert::getDecl(&module, i);
-				emit << decl << endl;
+			if (module.imports.size()) {
+				emit.comment("WASM imports:");
+				for (auto& i : module.imports) {
+					// cout << "Got import: " << i->name << endl;
+					string decl = Convert::getDecl(&module, i);
+					emit << decl << endl;
+				}
+			} else {
+				emit.comment("No WASM imports");
+				emit.ln();
 			}
 			// Process functions
 			emit.comment("WASM functions:");
