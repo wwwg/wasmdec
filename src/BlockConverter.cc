@@ -5,13 +5,11 @@ using namespace wasm;
 string wdis::Convert::parseExpr(Module* mod, Expression* ex) {
 	string ret("");
 	if (ex->is<Unary>()) {
-		cout << "Unary operation\n";
+		// TODO
 	} else if (ex->is<Block>()) {
-		cout << "WASM block\n";
 		Block* blck = ex->cast<Block>();
 		ret += getBlockBody(mod, blck);
 	} else if (ex->is<Binary>()) {
-		cout << "Binary operation\n";
 		Binary* spex = ex->cast<Binary>();
 		string e1 = parseExpr(mod, spex->left);
 		string e2 = parseExpr(mod, spex->right);
