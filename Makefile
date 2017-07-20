@@ -1,5 +1,5 @@
 SRC=$(wildcard src/*.cc)
-OUT=./out
+OUT=./wdis
 CC=clang++
 OPTS=-g -std=c++14 -Isrc/binaryen/src -Lsrc/binaryen/lib -lbinaryen
 
