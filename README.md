@@ -32,5 +32,5 @@ wdis is currently limited, and only supports a few WebAssembly expressions:
 - Blocks
 - Limited binary operations
 - get_local
-- return
+- return<br>
 More are planned.
