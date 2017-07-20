@@ -24,9 +24,13 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex) {
 		ret += getLocal(spex->index);
 	} else if (ex->is<Return>()) {
 		Return* spex = ex->cast<Return>();
-		ret += "return ";
-		ret += parseExpr(mod, spex->value);
-		ret += ";\n";
+		if (spex->value) {
+			ret += "return ";
+			ret += parseExpr(mod, spex->value);
+			ret += ";\n";
+		} else {
+			ret += "return;\n"; // For void functions
+		}
 	} else if (ex->is<If>()) {
 		If* ife = ex->cast<If>();
 		string cond = parseExpr(mod, ife->condition);
