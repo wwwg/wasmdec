@@ -47,8 +47,9 @@ namespace wdis {
 			}
 			// Process functions
 			emit.comment("WASM functions:");
+			emit.ln();
 			for (const auto &func : parser.functions) {
-				emit << Convert::getDecl(func) << Convert::getFuncBody(&module, func);
+				emit << Convert::getDecl(func) << Convert::getFuncBody(&module, func) << endl;
 			}
 			debug("Code generation complete.\n");
 		}
