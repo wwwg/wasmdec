@@ -52,6 +52,15 @@ namespace wdis {
 				emit.comment("WASM functions:");
 				emit.ln();
 				for (const auto &func : parser.functions) {
+					if (emitExtraData) {
+						wasm::Block* fnBody = func->body->cast<wasm::Block>();
+						emit << "/*" << endl
+						<< "\tFunction '" << func->name << "'" << endl
+						<< "\tLocal variables: " << func->vars.size() << endl
+						<< "\tParameters: " << func->params.size() << endl
+						<< "\tImmediate block expressions: " << fnBody->list.size() << endl
+						<< "*/" << endl;
+					}
 					emit << Convert::getDecl(func) << Convert::getFuncBody(&module, func) << endl;
 				}
 			} else {
