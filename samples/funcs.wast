@@ -1,5 +1,5 @@
 (module
-	(type $void (func))
+	(type $varg_i32 (func (result i32)))
 	(func $addTwo (param i32 i32) (result i32)
 		(return
 			(i32.add
@@ -8,7 +8,7 @@
 			)
 		)
 	)
-	(func $getOne (type $void) (result i32)
+	(func $getOne (type $varg_i32)
 		(return
 			(i32.const 1)
 		)
