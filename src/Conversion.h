@@ -125,6 +125,7 @@ namespace wdis {
 			ret += "("; // Argument list
 			for (int i = 0; i < typ->params.size(); ++i) {
 				ret += resolveType(typ->params.at(i));
+				ret += " ";
 				ret += getLocal(i);
 				if (i != (typ->params.size() - 1)) {
 					ret += ", ";
@@ -140,8 +141,8 @@ namespace wdis {
 			ret += "("; // Argument list
 			for (int i = 0; i < typ->params.size(); ++i) {
 				ret += resolveType(typ->params.at(i));
-				ret += " arg";
-				ret += to_string(i);
+				ret += " ";
+				ret += getLocal(i);
 				if (i != (typ->params.size() - 1)) {
 					ret += ", ";
 				}
@@ -156,8 +157,8 @@ namespace wdis {
 			ret += "("; // Argument list
 			for (int i = 0; i < fn->params.size(); ++i) {
 				ret += resolveType(fn->params.at(i));
-				ret += " arg";
-				ret += to_string(i);
+				ret += " ";
+				ret += getLocal(i);
 				if (i != (fn->params.size() - 1)) {
 					ret += ", ";
 				}
