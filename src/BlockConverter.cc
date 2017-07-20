@@ -21,7 +21,7 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex) {
 		ret += e2;
 	} else if (ex->is<GetLocal>()) {
 		GetLocal* spex = ex->cast<GetLocal>();
-		ret += getArg(spex->index);
+		ret += getLocal(spex->index);
 	} else if (ex->is<Return>()) {
 		Return* spex = ex->cast<Return>();
 		ret += "return ";
@@ -29,9 +29,9 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex) {
 		ret += ";\n";
 	} else if (ex->is<If>()) {
 		If* ife = ex->cast<If>();
-		string cond = parseExpr(mod, ex->condition);
-		string trueBlock = parseExpr(mod, ex->ifTrue);
-		string falseBlock = parseExpr(mod, ex->ifFalse);
+		string cond = parseExpr(mod, ife->condition);
+		string trueBlock = parseExpr(mod, ife->ifTrue);
+		string falseBlock = parseExpr(mod, ife->ifFalse);
 		ret += "if (";
 		ret += cond;
 		ret += ") {\n\t";
@@ -39,6 +39,38 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex) {
 		ret += "\n} else {\n\t";
 		ret += falseBlock;
 		ret += "\n}";
+	} else if (ex->is<Const>()) {
+		Const* cex = ex->cast<Const>();
+		Literal val = cex->value;
+		string stype = resolveType(val.type);
+		string sval;
+		int32_t conv_i32;
+		int64_t conv_i64;
+		float conv_f32;
+		double conv_f64;
+		switch (val.type) {
+			case WasmType::none:
+			case WasmType::unreachable:
+				sval = "0";
+				break;
+			case WasmType::i32:
+				conv_i32 = val.geti32();
+				sval = to_string(conv_i32);
+				break;
+			case WasmType::i64:
+				conv_i64 = val.geti64();
+				sval = to_string(conv_i64);
+				break;
+			case WasmType::f32:
+				conv_f32 = val.getf32();
+				sval = to_string(conv_f32);
+				break;
+			case WasmType::f64:
+				conv_f64 = val.getf64();
+				sval = to_string(conv_f64);
+				break;
+		}
+		ret += sval;
 	}
 	cout << "Parsed expr to '" << ret << "'" << endl;
 	return ret;

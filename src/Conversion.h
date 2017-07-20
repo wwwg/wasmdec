@@ -16,8 +16,8 @@ namespace wdis {
 		static string getVName(wasm::Name name) {
 			return "v" + string(name.str);
 		}
-		static string getArg(wasm::Index argIdx) {
-			return "arg" + to_string((int)argIdx);
+		static string getLocal(wasm::Index argIdx) {
+			return "lcl" + to_string((int)argIdx);
 		}
 		static string call(wasm::Function* fn) {
 			return getFName(fn->name) + "();";
@@ -125,7 +125,7 @@ namespace wdis {
 			ret += "("; // Argument list
 			for (int i = 0; i < typ->params.size(); ++i) {
 				ret += resolveType(typ->params.at(i));
-				ret += getArg(i);
+				ret += getLocal(i);
 				if (i != (typ->params.size() - 1)) {
 					ret += ", ";
 				}
