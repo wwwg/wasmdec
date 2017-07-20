@@ -28,10 +28,10 @@ void writeFile(string path, string data) {
 }
 
 int main(int argc, const char** argv) {
-	auto vfile = readFile("samples/addTwo.wasm");
+	auto vfile = readFile("samples/funcs.wasm");
 	CodeGenerator generator(&vfile, true);
 	generator.gen();
 	string res = generator.getEmittedCode();
-	writeFile("samples/addTwo.c", res);
+	writeFile("samples/funcs.c", res);
 	return 0;
 }
