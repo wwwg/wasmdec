@@ -20,15 +20,25 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex) {
 		ret += " ";
 		ret += e2;
 	} else if (ex->is<GetLocal>()) {
-		cout << "Get local\n";
 		GetLocal* spex = ex->cast<GetLocal>();
 		ret += getArg(spex->index);
 	} else if (ex->is<Return>()) {
-		cout << "Return block\n";
 		Return* spex = ex->cast<Return>();
 		ret += "return ";
 		ret += parseExpr(mod, spex->value);
 		ret += ";\n";
+	} else if (ex->is<If>()) {
+		If* ife = ex->cast<If>();
+		string cond = parseExpr(mod, ex->condition);
+		string trueBlock = parseExpr(mod, ex->ifTrue);
+		string falseBlock = parseExpr(mod, ex->ifFalse);
+		ret += "if (";
+		ret += cond;
+		ret += ") {\n\t";
+		ret += trueBlock;
+		ret += "\n} else {\n\t";
+		ret += falseBlock;
+		ret += "\n}";
 	}
 	cout << "Parsed expr to '" << ret << "'" << endl;
 	return ret;
