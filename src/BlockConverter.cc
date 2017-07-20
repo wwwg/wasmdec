@@ -75,6 +75,8 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex) {
 				break;
 		}
 		ret += sval;
+	} else if (ex->is<Nop>()) {
+		ret = "// <Nop expression>\n"; // Nop expressions do nothing
 	}
 	cout << "Parsed expr to '" << ret << "' ";
 	return ret;

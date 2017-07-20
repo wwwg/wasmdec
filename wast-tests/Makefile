@@ -6,3 +6,4 @@ all:
 	mkdir -p ../disasm/
 	$(ASM) addTwo.wast -o $(OUTDIR)addTwo.wasm
 	$(ASM) funcs.wast -o $(OUTDIR)funcs.wasm
+	$(ASM) conditions.wast -o $(OUTDIR)conditions.wasm
