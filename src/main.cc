@@ -29,7 +29,7 @@ void writeFile(string path, string data) {
 
 int main(int argc, const char** argv) {
 	auto vfile = readFile("samples/funcs.wasm");
-	CodeGenerator generator(&vfile, true);
+	CodeGenerator generator(&vfile, true, true);
 	generator.gen();
 	string res = generator.getEmittedCode();
 	writeFile("samples/funcs.c", res);
