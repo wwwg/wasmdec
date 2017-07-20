@@ -26,10 +26,14 @@ namespace wdis {
 			switch (op) {
 				case AddInt32:
 				case AddInt64:
+				case AddFloat32:
+				case AddFloat64:
 					return "+";
 					break;
 				case SubInt32:
 				case SubInt64:
+				case SubFloat32:
+				case SubFloat64:
 					return "-";
 					break;
 			}
