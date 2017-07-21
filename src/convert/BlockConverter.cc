@@ -5,26 +5,26 @@
 using namespace std;
 using namespace wasm;
 
-string wdis::Convert::getBlockBody(Module* mod, Function* fn, Block* blck, int depth) {
+string wdis::Convert::getBlockBody(Context* ctx, Block* blck, int depth) {
 	// Stream all block expressions and components into a string
 	stringstream s;
 	depth++;
 	for (auto& expr : blck->list) {
-		s << Convert::parseExpr(mod, fn, expr, depth);
+		s << Convert::parseExpr(ctx, expr, depth);
 	}
 	depth--;
 	return s.str();
 }
-string wdis::Convert::getFuncBody(Module* mod, Function* fn, bool addExtraInfo) {
+string wdis::Convert::getFuncBody(Context* ctx, bool addExtraInfo) {
 	string fnBody;
 	fnBody += " {\n";
 	// Convert function locals to intermediate locals
-	vector<WasmType>* vars = &(fn->vars);
+	vector<WasmType>* vars = &(ctx->fn->vars);
 	if (vars->size()) {
 		vector<InterLocal> locals;
 		for (int i = 0; i < vars->size(); ++i) {
 			// Fill locals vector
-			InterLocal il(fn, i);
+			InterLocal il(ctx->fn, i);
 			locals.push_back(il);
 		}
 		fnBody += "\t// Parsed WASM function locals:\n";
@@ -51,7 +51,7 @@ string wdis::Convert::getFuncBody(Module* mod, Function* fn, bool addExtraInfo) 
 		}
 	}
 	// Function bodies are block expressions
-	fnBody += Convert::parseExpr(mod, fn, fn->body, -1);
+	fnBody += Convert::parseExpr(ctx, ctx->fn->body, -1);
 	fnBody += "}";
 	return fnBody;
 }

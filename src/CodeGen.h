@@ -59,7 +59,8 @@ namespace wdis {
 						<< "\tImmediate block expressions: " << fnBody->list.size() << endl
 						<< "*/" << endl;
 					}
-					emit << Convert::getDecl(func) << Convert::getFuncBody(&module, func, emitExtraData) << endl;
+					Context ctx(func, &module);
+					emit << Convert::getDecl(func) << Convert::getFuncBody(&ctx, emitExtraData) << endl;
 				}
 			} else {
 				emit.comment("No WASM functions.");

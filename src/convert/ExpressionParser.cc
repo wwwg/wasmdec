@@ -2,17 +2,17 @@
 using namespace std;
 using namespace wasm;
 
-string wdis::Convert::parseExpr(Module* mod, Function* func, Expression* ex, int depth) {
+string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 	string ret;
 	if (ex->is<Block>()) {
 		// Recursively parse blocks
 		Block* blck = ex->cast<Block>();
-		ret += getBlockBody(mod, func, blck, depth);
+		ret += getBlockBody(ctx, blck, depth);
 	} else if (ex->is<Binary>()) {
 		// Binary operations, including conditionals and arithmetic
 		Binary* spex = ex->cast<Binary>();
-		string e1 = parseExpr(mod, func, spex->left, depth);
-		string e2 = parseExpr(mod, func, spex->right, depth);
+		string e1 = parseExpr(ctx, spex->left, depth);
+		string e2 = parseExpr(ctx, spex->right, depth);
 		string operation = getBinOperator(spex->op);
 		ret += e1 + " " + operation + " " + e2;
 	} else if (ex->is<GetLocal>()) {
@@ -24,14 +24,14 @@ string wdis::Convert::parseExpr(Module* mod, Function* func, Expression* ex, int
 		if (spex->value) {
 			// Insert expression as function return value
 			ret += util::tab(depth) + "return ";
-			ret += parseExpr(mod, func, spex->value, depth) + ";\n";
+			ret += parseExpr(ctx, spex->value, depth) + ";\n";
 		} else {
 			ret += "return;\n"; // For void functions
 		}
 	} else if (ex->is<If>()) {
 		If* ife = ex->cast<If>();
-		string cond = parseExpr(mod, func, ife->condition, depth);
-		string trueBlock = parseExpr(mod, func, ife->ifTrue, depth);
+		string cond = parseExpr(ctx, ife->condition, depth);
+		string trueBlock = parseExpr(ctx, ife->ifTrue, depth);
 		ret += util::tab(depth);
 		ret += "if (" + cond + ") {\n";
 		depth++;
@@ -40,7 +40,7 @@ string wdis::Convert::parseExpr(Module* mod, Function* func, Expression* ex, int
 		ret += "\n" + util::tab(depth) + "} ";
 		if (ife->ifFalse) {
 			// Insert else block
-			string falseBlock = parseExpr(mod, func, ife->ifFalse, depth);
+			string falseBlock = parseExpr(ctx, ife->ifFalse, depth);
 			ret += "else {\n";
 			depth++;
 			ret += util::tab(depth) + falseBlock + "\n";
@@ -65,13 +65,13 @@ string wdis::Convert::parseExpr(Module* mod, Function* func, Expression* ex, int
 		SetGlobal* gex = ex->cast<SetGlobal>();
 		ret += util::tab(depth) + gex->name.str + " = ";
 		// The value is an expression
-		ret += parseExpr(mod, func, gex->value, depth) + ";\n";
+		ret += parseExpr(ctx, gex->value, depth) + ";\n";
 	} else if (ex->is<Break>()) {
 		Break* br = ex->cast<Break>();
 		ret += util::tab(depth);
 		if (br->condition) {
 			// Conditional breaking
-			ret += "if (" + parseExpr(mod, func, br->condition, depth) + ") break;";
+			ret += "if (" + parseExpr(ctx, br->condition, depth) + ") break;";
 		} else {
 			// Literal breaking
 			ret += "break;";
@@ -80,12 +80,12 @@ string wdis::Convert::parseExpr(Module* mod, Function* func, Expression* ex, int
 	} else if (ex->is<Call>()) {
 		// Function call
 		Call* fnCall = ex->cast<Call>();
-		ret += getFName(fnCall->target) + parseOperandList(&(fnCall->operands), func, mod, depth);
+		ret += getFName(fnCall->target) + parseOperandList(ctx, &(fnCall->operands), depth);
 	} else if (ex->is<CallImport>()) {
 		// Imported function call
 		CallImport* imCall = ex->cast<CallImport>();
 		ret += "/* Import call */ ";
-		ret += imCall->target.str + parseOperandList(&(imCall->operands), func, mod, depth);
+		ret += imCall->target.str + parseOperandList(ctx, &(imCall->operands), depth);
 	} else if (ex->is<Loop>()) {
 		// TODO : Implement WASM loop routine conversions
 	} else if (ex->is<Switch>()) {
@@ -96,14 +96,14 @@ string wdis::Convert::parseExpr(Module* mod, Function* func, Expression* ex, int
 		// Resolve variable's C name
 		SetLocal* sl = ex->cast<SetLocal>();
 		/*
-		int idx = util::getLocalIndex(func, sl->index);
+		int idx = util::getLocalIndex(ctx->fn, sl->index);
 		*/
 		int idx = sl->index;
 		ret += util::tab(depth);
 		ret += getLocal((Index)idx);
 		ret += " = ";
 		// Resolve the value to be set
-		ret += parseExpr(mod, func, sl->value, depth);
+		ret += parseExpr(ctx, sl->value, depth);
 		ret += ";\n";
 	} else if (ex->is<Load>()) {
 		// TODO : Implement WASM address loading
