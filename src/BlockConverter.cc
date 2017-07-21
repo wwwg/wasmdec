@@ -93,6 +93,19 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex) {
 		ret += sval;
 	} else if (ex->is<Nop>()) {
 		ret = "// <Nop expression>\n"; // Nop expressions do nothing
+	} else if (ex->is<GetGlobal>()) {
+		// Global variable lookup
+		ret += ex->cast<GetGlobal>()->name.str;
+		// ret += "\n";
+	} else if (ex->is<SetGlobal>()) {
+		// Set global variable
+		SetGlobal* gex = ex->cast<SetGlobal>();
+		ret += "\t";
+		ret += gex->name.str;
+		ret += " = ";
+		// The value is an expression
+		ret += parseExpr(mod, gex->value);
+		ret += ";\n";
 	}
 	cout << "Parsed expr to '" << ret << "' ";
 	return ret;
@@ -107,7 +120,7 @@ string wdis::Convert::getBlockBody(Module* mod, Block* blck) {
 }
 string wdis::Convert::getFuncBody(Module* mod, Function* fn) {
 	string fnBody;
-	fnBody += " {\n\t";
+	fnBody += " {\n";
 	// Function bodies are block expressions
 	fnBody += parseExpr(mod, fn->body);
 	fnBody += "}";
