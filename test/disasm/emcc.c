@@ -177,3 +177,19 @@ void fn___post_instantiate() {
 	global$3 = import$3 + 0;
 	global$4 = global$3 + 5242880;
 fn_runPostSets()}
+
+/*
+	Exported WASM functions:
+	Function 'fn___post_instantiate':
+		WASM name: '__post_instantiate'
+		Export name: '__post_instantiate'
+
+	Function 'fn__main':
+		WASM name: '_main'
+		Export name: '_main'
+
+	Function 'fn_runPostSets':
+		WASM name: 'runPostSets'
+		Export name: 'runPostSets'
+
+*/

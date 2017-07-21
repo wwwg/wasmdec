@@ -58,6 +58,22 @@ void CodeGenerator::gen() {
 		emit.comment("No WASM functions.");
 		emit.ln();
 	}
+	// Process exports
+	if (module.exports.size()) {
+		emit << "\n/*" << endl
+		<< "\tExported WASM functions:" << endl;
+		for (const auto& expt : module.exports) {
+			// Stringify export to comment
+			emit << "\tFunction '" << Convert::getFName(expt->value) << "':" << endl
+				<< "\t\tWASM name: '" << expt->value.str << "'" << endl
+				<< "\t\tExport name: '" << expt->name.str << "'" << endl << endl;
+		}
+		emit << "*/" << endl;
+	} else {
+		emit.comment("No WASM exports.");
+		emit.ln();
+	}
+
 	debug("Code generation complete.\n");
 }
 string CodeGenerator::getEmittedCode() {
