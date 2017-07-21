@@ -19,7 +19,7 @@ string wdis::Convert::getFuncBody(Module* mod, Function* fn, bool addExtraInfo) 
 	string fnBody;
 	fnBody += " {\n";
 	if (addExtraInfo) {
-		fnBody += "\t// Function locals:\n";
+		fnBody += "\t// Function non-parameter locals:\n";
 	}
 	
 	// Convert function locals to intermediate locals
@@ -30,10 +30,10 @@ string wdis::Convert::getFuncBody(Module* mod, Function* fn, bool addExtraInfo) 
 		InterLocal il(fn, i);
 		locals.push_back(il);
 	}
+	fnBody += "// Parsed " + to_string(locals.size()) << " WASM function locals:\n";
 	// Convert intermediates to C declorations
 	for (auto& ilocal : locals) {
 		string cdecl = ilocal.getCDecloration();
-		cout << "Decloration " << cdecl << endl;
 		fnBody += "\t";
 		fnBody += cdecl;
 		if (addExtraInfo) {
@@ -43,7 +43,7 @@ string wdis::Convert::getFuncBody(Module* mod, Function* fn, bool addExtraInfo) 
 		fnBody += "; ";
 		if (addExtraInfo) {
 			// Local info
-			fnBody += "// Index '" + to_string(ilocal.index) + "'";
+			fnBody += "// Local with index '" + to_string(ilocal.index) + "'";
 		}
 		fnBody += "\n";
 	}
