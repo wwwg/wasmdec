@@ -98,6 +98,7 @@ string wdis::Convert::parseExpr(Module* mod, Function* func, Expression* ex, int
 		// Resolve variable's C name
 		SetLocal* sl = ex->cast<SetLocal>();
 		int idx = util::getLocalIndex(func, sl->index);
+		ret += util::tab(depth);
 		ret += getLocal((Index)idx);
 		ret += " = ";
 		// Resolve the value to be set
