@@ -15,7 +15,6 @@ namespace wdis {
 	public:
 		// Declared in Conversion.cc
 		static string getFName(wasm::Name);
-		static string getVName(wasm::Name);
 		static string getLocal(wasm::Index);
 		static string voidCall(wasm::Function*);
 		static string getBinOperator(wasm::BinaryOp);
