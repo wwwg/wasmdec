@@ -177,10 +177,17 @@ namespace wdis {
 				ret += resolveType(i->globalType);
 				ret += " ";
 				ret += i->name.str;
-			} else {
-				cout << "WARN: Not resolving unsupported import kind" << endl;
+				ret += ";";
+			} else if (i->kind == wasm::ExternalKind::Memory) {
+				ret += "const char* ";
+				ret += i->name.str;
+				ret += "; // <Imported memory>";
+			} else if (i->kind == wasm::ExternalKind::Table) {
+				ret += "void* (*";
+				ret += i->name.str;
+				ret += ")(void)";
+				ret += "; // <Imported table>";
 			}
-			ret += ";";
 			return ret;
 		}
 		static string parseExpr(wasm::Module*, wasm::Expression*);
