@@ -6,10 +6,6 @@ string wdis::Convert::getFName(wasm::Name name) {
 	// Convert WASM names to C function names
 	return "fn_" + string(name.str);
 }
-string wdis::Convert::getVName(wasm::Name name) {
-	// Convert standard WASM variable names to C variable names
-	return "v" + string(name.str);
-}
 string wdis::Convert::getLocal(wasm::Index argIdx) {
 	// Convert WASM function locals to C variable names
 	return "local_" + to_string((int)argIdx);
