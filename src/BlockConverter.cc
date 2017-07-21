@@ -91,9 +91,9 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 		ret += "/* Import call */ ";
 		ret += imCall->target.str + parseOperandList(&(imCall->operands), mod, depth);
 	}
-	cout << "<Start expression parse result>" << endl
+	cout << "<Parsed>" << endl
 	<< ret << endl
-	<< "<End expression parse result>" << endl;
+	<< "</Parsed>" << endl << endl;
 	return ret;
 }
 string wdis::Convert::getBlockBody(Module* mod, Block* blck, int depth) {
