@@ -28,12 +28,14 @@ int32_t fn_addTwo(int32_t arg0, int32_t arg1) {
 ```
 
 # Support
-wdis is currently limited, and only supports a few WebAssembly expressions:
+wdis supports the following WebAssembly expressions:
 - Blocks
+- Function calls
 - Binary operations
 - Constants
-- Conditional branching (Experimental)
+- Conditional branching
+- Loops (implemented as while loops)
 - get_local
-- Imports
+- Imports / Exports
 - return<br>
-More are planned.
+More are planned, and atomics will not be supported, due to their limited implementation in the WebAssembly spec.
