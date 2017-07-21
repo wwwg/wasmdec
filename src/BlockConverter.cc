@@ -118,6 +118,19 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 		// The value is an expression
 		ret += parseExpr(mod, gex->value, depth);
 		ret += ";\n";
+	} else if (ex->is<Break>()) {
+		Break* br = ex->cast<Break>();
+		ret += util::tab(depth);
+		if (br->condition) {
+			// Conditional breaking
+			ret += "if (";
+			ret += parseExpr(mod, br->condition, depth);
+			ret += ") break;";
+		} else {
+			// Literal breaking
+			ret = "break;";
+		}
+		ret += "\n";
 	}
 	cout << "Parsed expr to '" << ret << "' ";
 	return ret;
