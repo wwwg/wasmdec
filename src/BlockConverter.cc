@@ -4,19 +4,19 @@
 using namespace std;
 using namespace wasm;
 
-string wdis::Convert::parseExpr(Module* mod, Expression* ex) {
+string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 	string ret("");
 	if (ex->is<Unary>()) {
 		// TODO
 	} else if (ex->is<Block>()) {
 		// Recursively parse blocks
 		Block* blck = ex->cast<Block>();
-		ret += getBlockBody(mod, blck);
+		ret += getBlockBody(mod, blck, depth);
 	} else if (ex->is<Binary>()) {
 		// Binary operations, including conditionals and arithmetic
 		Binary* spex = ex->cast<Binary>();
-		string e1 = parseExpr(mod, spex->left);
-		string e2 = parseExpr(mod, spex->right);
+		string e1 = parseExpr(mod, spex->left, depth);
+		string e2 = parseExpr(mod, spex->right, depth);
 		string operation = getBinOperator(spex->op);
 		ret += e1;
 		ret += " ";
@@ -32,15 +32,15 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex) {
 		if (spex->value) {
 			// Insert expression as function return value
 			ret += "return ";
-			ret += parseExpr(mod, spex->value);
+			ret += parseExpr(mod, spex->value, depth);
 			ret += ";\n";
 		} else {
 			ret += "return;\n"; // For void functions
 		}
 	} else if (ex->is<If>()) {
 		If* ife = ex->cast<If>();
-		string cond = parseExpr(mod, ife->condition);
-		string trueBlock = parseExpr(mod, ife->ifTrue);
+		string cond = parseExpr(mod, ife->condition, depth);
+		string trueBlock = parseExpr(mod, ife->ifTrue, depth);
 		ret += "if (";
 		ret += cond;
 		ret += ") {\n\t";
@@ -48,7 +48,7 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex) {
 		ret += "\n} ";
 		if (ife->ifFalse) {
 			// Insert else block
-			string falseBlock = parseExpr(mod, ife->ifFalse);
+			string falseBlock = parseExpr(mod, ife->ifFalse, depth);
 			ret += "else {\n\t";
 			ret += falseBlock;
 			ret += "\n\t}";
@@ -104,17 +104,17 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex) {
 		ret += gex->name.str;
 		ret += " = ";
 		// The value is an expression
-		ret += parseExpr(mod, gex->value);
+		ret += parseExpr(mod, gex->value, depth);
 		ret += ";\n";
 	}
 	cout << "Parsed expr to '" << ret << "' ";
 	return ret;
 }
-string wdis::Convert::getBlockBody(Module* mod, Block* blck) {
+string wdis::Convert::getBlockBody(Module* mod, Block* blck, int depth) {
 	// Stream all block expressions and components into a string
 	stringstream s;
 	for (auto& expr : blck->list) {
-		s << parseExpr(mod, expr);
+		s << parseExpr(mod, expr, depth);
 	}
 	return s.str();
 }
@@ -122,7 +122,7 @@ string wdis::Convert::getFuncBody(Module* mod, Function* fn) {
 	string fnBody;
 	fnBody += " {\n";
 	// Function bodies are block expressions
-	fnBody += parseExpr(mod, fn->body);
+	fnBody += parseExpr(mod, fn->body, 1);
 	fnBody += "}";
 	return fnBody;
 }
