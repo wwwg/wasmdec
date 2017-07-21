@@ -95,7 +95,14 @@ string wdis::Convert::parseExpr(Module* mod, Function* func, Expression* ex, int
 	} else if (ex->is<CallIndirect>()) {
 		// TODO : Implement CallIndirect expressions
 	} else if (ex->is<SetLocal>()) {
-		//
+		// Resolve variable's C name
+		SetLocal* sl = ex->cast<SetLocal>();
+		int idx = util::getLocalIndex(func, sl->index);
+		ret += getLocal((Index)idx);
+		ret += " = ";
+		// Resolve the value to be set
+		ret += parseExpr(mod, func, sl->value, depth);
+		ret += ";\n";
 	} else if (ex->is<Load>()) {
 		// TODO : Implement WASM address loading
 	} else if (ex->is<Store>()) {

@@ -52,6 +52,9 @@ namespace wdis {
 					break;
 			}
 		}
+		static int getLocalIndex(Function* fn, int index) {
+			return (&fn->params)->size() + index;
+		}
 	};
 }; // namespace wdis
 
