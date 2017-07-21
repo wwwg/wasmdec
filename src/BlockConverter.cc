@@ -6,9 +6,7 @@ using namespace wasm;
 
 string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 	string ret;
-	if (ex->is<Unary>()) {
-		// TODO
-	} else if (ex->is<Block>()) {
+	if (ex->is<Block>()) {
 		// Recursively parse blocks
 		Block* blck = ex->cast<Block>();
 		ret += getBlockBody(mod, blck, depth);
@@ -90,6 +88,35 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 		CallImport* imCall = ex->cast<CallImport>();
 		ret += "/* Import call */ ";
 		ret += imCall->target.str + parseOperandList(&(imCall->operands), mod, depth);
+	} else if (ex->is<Loop>()) {
+		// TODO : Implement WASM loop routine conversions
+	} else if (ex->is<Switch>()) {
+		// TODO : Implement WASM switch routine conversions
+	} else if (ex->is<CallIndirect>()) {
+		// TODO : Implement CallIndirect expressions
+	} else if (ex->is<SetLocal>()) {
+		// TODO : Fully implement local variables
+	} else if (ex->is<Load>()) {
+		// TODO : Implement WASM address loading
+	} else if (ex->is<Store>()) {
+		// TODO : Implement WASM address storing
+	} else if (ex->is<Unary>()) {
+		// TODO : WASM unary operations
+	} else if (ex->is<AtomicRMW>()) {
+		// WASM currently has no support for atomics
+		ret = "/* Atomic operation unsupported */\n";
+	} else if (ex->is<AtomicCmpxchg>()) {
+		// WASM currently has no support for atomics
+		ret = "/* Atomic operation unsupported */\n";
+	} else if (ex->is<Select>()) {
+		// TODO : implement select expressions
+	} else if (ex->is<Drop>()) {
+		// TODO : implement drop expressions
+	} else if (ex->is<Host>()) {
+		// TODO : implement host expressions
+	} else if (ex->is<Unreachable>()) {
+		// Unreachable contains no information
+		ret = "";
 	}
 	cout << "<Parsed>" << endl
 	<< ret << endl
