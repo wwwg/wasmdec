@@ -15,6 +15,14 @@ namespace wdis {
 			}
 			return nullptr;
 		}
+		static string tab(int tabTimes) {
+			// Util for generating nicer looking C
+			string ret;
+			for (int i = 0; i < tabTimes; ++i) {
+				ret += "\t";
+			}
+			return ret;
+		}
 	};
 }; // namespace wdis
 
