@@ -8,10 +8,14 @@ LDOPTS=-Lsrc/binaryen/lib -lbinaryen
 all: $(SRC) $(OUT)
 
 $(OUT): $(OBJS) 
+	@echo -n "Link "
+	@echo $@
 	$(CC) $(LDOPTS) $(OBJS) -o $@
 
 .cc.o:
-	 $(CC) $(CCOPTS) $< -o $@
+	@echo -n "Build source "
+	@echo $<
+	$(CC) $(CCOPTS) $< -o $@
 
 clean:
 	rm -f *.o wdis
