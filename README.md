@@ -34,5 +34,6 @@ wdis is currently limited, and only supports a few WebAssembly expressions:
 - Constants
 - Conditional branching (Experimental)
 - get_local
+- Imports
 - return<br>
 More are planned.
