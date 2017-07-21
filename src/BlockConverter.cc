@@ -34,6 +34,7 @@ string wdis::Convert::getFuncBody(Module* mod, Function* fn, bool addExtraInfo) 
 	for (auto& ilocal : locals) {
 		string cdecl = ilocal.getCDecloration();
 		cout << "Decloration " << cdecl << endl;
+		fnBody += "\t";
 		fnBody += cdecl;
 		fnBody += "; ";
 		if (addExtraInfo) {
