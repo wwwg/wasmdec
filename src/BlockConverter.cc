@@ -69,40 +69,9 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 			ret += "// <No else block>\n";
 		}
 	} else if (ex->is<Const>()) {
-		Const* cex = ex->cast<Const>();
-		Literal val = cex->value;
-		// Resolve constant's type
-		string stype = resolveType(val.type);
-		string sval;
-		// All the possible types the constant could be
-		int32_t conv_i32;
-		int64_t conv_i64;
-		float conv_f32;
-		double conv_f64;
-		switch (val.type) {
-			// Convert constant literal type to string
-			case WasmType::none:
-			case WasmType::unreachable:
-				sval = "0";
-				break;
-			case WasmType::i32:
-				conv_i32 = val.geti32();
-				sval = to_string(conv_i32);
-				break;
-			case WasmType::i64:
-				conv_i64 = val.geti64();
-				sval = to_string(conv_i64);
-				break;
-			case WasmType::f32:
-				conv_f32 = val.getf32();
-				sval = to_string(conv_f32);
-				break;
-			case WasmType::f64:
-				conv_f64 = val.getf64();
-				sval = to_string(conv_f64);
-				break;
-		}
-		ret += sval;
+		// Resolve constant's literal value to a syntactically valid C literal
+		Literal* val = &(ex->cast<Const>()->value);
+		ret += util::getLiteralValue(val);
 	} else if (ex->is<Nop>()) {
 		ret = "// <Nop expression>\n"; // Nop expressions do nothing
 	} else if (ex->is<GetGlobal>()) {
