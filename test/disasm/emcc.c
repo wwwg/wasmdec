@@ -8,15 +8,65 @@ typedef double float64_t;
 // End of preamble
 
 // WASM imports:
+/*
+	Import 'import$0':
+	Module: 'env'
+	Base: 'DYNAMICTOP_PTR'
+*/
 extern int32_t import$0;
+/*
+	Import 'import$1':
+	Module: 'env'
+	Base: 'tempDoublePtr'
+*/
 extern int32_t import$1;
+/*
+	Import 'import$2':
+	Module: 'env'
+	Base: 'ABORT'
+*/
 extern int32_t import$2;
+/*
+	Import 'import$3':
+	Module: 'env'
+	Base: 'memoryBase'
+*/
 extern int32_t import$3;
+/*
+	Import 'import$4':
+	Module: 'env'
+	Base: 'tableBase'
+*/
 extern int32_t import$4;
+/*
+	Import 'import$5':
+	Module: 'global'
+	Base: 'NaN'
+*/
 extern float64_t import$5;
+/*
+	Import 'import$6':
+	Module: 'global'
+	Base: 'Infinity'
+*/
 extern float64_t import$6;
+/*
+	Import 'import$7':
+	Module: 'env'
+	Base: 'abortStackOverflow'
+*/
 extern void import$7(int32_t local_0)
+/*
+	Import 'import$8':
+	Module: 'env'
+	Base: 'memory'
+*/
 extern const char* import$8; // <Imported memory>
+/*
+	Import 'import$9':
+	Module: 'env'
+	Base: 'table'
+*/
 extern wasm_table_t import$9; // <Imported table>
 // WASM functions:
 

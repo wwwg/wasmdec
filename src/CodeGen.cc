@@ -23,6 +23,11 @@ void CodeGenerator::gen() {
 		emit.comment("WASM imports:");
 		for (auto& i : module.imports) {
 			// cout << "Got import: " << i->name << endl;
+			emit << "/*" << endl
+			<< "\tImport '" << i->name.str << "':" << endl
+			<< "\tModule: '" << i->module.str << "'" << endl
+			<< "\tBase: '" << i->base.str << "'" << endl
+			<< "*/" << endl;
 			string decl = Convert::getDecl(&module, i);
 			emit << decl << endl;
 		}
