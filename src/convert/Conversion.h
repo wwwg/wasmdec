@@ -6,6 +6,7 @@
 #include "wasm-printing.h"
 #include "wasm-s-parser.h"
 #include "../WasmUtils.h"
+#include "../WasmContext.h"
 using namespace std;
 
 namespace wdis {
