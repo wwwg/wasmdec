@@ -10,6 +10,7 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex) {
 		Block* blck = ex->cast<Block>();
 		ret += getBlockBody(mod, blck);
 	} else if (ex->is<Binary>()) {
+		// Binary operations, including conditionals and arithmetic
 		Binary* spex = ex->cast<Binary>();
 		string e1 = parseExpr(mod, spex->left);
 		string e2 = parseExpr(mod, spex->right);
@@ -20,11 +21,13 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex) {
 		ret += " ";
 		ret += e2;
 	} else if (ex->is<GetLocal>()) {
+		// Convert WASM local variable to C local variable
 		GetLocal* spex = ex->cast<GetLocal>();
 		ret += getLocal(spex->index);
 	} else if (ex->is<Return>()) {
 		Return* spex = ex->cast<Return>();
 		if (spex->value) {
+			// Insert expression as function return value
 			ret += "return ";
 			ret += parseExpr(mod, spex->value);
 			ret += ";\n";
@@ -41,6 +44,7 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex) {
 		ret += trueBlock;
 		ret += "\n} ";
 		if (ife->ifFalse) {
+			// Insert else block
 			string falseBlock = parseExpr(mod, ife->ifFalse);
 			ret += "else {\n\t";
 			ret += falseBlock;
@@ -52,13 +56,16 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex) {
 	} else if (ex->is<Const>()) {
 		Const* cex = ex->cast<Const>();
 		Literal val = cex->value;
+		// Resolve constant's type
 		string stype = resolveType(val.type);
 		string sval;
+		// All the possible types the constant could be
 		int32_t conv_i32;
 		int64_t conv_i64;
 		float conv_f32;
 		double conv_f64;
 		switch (val.type) {
+			// Convert constant literal type to string
 			case WasmType::none:
 			case WasmType::unreachable:
 				sval = "0";

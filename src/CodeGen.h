@@ -2,7 +2,6 @@
 #include "wasm-binary.h"
 #include "wasm-printing.h"
 #include "wasm-s-parser.h"
-
 #include "Emitter.h"
 #include "Conversion.h"
 #pragma once
@@ -24,6 +23,7 @@ namespace wdis {
 			isDebug = useDebug;
 			emitExtraData = _emitExtraData;
 			debug("Parsing wasm binary...\n");
+			// Attempt to parse binary via Binaryen's AST parser
 			try {
 				parser.read();
 			} catch (wasm::ParseException& err) {
@@ -44,6 +44,7 @@ namespace wdis {
 					emit << decl << endl;
 				}
 			} else {
+				// No imports, so just leave a comment
 				emit.comment("No WASM imports.");
 				emit.ln();
 			}
@@ -53,6 +54,7 @@ namespace wdis {
 				emit.ln();
 				for (const auto &func : parser.functions) {
 					if (emitExtraData) {
+						// Emit information about the function as a comment
 						wasm::Block* fnBody = func->body->cast<wasm::Block>();
 						emit << "/*" << endl
 						<< "\tFunction '" << func->name << "'" << endl
