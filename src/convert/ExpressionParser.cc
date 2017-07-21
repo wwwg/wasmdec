@@ -82,12 +82,24 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 	} else if (ex->is<Call>()) {
 		// Function call
 		Call* fnCall = ex->cast<Call>();
+		if (depth < 1) {
+			ret += util::tab(1);
+		} else {
+			ret += util::tab(depth);
+		}
 		ret += getFName(fnCall->target) + parseOperandList(ctx, &(fnCall->operands), depth);
+		ret += ";\n";
 	} else if (ex->is<CallImport>()) {
 		// Imported function call
 		CallImport* imCall = ex->cast<CallImport>();
 		// ret += "/* Import call */ ";
+		if (depth < 1) {
+			ret += util::tab(1);
+		} else {
+			ret += util::tab(depth);
+		}
 		ret += imCall->target.str + parseOperandList(ctx, &(imCall->operands), depth);
+		ret += ";\n";
 	} else if (ex->is<Loop>()) {
 		Loop* lex = ex->cast<Loop>();
 		ret += util::tab(depth);

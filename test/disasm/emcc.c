@@ -105,7 +105,8 @@ int32_t fn_stackAlloc(int32_t local_0) {
 	global$3 = global$3 + local_0;
 	global$3 = global$3 + 15 && -16;
 	if (global$3 >= global$4) {
-import$7(local_0)
+		import$7(local_0);
+
 	} // <No else block>
 	return local_1;
 }
@@ -174,7 +175,8 @@ int32_t fn__main() {
 	local_7 = global$3;
 	global$3 = global$3 + 16;
 	if (global$3 >= global$4) {
-import$7(16)
+		import$7(16);
+
 	} // <No else block>
 	local_0 = 0;
 	while (1) { // Loop name: 'label$2'
@@ -213,7 +215,8 @@ void fn___post_instantiate() {
 	// Function contains no non-parameter locals
 	global$3 = import$3 + 0;
 	global$4 = global$3 + 5242880;
-fn_runPostSets()}
+	fn_runPostSets();
+}
 
 /*
 	Exported WASM functions:
