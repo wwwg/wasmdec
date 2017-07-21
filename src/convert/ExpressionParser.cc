@@ -84,7 +84,7 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 	} else if (ex->is<CallImport>()) {
 		// Imported function call
 		CallImport* imCall = ex->cast<CallImport>();
-		ret += "/* Import call */ ";
+		// ret += "/* Import call */ ";
 		ret += imCall->target.str + parseOperandList(ctx, &(imCall->operands), depth);
 	} else if (ex->is<Loop>()) {
 		Loop* lex = ex->cast<Loop>();
