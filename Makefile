@@ -1,4 +1,4 @@
-SRC=$(wildcard src/*.cc)
+SRC=$(wildcard src/*.cc src/*.cpp src/convert/*.cc src/convert/*.cpp)
 OUT=./wdis
 CC=clang++
 OPTS=-g -std=c++14 -Isrc/binaryen/src -Lsrc/binaryen/lib -lbinaryen
