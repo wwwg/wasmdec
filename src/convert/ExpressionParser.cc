@@ -101,10 +101,8 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 			 ret += "'";
 		}
 		ret += "\n";
-		depth++;
 		ret += util::tab(depth);
 		ret += parseExpr(ctx, lex->body, depth);
-		depth--;
 		ret += util::tab(depth);
 		ret += "\n} " ;
 		if (lex->name.str) {

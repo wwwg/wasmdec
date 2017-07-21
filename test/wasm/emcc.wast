@@ -102,6 +102,11 @@
  )
  (func $_main (result i32)
   (local $$0 i32)
+  (local $$1 i32)
+  (local $$2 i32)
+  (local $$3 i32)
+  (local $$4 i32)
+  (local $$5 i32)
   (local $label i32)
   (local $sp i32)
   (set_local $sp
@@ -125,10 +130,42 @@
   (set_local $$0
    (i32.const 0)
   )
+  (loop $while-in
+   (block $while-out
+    ;;@ main.c:4:0
+    (set_local $$2
+     (get_local $$1)
+    )
+    (set_local $$3
+     (i32.add
+      (get_local $$2)
+      (i32.const 1)
+     )
+    )
+    (set_local $$1
+     (get_local $$3)
+    )
+    ;;@ main.c:5:0
+    (set_local $$4
+     (get_local $$1)
+    )
+    (set_local $$5
+     (i32.lt_s
+      (get_local $$4)
+      (i32.const 10)
+     )
+    )
+    (if
+     (get_local $$5)
+     (br $while-out)
+    )
+    (br $while-in)
+   )
+  )
   (set_global $STACKTOP
    (get_local $sp)
   )
-  ;;@ main.c:2:0
+  ;;@ main.c:9:0
   (return
    (i32.const 0)
   )
