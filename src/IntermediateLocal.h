@@ -5,7 +5,7 @@
 #ifndef _CONVER_H
 #include "Conversion.h"
 #else
-extern class Convert;
+class Convert;
 #endif
 
 namespace wdis {
