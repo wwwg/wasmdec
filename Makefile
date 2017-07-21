@@ -1,4 +1,4 @@
-SRC=$(wildcard src/*.cc src/*.cpp src/convert/*.cc src/convert/*.cpp)
+SRC=$(wildcard src/*.cc src/convert/*.cc)
 OBJS=$(SRC:.cc=.o)
 OUT=wdis
 CC=clang++
