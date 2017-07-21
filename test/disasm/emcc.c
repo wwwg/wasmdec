@@ -68,6 +68,7 @@ extern const char* import$8; // <Imported memory>
 	Base: 'table'
 */
 extern wasm_table_t import$9; // <Imported table>
+// WASM globals:
 // WASM functions:
 
 /*

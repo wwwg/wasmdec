@@ -15,16 +15,16 @@ string wdis::Convert::getBlockBody(Context* ctx, Block* blck, int depth) {
 	depth--;
 	return s.str();
 }
-string wdis::Convert::getFuncBody(Context* ctx, bool addExtraInfo) {
+string wdis::Convert::getFuncBody(Context ctx, bool addExtraInfo) {
 	string fnBody;
 	fnBody += " {\n";
 	// Convert function locals to intermediate locals
-	vector<WasmType>* vars = &(ctx->fn->vars);
+	vector<WasmType>* vars = &(ctx.fn->vars);
 	if (vars->size()) {
 		vector<InterLocal> locals;
 		for (int i = 0; i < vars->size(); ++i) {
 			// Fill locals vector
-			InterLocal il(ctx->fn, i);
+			InterLocal il(ctx.fn, i);
 			locals.push_back(il);
 		}
 		fnBody += "\t// Parsed WASM function locals:\n";
@@ -51,7 +51,7 @@ string wdis::Convert::getFuncBody(Context* ctx, bool addExtraInfo) {
 		}
 	}
 	// Function bodies are block expressions
-	fnBody += Convert::parseExpr(ctx, ctx->fn->body, -1);
+	fnBody += Convert::parseExpr(&ctx, ctx.fn->body, -1);
 	fnBody += "}";
 	return fnBody;
 }

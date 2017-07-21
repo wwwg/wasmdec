@@ -39,6 +39,7 @@ void CodeGenerator::gen() {
 	// Process globals
 	if (module.globals.size()) {
 		Context gctx = Context(&module); // Initialize a global context to parse expressions with
+		gctx.isGlobal = true;
 		emit.comment("WASM globals:");
 		for (auto& glb : module.globals) {
 			string globalType = Convert::resolveType(glb->type);
@@ -64,8 +65,8 @@ void CodeGenerator::gen() {
 				<< "\tImmediate block expressions: " << fnBody->list.size() << endl
 				<< "*/" << endl;
 			}
-			Context ctx(func, &module);
-			emit << Convert::getDecl(func) << Convert::getFuncBody(&ctx, emitExtraData) << endl;
+			Context ctx = Context(func, &module);
+			emit << Convert::getDecl(func) << Convert::getFuncBody(ctx, emitExtraData) << endl;
 		}
 	} else {
 		emit.comment("No WASM functions.");
