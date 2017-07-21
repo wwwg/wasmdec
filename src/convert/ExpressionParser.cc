@@ -1,6 +1,4 @@
-#ifndef _CONVER_H
 #include "Conversion.h"
-#endif
 using namespace std;
 using namespace wasm;
 

@@ -5,9 +5,7 @@
 #include "wasm-binary.h"
 #include "wasm-printing.h"
 #include "wasm-s-parser.h"
-#include "WasmUtils.h"
-#pragma once
-
+#include "../WasmUtils.h"
 using namespace std;
 
 namespace wdis {
