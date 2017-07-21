@@ -18,11 +18,7 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 		string e1 = parseExpr(mod, spex->left, depth);
 		string e2 = parseExpr(mod, spex->right, depth);
 		string operation = getBinOperator(spex->op);
-		ret += e1;
-		ret += " ";
-		ret += operation;
-		ret += " ";
-		ret += e2;
+		ret += e1 + " " + operation + " " + e2;
 	} else if (ex->is<GetLocal>()) {
 		// Convert WASM local variable to C local variable
 		GetLocal* spex = ex->cast<GetLocal>();
@@ -31,10 +27,8 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 		Return* spex = ex->cast<Return>();
 		if (spex->value) {
 			// Insert expression as function return value
-			ret += util::tab(depth);
-			ret += "return ";
-			ret += parseExpr(mod, spex->value, depth);
-			ret += ";\n";
+			ret += util::tab(depth) + "return ";
+			ret += parseExpr(mod, spex->value, depth) + ";\n";
 		} else {
 			ret += "return;\n"; // For void functions
 		}
@@ -43,27 +37,19 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 		string cond = parseExpr(mod, ife->condition, depth);
 		string trueBlock = parseExpr(mod, ife->ifTrue, depth);
 		ret += util::tab(depth);
-		ret += "if (";
-		ret += cond;
-		ret += ") {\n";
+		ret += "if (" + cond + ") {\n";
 		depth++;
-		ret += util::tab(depth);
-		ret += trueBlock;
+		ret += util::tab(depth) + trueBlock;
 		depth--;
-		ret += "\n";
-		ret += util::tab(depth);
-		ret += "} ";
+		ret += "\n" + util::tab(depth) + "} ";
 		if (ife->ifFalse) {
 			// Insert else block
 			string falseBlock = parseExpr(mod, ife->ifFalse, depth);
 			ret += "else {\n";
 			depth++;
-			ret += util::tab(depth);
-			ret += falseBlock;
-			ret += "\n";
+			ret += util::tab(depth) + falseBlock + "\n";
 			depth--;
-			ret += util::tab(depth);
-			ret += "}";
+			ret += util::tab(depth) + "}";
 		} else {
 			// No else statement
 			ret += "// <No else block>\n";
@@ -81,23 +67,18 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 	} else if (ex->is<SetGlobal>()) {
 		// Set global variable
 		SetGlobal* gex = ex->cast<SetGlobal>();
-		ret += util::tab(depth);
-		ret += gex->name.str;
-		ret += " = ";
+		ret += util::tab(depth) + gex->name.str + " = ";
 		// The value is an expression
-		ret += parseExpr(mod, gex->value, depth);
-		ret += ";\n";
+		ret += parseExpr(mod, gex->value, depth) + ";\n";
 	} else if (ex->is<Break>()) {
 		Break* br = ex->cast<Break>();
 		ret += util::tab(depth);
 		if (br->condition) {
 			// Conditional breaking
-			ret += "if (";
-			ret += parseExpr(mod, br->condition, depth);
-			ret += ") break;";
+			ret += "if (" + parseExpr(mod, br->condition, depth) + ") break;";
 		} else {
 			// Literal breaking
-			ret = "break;";
+			ret += "break;";
 		}
 		ret += "\n";
 	}
