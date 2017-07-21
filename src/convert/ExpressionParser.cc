@@ -21,7 +21,11 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		ret += getLocal(spex->index);
 	} else if (ex->is<Return>()) {
 		Return* spex = ex->cast<Return>();
-		ret += util::tab(depth);
+		if (depth < 1) {
+			ret += util::tab(1);
+		} else {
+			ret += util::tab(depth);
+		}
 		if (spex->value) {
 			// Insert expression as function return value
 			ret += "return ";

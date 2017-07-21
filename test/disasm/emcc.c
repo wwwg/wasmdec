@@ -117,7 +117,7 @@ int32_t fn_stackAlloc(int32_t local_0) {
 */
 int32_t fn_stackSave() {
 	// Function contains no non-parameter locals
-return global$3;
+	return global$3;
 }
 /*
 	Function '$stackRestore'
