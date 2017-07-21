@@ -25,7 +25,7 @@ namespace wdis {
 
 		static string parseExpr(wasm::Module*, wasm::Expression*, int);
 		static string getBlockBody(wasm::Module*, wasm::Block*, int);
-		static string getFuncBody(wasm::Module*, wasm::Function*);
+		static string getFuncBody(wasm::Module*, wasm::Function*, bool);
 		static string parseOperandList(ExpressionList*, Module*, int);
 	};
 } // namespace wdis
