@@ -84,25 +84,7 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 	} else if (ex->is<Call>()) {
 		// Function call
 		Call* fnCall = ex->cast<Call>();
-		ret += getFName(fnCall->target);
-		if (fnCall->operands.size()) {
-			// Parse operand list
-			ret += "(";
-			for (int i = 0; i < fnCall->operands.size(); ++i) {
-				Expression* operand = fnCall->operands[i];
-				string soperand = parseExpr(mod, operand, depth);
-				ret += soperand;
-				if (i != (fnCall->operands.size() - 1)) {
-					// Only append comment if iterator is at the vector end
-					ret += ", ";
-				}
-			}
-			ret += ")";
-		} else {
-			// No operand list
-			ret += "()";
-		}
-		// TODO: parse argument list
+		ret += getFName(fnCall->target) + parseOperandList(&(fnCall->operands), mod, depth);
 	}
 	cout << "<Start expression parse result>" << endl
 	<< ret << endl

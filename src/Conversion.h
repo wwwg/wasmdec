@@ -13,7 +13,6 @@ using namespace std;
 namespace wdis {
 	class Convert {
 	public:
-		// Declared in Conversion.cc
 		static string getFName(wasm::Name);
 		static string getLocal(wasm::Index);
 		static string voidCall(wasm::Function*);
@@ -23,10 +22,11 @@ namespace wdis {
 		static string getDecl(wasm::FunctionType*, wasm::Name);
 		static string getDecl(wasm::Function*);
 		static string getDecl(wasm::Module* m, unique_ptr<wasm::Import>& i);
-		// Declared in BlockConverter.cc
+
 		static string parseExpr(wasm::Module*, wasm::Expression*, int);
 		static string getBlockBody(wasm::Module*, wasm::Block*, int);
 		static string getFuncBody(wasm::Module*, wasm::Function*);
+		static string parseOperandList(ExpressionList*, Module*, int);
 	};
 } // namespace wdis
 
