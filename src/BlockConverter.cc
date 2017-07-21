@@ -81,6 +81,13 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 			ret += "break;";
 		}
 		ret += "\n";
+	} else if (ex->is<Call>()) {
+		// Function call
+		Call* fnCall = ex->cast<Call>();
+		ret += fnCall->target.str;
+		ret += "(";
+		// TODO: parse argument list
+		ret += ")";
 	}
 	cout << "<Start expression parse result>" << endl
 	<< ret << endl
