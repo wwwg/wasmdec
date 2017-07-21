@@ -184,9 +184,8 @@ string wdis::Convert::getDecl(wasm::Module* m, unique_ptr<wasm::Import>& i) {
 		ret += "; // <Imported memory>";
 	} else if (i->kind == wasm::ExternalKind::Table) {
 		// TODO: More advanced table functionality
-		ret += "void* (*";
+		ret += "wasm_table_t ";
 		ret += i->name.str;
-		ret += ")(void)";
 		ret += "; // <Imported table>";
 	}
 	return ret;
