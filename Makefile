@@ -15,6 +15,7 @@ $(OUT): $(OBJS)
 
 clean:
 	rm -f *.o wdis
+	rm -f src/*.o
 
 # To build binaryen
 binaryen:
