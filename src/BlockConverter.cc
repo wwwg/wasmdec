@@ -38,8 +38,7 @@ string wdis::Convert::getFuncBody(Module* mod, Function* fn, bool addExtraInfo) 
 		fnBody += "; ";
 		if (addExtraInfo) {
 			// Local info
-			fnBody += "// Index ";
-			fnBody += ilocal.index;
+			fnBody += "// Index '" + ilocal.index + "'";
 		}
 		fnBody += "\n";
 	}
