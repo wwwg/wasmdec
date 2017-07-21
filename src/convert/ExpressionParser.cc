@@ -87,7 +87,27 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		ret += "/* Import call */ ";
 		ret += imCall->target.str + parseOperandList(ctx, &(imCall->operands), depth);
 	} else if (ex->is<Loop>()) {
-		// TODO : Implement WASM loop routine conversions
+		Loop* lex = ex->cast<Loop>();
+		ret += util::tab(depth);
+		ret += "while (1) {";
+		if (lex->name.str) {
+			 ret += " // Loop name: '";
+			 ret += lex->name.str;
+			 ret += "'";
+		}
+		ret += "\n";
+		depth++;
+		ret += util::tab(depth);
+		ret += parseExpr(ctx, lex->body, depth);
+		depth--;
+		ret += util::tab(depth);
+		ret += "\n} " ;
+		if (lex->name.str) {
+			 ret += "// End of loop '";
+			 ret += lex->name.str;
+			 ret += "'";
+		}
+		ret += "\n";
 	} else if (ex->is<Switch>()) {
 		// TODO : Implement WASM switch routine conversions
 	} else if (ex->is<CallIndirect>()) {
