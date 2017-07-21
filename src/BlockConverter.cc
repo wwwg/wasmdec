@@ -5,7 +5,7 @@ using namespace std;
 using namespace wasm;
 
 string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
-	string ret("");
+	string ret;
 	if (ex->is<Unary>()) {
 		// TODO
 	} else if (ex->is<Block>()) {
