@@ -116,7 +116,7 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 		// TODO : implement host expressions
 	} else if (ex->is<Unreachable>()) {
 		// Unreachable contains no information
-		ret = "";
+		ret = "/* Unreachable */";
 	}
 	cout << "<Parsed>" << endl
 	<< ret << endl
