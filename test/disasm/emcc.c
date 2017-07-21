@@ -69,6 +69,26 @@ extern const char* import$8; // <Imported memory>
 */
 extern wasm_table_t import$9; // <Imported table>
 // WASM globals:
+int32_t global$0 = import$0;
+int32_t global$1 = import$1;
+int32_t global$2 = import$2;
+int32_t global$3 = 0;
+int32_t global$4 = 0;
+int32_t global$5 = 0;
+int32_t global$6 = 0;
+int32_t global$7 = 0;
+int32_t global$8 = 0;
+float64_t global$9 = import$5;
+float64_t global$10 = import$6;
+int32_t global$11 = 0;
+int32_t global$12 = 0;
+int32_t global$13 = 0;
+int32_t global$14 = 0;
+float64_t global$15 = 0.000000;
+int32_t global$16 = 0;
+float32_t global$17 = 0.000000;
+float32_t global$18 = 0.000000;
+
 // WASM functions:
 
 /*

@@ -44,12 +44,16 @@ void CodeGenerator::gen() {
 		for (auto& glb : module.globals) {
 			string globalType = Convert::resolveType(glb->type);
 			string globalInitializer = Convert::parseExpr(&gctx, glb->init, 0);
+			if (!glb->mutable_) { // Non-mutable global is represented by const
+				emit << "const ";
+			}
+			emit << globalType << " " << glb->name.str << " = " << globalInitializer << ";" << endl;
 		}
 	} else {
 		// No globals, so just leave a comment
 		emit.comment("No WASM globals.");
-		emit.ln();
 	}
+	emit.ln();
 	// Process functions
 	if (parser.functions.size()) {
 		emit.comment("WASM functions:");
