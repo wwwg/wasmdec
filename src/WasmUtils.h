@@ -1,8 +1,5 @@
-#include "wasm.h"
-#include "wasm-binary.h"
-#include "wasm-printing.h"
-#include "wasm-s-parser.h"
-#pragma once
+#ifndef _WASM_UTILS
+#define _WASM_UTILS
 
 using namespace wasm;
 using namespace std;
@@ -20,3 +17,5 @@ namespace wdis {
 		}
 	};
 }; // namespace wdis
+
+#endif // _WASM_UTILS

@@ -1,12 +1,12 @@
+#ifndef _CODEGEN_H
+#define _EMITTER_H
+
 #include "wasm.h"
 #include "wasm-binary.h"
 #include "wasm-printing.h"
 #include "wasm-s-parser.h"
 #include "Emitter.h"
 #include "Conversion.h"
-#pragma once
-
-#include <string>
 
 using namespace std;
 
@@ -87,3 +87,5 @@ namespace wdis {
 		}
 	};
 } // namespace wdis
+
+#endif // _EMITTER_H

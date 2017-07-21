@@ -1,10 +1,12 @@
+#ifndef _WDIS_EMITTER_H
+#define _WDIS_EMITTER_H
+
 #include <fstream>
 #include <sstream>
 #include <vector>
 #include <string>
 #include <iostream>
 #include <iterator>
-#pragma once
 using namespace std;
 
 namespace wdis {
@@ -46,3 +48,5 @@ namespace wdis {
 		stringstream str;
 	};
 } // namespace wdis
+
+#endif // _WDIS_EMITTER_H

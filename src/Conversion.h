@@ -1,3 +1,6 @@
+#ifndef _CONVER_H
+#define _CONVER_H
+
 #include "wasm.h"
 #include "wasm-binary.h"
 #include "wasm-printing.h"
@@ -27,3 +30,5 @@ namespace wdis {
 		static string getFuncBody(wasm::Module*, wasm::Function*);
 	};
 } // namespace wdis
+
+#endif // _CONVER_H

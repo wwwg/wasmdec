@@ -1,4 +1,6 @@
+#ifndef _CONVER_H
 #include "Conversion.h"
+#endif
 
 string wdis::Convert::getFName(wasm::Name name) {
 	// Convert WASM names to C function names

@@ -16,7 +16,7 @@ vector<char> readFile(string path) {
 	    file.seekg(0, ios_base::end);
 	    streampos fileSize = file.tellg();
 	    vfile.resize(fileSize);
-	    file.seekg(0, std::ios_base::beg);
+	    file.seekg(0, ios_base::beg);
 	    file.read(&vfile[0], fileSize);
 	}
 	return vfile;
