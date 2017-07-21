@@ -47,7 +47,7 @@ string wdis::Convert::getFuncBody(Module* mod, Function* fn, bool addExtraInfo) 
 		if (addExtraInfo) fnBody += "\n";
 	} else {
 		if (addExtraInfo) {
-			fnBody += "// Function contains no non-parameter locals\n";
+			fnBody += "\t// Function contains no non-parameter locals\n";
 		}
 	}
 	// Function bodies are block expressions
