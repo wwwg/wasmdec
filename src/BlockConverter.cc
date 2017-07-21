@@ -18,10 +18,6 @@ string wdis::Convert::getBlockBody(Module* mod, Block* blck, int depth) {
 string wdis::Convert::getFuncBody(Module* mod, Function* fn, bool addExtraInfo) {
 	string fnBody;
 	fnBody += " {\n";
-	if (addExtraInfo) {
-		fnBody += "\t// Function non-parameter locals:\n";
-	}
-	
 	// Convert function locals to intermediate locals
 	vector<InterLocal> locals;
 	vector<WasmType>* vars = &(fn->vars);
@@ -30,7 +26,7 @@ string wdis::Convert::getFuncBody(Module* mod, Function* fn, bool addExtraInfo) 
 		InterLocal il(fn, i);
 		locals.push_back(il);
 	}
-	fnBody += "// Parsed " + to_string(locals.size()) << " WASM function locals:\n";
+	fnBody += "\t// Parsed WASM function locals:\n";
 	// Convert intermediates to C declorations
 	for (auto& ilocal : locals) {
 		string cdecl = ilocal.getCDecloration();
@@ -38,7 +34,7 @@ string wdis::Convert::getFuncBody(Module* mod, Function* fn, bool addExtraInfo) 
 		fnBody += cdecl;
 		if (addExtraInfo) {
 			// Initialize locals to 0 with extra info enabled
-			fnBody += " = 0"
+			fnBody += " = 0";
 		}
 		fnBody += "; ";
 		if (addExtraInfo) {
