@@ -26,12 +26,24 @@ void writeFile(string path, string data) {
 	f << data;
 	f.close();
 }
-
+int usage() {
+	cout << "Usage:" << endl
+	<< "wdis <infile> <outfile>" << endl;
+	return 1;
+}
 int main(int argc, const char** argv) {
-	auto vfile = readFile("test/wasm/emcc.wasm");
+	// Temporary hack to allow custom inputs/outputs. I know this isn't secure, but it's just for testing
+	if (argc != 3) {
+		return usage();
+	}
+	string infile = string(argv[1]);
+	string outfile = string(argv[2]);
+	cout << "Decompiling wasm file " << infile << " to " << outfile << endl;
+
+	auto vfile = readFile(infile);
 	CodeGenerator generator(&vfile, true, true);
 	generator.gen();
-	string res = generator.getEmittedCode();
-	writeFile("test/disasm/emcc.c", res);
+	auto res = generator.getEmittedCode();
+	writeFile(outfile, res);
 	return 0;
 }
