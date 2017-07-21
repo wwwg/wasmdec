@@ -8,11 +8,9 @@ using namespace wasm;
 string wdis::Convert::getBlockBody(Context* ctx, Block* blck, int depth) {
 	// Stream all block expressions and components into a string
 	stringstream s;
-	depth++;
 	for (auto& expr : blck->list) {
 		s << Convert::parseExpr(ctx, expr, depth);
 	}
-	depth--;
 	return s.str();
 }
 string wdis::Convert::getFuncBody(Context ctx, bool addExtraInfo) {

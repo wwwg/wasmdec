@@ -105,7 +105,7 @@ int32_t fn_stackAlloc(int32_t local_0) {
 	global$3 = global$3 + local_0;
 	global$3 = global$3 + 15 && -16;
 	if (global$3 >= global$4) {
-		import$7(local_0)
+import$7(local_0)
 	} // <No else block>
 	return local_1;
 }
@@ -149,7 +149,7 @@ void fn_establishStackSpace(int32_t local_0, int32_t local_1) {
 void fn_setThrew(int32_t local_0, int32_t local_1) {
 	// Function contains no non-parameter locals
 if (global$5 == 0) {
-		global$5 = local_0;
+	global$5 = local_0;
 	global$6 = local_1;
 
 } // <No else block>
@@ -174,22 +174,20 @@ int32_t fn__main() {
 	local_7 = global$3;
 	global$3 = global$3 + 16;
 	if (global$3 >= global$4) {
-		import$7(16)
+import$7(16)
 	} // <No else block>
 	local_0 = 0;
 	while (1) { // Loop name: 'label$2'
-				local_2 = local_1;
-			local_3 = local_2 + 1;
-			local_1 = local_3;
-			local_4 = local_1;
-			local_5 = local_4 < 10;
-			if (local_5) {
-								break;
-
-			} // <No else block>
+		local_2 = local_1;
+		local_3 = local_2 + 1;
+		local_1 = local_3;
+		local_4 = local_1;
+		local_5 = local_4 < 10;
+		if (local_5) {
 			break;
-	
-} // End of loop 'label$2'
+		} // <No else block>
+		break;
+	} // End of loop 'label$2'
 	global$3 = local_7;
 	return 0;
 }

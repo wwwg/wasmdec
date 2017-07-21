@@ -7,7 +7,9 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 	if (ex->is<Block>()) {
 		// Recursively parse blocks
 		Block* blck = ex->cast<Block>();
+		depth++;
 		ret += getBlockBody(ctx, blck, depth);
+		depth--;
 	} else if (ex->is<Binary>()) {
 		// Binary operations, including conditionals and arithmetic
 		Binary* spex = ex->cast<Binary>();
@@ -39,17 +41,13 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		string trueBlock = parseExpr(ctx, ife->ifTrue, depth);
 		ret += util::tab(depth);
 		ret += "if (" + cond + ") {\n";
-		depth++;
-		ret += util::tab(depth) + trueBlock;
-		depth--;
+		ret += trueBlock;
 		ret += "\n" + util::tab(depth) + "} ";
 		if (ife->ifFalse) {
 			// Insert else block
 			string falseBlock = parseExpr(ctx, ife->ifFalse, depth);
 			ret += "else {\n";
-			depth++;
 			ret += util::tab(depth) + falseBlock + "\n";
-			depth--;
 			ret += util::tab(depth) + "}";
 		} else {
 			// No else statement
@@ -81,7 +79,6 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 			// Literal breaking
 			ret += "break;";
 		}
-		ret += "\n";
 	} else if (ex->is<Call>()) {
 		// Function call
 		Call* fnCall = ex->cast<Call>();
@@ -101,10 +98,15 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 			 ret += "'";
 		}
 		ret += "\n";
-		ret += util::tab(depth);
+		depth -= 1;
 		ret += parseExpr(ctx, lex->body, depth);
-		ret += util::tab(depth);
-		ret += "\n} " ;
+		ret += "\n";
+		if (depth < 1) {
+			ret += util::tab(1);
+		} else {
+			ret += util::tab(depth);
+		}
+		ret += "} " ;
 		if (lex->name.str) {
 			 ret += "// End of loop '";
 			 ret += lex->name.str;
