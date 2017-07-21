@@ -36,6 +36,10 @@ string wdis::Convert::getFuncBody(Module* mod, Function* fn, bool addExtraInfo) 
 		cout << "Decloration " << cdecl << endl;
 		fnBody += "\t";
 		fnBody += cdecl;
+		if (addExtraInfo) {
+			// Initialize locals to 0 with extra info enabled
+			fnBody += " = 0"
+		}
 		fnBody += "; ";
 		if (addExtraInfo) {
 			// Local info
