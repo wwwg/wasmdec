@@ -19,7 +19,7 @@ namespace wdis {
 		bool isDebug;
 		bool emitExtraData;
 		Emitter emit;
-		CodeGenerator(vector<char>* inbin, bool useDebug, bool _emitExtraData) : binary((*inbin)), parser(module, binary, useDebug), emit(useDebug) {
+		CodeGenerator(vector<char>* inbin, bool useDebug, bool _emitExtraData) : binary((*inbin)), parser(module, binary, useDebug) {
 			isDebug = useDebug;
 			emitExtraData = _emitExtraData;
 			debug("Parsing wasm binary...\n");
