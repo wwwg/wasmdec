@@ -7,8 +7,8 @@ using namespace wasm;
 namespace wdis {
 	// Context is a union between WASM functions and modules
 	class Context {
-		bool isGlobal;
 	public:
+		bool isGlobal;
 		Function* fn;
 		Module* mod;
 		Context(Function* _fn, Module* _md) {

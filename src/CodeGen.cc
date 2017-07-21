@@ -36,6 +36,19 @@ void CodeGenerator::gen() {
 		emit.comment("No WASM imports.");
 		emit.ln();
 	}
+	// Process globals
+	if (module.globals.size()) {
+		Context gctx = Context(&module); // Initialize a global context to parse expressions with
+		emit.comment("WASM globals:");
+		for (auto& glb : module.globals) {
+			string globalType = Convert::resolveType(glb->type);
+			string globalInitializer = Convert::parseExpr(&gctx, glb->init, 0);
+		}
+	} else {
+		// No globals, so just leave a comment
+		emit.comment("No WASM globals.");
+		emit.ln();
+	}
 	// Process functions
 	if (parser.functions.size()) {
 		emit.comment("WASM functions:");
