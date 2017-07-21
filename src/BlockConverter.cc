@@ -21,7 +21,16 @@ string wdis::Convert::getFuncBody(Module* mod, Function* fn, bool addExtraInfo) 
 	if (addExtraInfo) {
 		fnBody += "\t// Function locals:\n";
 	}
-	// TODO : Parse local variables
+	
+	// Convert function locals to intermediate locals
+	vector<InterLocal> locals;
+	vector<WasmType>* vars = &(fn->vars);
+	for (int i = 0; i < vars->size(); ++i) {
+		// Fill locals vector
+		InterLocal il(fn, i);
+		locals.push_back(il);
+	}
+
 	if (addExtraInfo) fnBody += "\n";
 	// Function bodies are block expressions
 	fnBody += Convert::parseExpr(mod, fn->body, -1);

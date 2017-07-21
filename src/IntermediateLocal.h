@@ -24,7 +24,7 @@ namespace wdis {
 		string getCDecloration(void) {
 			string ret = CLocal;
 			ret += " " + Convert::getLocal(index);
-			return ret
+			return ret;
 		}
 	};
 } // namespace wdis
