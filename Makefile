@@ -6,10 +6,15 @@ CCOPTS=-g -std=c++14 -Isrc/binaryen/src -c -Wall
 LDOPTS=-Lsrc/binaryen/lib -lbinaryen
 
 all: $(SRC) $(OUT)
+
 $(OUT): $(OBJS) 
 	$(CC) $(LDOPTS) $(OBJS) -o $@
+
 .cc.o:
 	 $(CC) $(CCOPTS) $< -o $@
+
+clean:
+	rm -f *.o wdis
 
 # To build binaryen
 binaryen:
