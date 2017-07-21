@@ -31,6 +31,7 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 		Return* spex = ex->cast<Return>();
 		if (spex->value) {
 			// Insert expression as function return value
+			ret += util::tab(depth);
 			ret += "return ";
 			ret += parseExpr(mod, spex->value, depth);
 			ret += ";\n";
@@ -41,17 +42,28 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 		If* ife = ex->cast<If>();
 		string cond = parseExpr(mod, ife->condition, depth);
 		string trueBlock = parseExpr(mod, ife->ifTrue, depth);
+		ret += util::tab(depth);
 		ret += "if (";
 		ret += cond;
-		ret += ") {\n\t";
+		ret += ") {\n";
+		depth++;
+		ret += util::tab(depth);
 		ret += trueBlock;
-		ret += "\n} ";
+		depth--;
+		ret += "\n";
+		ret += util::tab(depth);
+		ret += "} ";
 		if (ife->ifFalse) {
 			// Insert else block
 			string falseBlock = parseExpr(mod, ife->ifFalse, depth);
-			ret += "else {\n\t";
+			ret += "else {\n";
+			depth++;
+			ret += util::tab(depth);
 			ret += falseBlock;
-			ret += "\n\t}";
+			ret += "\n";
+			depth--;
+			ret += util::tab(depth);
+			ret += "}";
 		} else {
 			// No else statement
 			ret += "// <No else block>\n";
@@ -100,7 +112,7 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 	} else if (ex->is<SetGlobal>()) {
 		// Set global variable
 		SetGlobal* gex = ex->cast<SetGlobal>();
-		ret += "\t";
+		ret += util::tab(depth);
 		ret += gex->name.str;
 		ret += " = ";
 		// The value is an expression
@@ -113,16 +125,18 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 string wdis::Convert::getBlockBody(Module* mod, Block* blck, int depth) {
 	// Stream all block expressions and components into a string
 	stringstream s;
+	depth++;
 	for (auto& expr : blck->list) {
 		s << parseExpr(mod, expr, depth);
 	}
+	depth--;
 	return s.str();
 }
 string wdis::Convert::getFuncBody(Module* mod, Function* fn) {
 	string fnBody;
 	fnBody += " {\n";
 	// Function bodies are block expressions
-	fnBody += parseExpr(mod, fn->body, 1);
+	fnBody += parseExpr(mod, fn->body, -1);
 	fnBody += "}";
 	return fnBody;
 }
