@@ -17,8 +17,8 @@ namespace wdis {
 		wasm::WasmType wasmLocal;
 		InterLocal(wasm::Function* _fn, int _index) {
 			fn = _fn;
+			wasmLocal = _fn->vars[_index];
 			index = _fn->params.size() + _index;
-			wasmLocal = _fn->vars[index];
 			CLocal = Convert::resolveType(wasmLocal);
 		}
 		string getCDecloration(void) {

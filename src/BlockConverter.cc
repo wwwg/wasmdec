@@ -30,7 +30,19 @@ string wdis::Convert::getFuncBody(Module* mod, Function* fn, bool addExtraInfo) 
 		InterLocal il(fn, i);
 		locals.push_back(il);
 	}
-
+	// Convert intermediates to C declorations
+	for (auto& ilocal : locals) {
+		string cdecl = ilocal.getCDecloration();
+		cout << "Decloration " << cdecl << endl;
+		fnBody += cdecl;
+		fnBody += "; ";
+		if (addExtraInfo) {
+			// Local info
+			fnBody += "// Index ";
+			fnBody += ilocal.index;
+		}
+		fnBody += "\n";
+	}
 	if (addExtraInfo) fnBody += "\n";
 	// Function bodies are block expressions
 	fnBody += Convert::parseExpr(mod, fn->body, -1);
