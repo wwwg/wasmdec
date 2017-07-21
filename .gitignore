@@ -1,3 +1,4 @@
 out
 wdis
 libbinaryen.so
+*.o
