@@ -28,7 +28,7 @@ int32_t fn_stackAlloc(int32_t local_0) {
 	global$3 = global$3 + local_0;
 	global$3 = global$3 + 15 && -16;
 	if (global$3 >= global$4) {
-		
+		/* Import call */ import$7(local_0)
 	} // <No else block>
 	return local_1;
 }
@@ -82,7 +82,7 @@ if (global$5 == 0) {
 int32_t fn__main() {
 	global$3 = global$3 + 16;
 	if (global$3 >= global$4) {
-		
+		/* Import call */ import$7(16)
 	} // <No else block>
 	global$3 = local_2;
 	return 0;

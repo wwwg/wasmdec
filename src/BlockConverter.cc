@@ -59,7 +59,7 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 		Literal* val = &(ex->cast<Const>()->value);
 		ret += util::getLiteralValue(val);
 	} else if (ex->is<Nop>()) {
-		ret = "// <Nop expression>\n"; // Nop expressions do nothing
+		ret += util::tab(depth) + "// <Nop expression>\n"; // Nop expressions do nothing
 	} else if (ex->is<GetGlobal>()) {
 		// Global variable lookup
 		ret += ex->cast<GetGlobal>()->name.str;
@@ -85,6 +85,11 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 		// Function call
 		Call* fnCall = ex->cast<Call>();
 		ret += getFName(fnCall->target) + parseOperandList(&(fnCall->operands), mod, depth);
+	} else if (ex->is<CallImport>()) {
+		// Imported function call
+		CallImport* imCall = ex->cast<CallImport>();
+		ret += "/* Import call */ ";
+		ret += imCall->target.str + parseOperandList(&(imCall->operands), mod, depth);
 	}
 	cout << "<Start expression parse result>" << endl
 	<< ret << endl
