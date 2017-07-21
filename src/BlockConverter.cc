@@ -9,6 +9,7 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex) {
 	if (ex->is<Unary>()) {
 		// TODO
 	} else if (ex->is<Block>()) {
+		// Recursively parse blocks
 		Block* blck = ex->cast<Block>();
 		ret += getBlockBody(mod, blck);
 	} else if (ex->is<Binary>()) {
@@ -97,6 +98,7 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex) {
 	return ret;
 }
 string wdis::Convert::getBlockBody(Module* mod, Block* blck) {
+	// Stream all block expressions and components into a string
 	stringstream s;
 	for (auto& expr : blck->list) {
 		s << parseExpr(mod, expr);
@@ -104,9 +106,10 @@ string wdis::Convert::getBlockBody(Module* mod, Block* blck) {
 	return s.str();
 }
 string wdis::Convert::getFuncBody(Module* mod, Function* fn) {
-	stringstream s;
-	s << " {\n\t";
-	s << parseExpr(mod, fn->body);
-	s << "}";
-	return s.str();
+	string fnBody;
+	fnBody += " {\n\t";
+	// Function bodies are block expressions
+	fnBody += parseExpr(mod, fn->body);
+	fnBody += "}";
+	return fnBody;
 }
