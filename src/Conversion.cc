@@ -190,12 +190,12 @@ string wdis::Convert::getDecl(wasm::Module* m, unique_ptr<wasm::Import>& i) {
 	}
 	return ret;
 }
-string wdis::Convert::parseOperandList(ExpressionList* list, Module* mod, int depth) {
+string wdis::Convert::parseOperandList(ExpressionList* list, Function* context, Module* mod, int depth) {
 	if (list->size()) {
 		string ret = "(";
 		for (int i = 0; i < list->size(); ++i) {
 			Expression* operand = list->operator[](i);
-			string soperand = Convert::parseExpr(mod, operand, depth);
+			string soperand = Convert::parseExpr(mod, context, operand, depth);
 			ret += soperand;
 			if (i != (list->size() - 1)) {
 				// Only append comment if iterator is at the vector end

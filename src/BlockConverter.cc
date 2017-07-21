@@ -5,12 +5,12 @@
 using namespace std;
 using namespace wasm;
 
-string wdis::Convert::getBlockBody(Module* mod, Block* blck, int depth) {
+string wdis::Convert::getBlockBody(Module* mod, Function* fn, Block* blck, int depth) {
 	// Stream all block expressions and components into a string
 	stringstream s;
 	depth++;
 	for (auto& expr : blck->list) {
-		s << Convert::parseExpr(mod, expr, depth);
+		s << Convert::parseExpr(mod, fn, expr, depth);
 	}
 	depth--;
 	return s.str();
@@ -51,7 +51,7 @@ string wdis::Convert::getFuncBody(Module* mod, Function* fn, bool addExtraInfo) 
 		}
 	}
 	// Function bodies are block expressions
-	fnBody += Convert::parseExpr(mod, fn->body, -1);
+	fnBody += Convert::parseExpr(mod, fn, fn->body, -1);
 	fnBody += "}";
 	return fnBody;
 }

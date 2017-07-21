@@ -23,10 +23,10 @@ namespace wdis {
 		static string getDecl(wasm::Function*);
 		static string getDecl(wasm::Module* m, unique_ptr<wasm::Import>& i);
 
-		static string parseExpr(wasm::Module*, wasm::Expression*, int);
-		static string getBlockBody(wasm::Module*, wasm::Block*, int);
+		static string parseExpr(wasm::Module*, wasm::Function*, wasm::Expression*, int);
+		static string getBlockBody(wasm::Module*, Function*, wasm::Block*, int);
 		static string getFuncBody(wasm::Module*, wasm::Function*, bool);
-		static string parseOperandList(ExpressionList*, Module*, int);
+		static string parseOperandList(ExpressionList*, Function*, Module*, int);
 	};
 } // namespace wdis
 

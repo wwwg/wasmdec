@@ -4,17 +4,17 @@
 using namespace std;
 using namespace wasm;
 
-string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
+string wdis::Convert::parseExpr(Module* mod, Function* func, Expression* ex, int depth) {
 	string ret;
 	if (ex->is<Block>()) {
 		// Recursively parse blocks
 		Block* blck = ex->cast<Block>();
-		ret += getBlockBody(mod, blck, depth);
+		ret += getBlockBody(mod, func, blck, depth);
 	} else if (ex->is<Binary>()) {
 		// Binary operations, including conditionals and arithmetic
 		Binary* spex = ex->cast<Binary>();
-		string e1 = parseExpr(mod, spex->left, depth);
-		string e2 = parseExpr(mod, spex->right, depth);
+		string e1 = parseExpr(mod, func, spex->left, depth);
+		string e2 = parseExpr(mod, func, spex->right, depth);
 		string operation = getBinOperator(spex->op);
 		ret += e1 + " " + operation + " " + e2;
 	} else if (ex->is<GetLocal>()) {
@@ -26,14 +26,14 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 		if (spex->value) {
 			// Insert expression as function return value
 			ret += util::tab(depth) + "return ";
-			ret += parseExpr(mod, spex->value, depth) + ";\n";
+			ret += parseExpr(mod, func, spex->value, depth) + ";\n";
 		} else {
 			ret += "return;\n"; // For void functions
 		}
 	} else if (ex->is<If>()) {
 		If* ife = ex->cast<If>();
-		string cond = parseExpr(mod, ife->condition, depth);
-		string trueBlock = parseExpr(mod, ife->ifTrue, depth);
+		string cond = parseExpr(mod, func, ife->condition, depth);
+		string trueBlock = parseExpr(mod, func, ife->ifTrue, depth);
 		ret += util::tab(depth);
 		ret += "if (" + cond + ") {\n";
 		depth++;
@@ -42,7 +42,7 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 		ret += "\n" + util::tab(depth) + "} ";
 		if (ife->ifFalse) {
 			// Insert else block
-			string falseBlock = parseExpr(mod, ife->ifFalse, depth);
+			string falseBlock = parseExpr(mod, func, ife->ifFalse, depth);
 			ret += "else {\n";
 			depth++;
 			ret += util::tab(depth) + falseBlock + "\n";
@@ -67,13 +67,13 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 		SetGlobal* gex = ex->cast<SetGlobal>();
 		ret += util::tab(depth) + gex->name.str + " = ";
 		// The value is an expression
-		ret += parseExpr(mod, gex->value, depth) + ";\n";
+		ret += parseExpr(mod, func, gex->value, depth) + ";\n";
 	} else if (ex->is<Break>()) {
 		Break* br = ex->cast<Break>();
 		ret += util::tab(depth);
 		if (br->condition) {
 			// Conditional breaking
-			ret += "if (" + parseExpr(mod, br->condition, depth) + ") break;";
+			ret += "if (" + parseExpr(mod, func, br->condition, depth) + ") break;";
 		} else {
 			// Literal breaking
 			ret += "break;";
@@ -82,12 +82,12 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 	} else if (ex->is<Call>()) {
 		// Function call
 		Call* fnCall = ex->cast<Call>();
-		ret += getFName(fnCall->target) + parseOperandList(&(fnCall->operands), mod, depth);
+		ret += getFName(fnCall->target) + parseOperandList(&(fnCall->operands), func, mod, depth);
 	} else if (ex->is<CallImport>()) {
 		// Imported function call
 		CallImport* imCall = ex->cast<CallImport>();
 		ret += "/* Import call */ ";
-		ret += imCall->target.str + parseOperandList(&(imCall->operands), mod, depth);
+		ret += imCall->target.str + parseOperandList(&(imCall->operands), func, mod, depth);
 	} else if (ex->is<Loop>()) {
 		// TODO : Implement WASM loop routine conversions
 	} else if (ex->is<Switch>()) {
@@ -95,7 +95,7 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 	} else if (ex->is<CallIndirect>()) {
 		// TODO : Implement CallIndirect expressions
 	} else if (ex->is<SetLocal>()) {
-		// TODO : Fully implement local variables
+		//
 	} else if (ex->is<Load>()) {
 		// TODO : Implement WASM address loading
 	} else if (ex->is<Store>()) {
