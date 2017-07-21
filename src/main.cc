@@ -28,10 +28,10 @@ void writeFile(string path, string data) {
 }
 
 int main(int argc, const char** argv) {
-	auto vfile = readFile("test/wasm/funcs.wasm");
+	auto vfile = readFile("test/wasm/emcc.wasm");
 	CodeGenerator generator(&vfile, true, true);
 	generator.gen();
 	string res = generator.getEmittedCode();
-	writeFile("test/disasm/funcs.c", res);
+	writeFile("test/disasm/emcc.c", res);
 	return 0;
 }

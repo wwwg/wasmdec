@@ -35,14 +35,20 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex) {
 		If* ife = ex->cast<If>();
 		string cond = parseExpr(mod, ife->condition);
 		string trueBlock = parseExpr(mod, ife->ifTrue);
-		string falseBlock = parseExpr(mod, ife->ifFalse);
 		ret += "if (";
 		ret += cond;
 		ret += ") {\n\t";
 		ret += trueBlock;
-		ret += "\n} else {\n\t";
-		ret += falseBlock;
-		ret += "\n}";
+		ret += "\n} ";
+		if (ife->ifFalse) {
+			string falseBlock = parseExpr(mod, ife->ifFalse);
+			ret += "else {\n\t";
+			ret += falseBlock;
+			ret += "\n\t}";
+		} else {
+			// No else statement
+			ret += "// <No else block>\n";
+		}
 	} else if (ex->is<Const>()) {
 		Const* cex = ex->cast<Const>();
 		Literal val = cex->value;
