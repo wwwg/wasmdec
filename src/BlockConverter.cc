@@ -82,7 +82,9 @@ string wdis::Convert::parseExpr(Module* mod, Expression* ex, int depth) {
 		}
 		ret += "\n";
 	}
-	cout << "Parsed expr to '" << ret << "' ";
+	cout << "<Start expression parse result>" << endl
+	<< ret << endl
+	<< "<End expression parse result>" << endl;
 	return ret;
 }
 string wdis::Convert::getBlockBody(Module* mod, Block* blck, int depth) {
