@@ -28,14 +28,11 @@ int32_t fn_addTwo(int32_t arg0, int32_t arg1) {
 ```
 
 # Support
-wdis supports the following WebAssembly expressions:
-- Blocks
-- Function calls
-- Binary operations
-- Constants
-- Conditional branching
-- Loops (implemented as while loops)
-- get_local
-- Imports / Exports
-- return<br>
-More are planned, and atomics will not be supported, due to their limited implementation in the WebAssembly spec.
+wdis **lacks** the following WASM features:
+- Atomics (No support currently planned)
+- Unary operations
+- Host calls
+- Select expressions
+- Indirect calls
+- Switch / case statements
+- Address loading
