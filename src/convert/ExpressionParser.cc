@@ -145,7 +145,9 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 	} else if (ex->is<Load>()) {
 		// TODO : Implement WASM address loading
 	} else if (ex->is<Store>()) {
-		// TODO : Implement WASM address storing
+		Store* sxp = ex->cast<Store>();
+		string var = parseExpr(ctx, sxp->ptr);
+		string val = parseExpr(ctx, sxp->value);
 	} else if (ex->is<Unary>()) {
 		// TODO : WASM unary operations
 	} else if (ex->is<AtomicRMW>()) {
@@ -160,7 +162,7 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		Drop* dex = ex->cast<Drop>();
 		ret += "/* Drop routine */\n";
 		ret += parseExpr(ctx, dex->value, depth);
-		ret += " /* End of drop routine */\n";
+		ret += "/* End of drop routine */\n";
 	} else if (ex->is<Host>()) {
 		// TODO : implement host expressions
 	} else if (ex->is<Unreachable>()) {

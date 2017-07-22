@@ -1,6 +1,7 @@
 (module
  (type $FUNCSIG$vii (func (param i32 i32)))
  (type $FUNCSIG$vi (func (param i32)))
+ (type $FUNCSIG$iii (func (param i32 i32) (result i32)))
  (import "env" "DYNAMICTOP_PTR" (global $DYNAMICTOP_PTR$asm2wasm$import i32))
  (import "env" "tempDoublePtr" (global $tempDoublePtr$asm2wasm$import i32))
  (import "env" "ABORT" (global $ABORT$asm2wasm$import i32))
@@ -9,6 +10,7 @@
  (import "global" "NaN" (global $nan$asm2wasm$import f64))
  (import "global" "Infinity" (global $inf$asm2wasm$import f64))
  (import "env" "abortStackOverflow" (func $abortStackOverflow (param i32)))
+ (import "env" "_printf" (func $_printf (param i32 i32) (result i32)))
  (import "env" "memory" (memory $0 256))
  (import "env" "table" (table 0 anyfunc))
  (global $DYNAMICTOP_PTR (mut i32) (get_global $DYNAMICTOP_PTR$asm2wasm$import))
@@ -30,6 +32,7 @@
  (global $tempRet0 (mut i32) (i32.const 0))
  (global $tempFloat (mut f32) (f32.const 0))
  (global $f0 (mut f32) (f32.const 0))
+ (data (get_global $memoryBase) "%s\n\00Hello, wdis!")
  (export "__post_instantiate" (func $__post_instantiate))
  (export "_main" (func $_main))
  (export "runPostSets" (func $runPostSets))
@@ -107,6 +110,7 @@
   (local $$3 i32)
   (local $$4 i32)
   (local $$5 i32)
+  (local $$vararg_buffer i32)
   (local $label i32)
   (local $sp i32)
   (set_local $sp
@@ -127,12 +131,15 @@
     (i32.const 16)
    )
   )
+  (set_local $$vararg_buffer
+   (get_local $sp)
+  )
   (set_local $$0
    (i32.const 0)
   )
   (loop $while-in
    (block $while-out
-    ;;@ main.c:4:0
+    ;;@ main.c:6:0
     (set_local $$2
      (get_local $$1)
     )
@@ -145,7 +152,7 @@
     (set_local $$1
      (get_local $$3)
     )
-    ;;@ main.c:5:0
+    ;;@ main.c:7:0
     (set_local $$4
      (get_local $$1)
     )
@@ -162,10 +169,27 @@
     (br $while-in)
    )
   )
+  ;;@ main.c:11:0
+  (i32.store
+   (get_local $$vararg_buffer)
+   (i32.add
+    (get_global $memoryBase)
+    (i32.const 4)
+   )
+  )
+  (drop
+   (call $_printf
+    (i32.add
+     (get_global $memoryBase)
+     (i32.const 0)
+    )
+    (get_local $$vararg_buffer)
+   )
+  )
   (set_global $STACKTOP
    (get_local $sp)
   )
-  ;;@ main.c:9:0
+  ;;@ main.c:12:0
   (return
    (i32.const 0)
   )
@@ -178,7 +202,7 @@
   (set_global $STACKTOP
    (i32.add
     (get_global $memoryBase)
-    (i32.const 0)
+    (i32.const 32)
    )
   )
   (set_global $STACK_MAX

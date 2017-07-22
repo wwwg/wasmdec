@@ -59,15 +59,21 @@ extern void import$7(int32_t local_0)
 /*
 	Import 'import$8':
 	Module: 'env'
-	Base: 'memory'
+	Base: '_printf'
 */
-extern const char* import$8; // <Imported memory>
+extern int32_t import$8(int32_t local_0, int32_t local_1)
 /*
 	Import 'import$9':
 	Module: 'env'
+	Base: 'memory'
+*/
+extern const char* import$9; // <Imported memory>
+/*
+	Import 'import$10':
+	Module: 'env'
 	Base: 'table'
 */
-extern wasm_table_t import$9; // <Imported table>
+extern wasm_table_t import$10; // <Imported table>
 // WASM globals:
 int32_t global$0 = import$0;
 int32_t global$1 = import$1;
@@ -157,7 +163,7 @@ if (global$5 == 0) {
 }
 /*
 	Function '$_main'
-	Local variables: 8
+	Local variables: 9
 	Parameters: 0
 	Immediate block expressions: 1
 */
@@ -171,13 +177,15 @@ int32_t fn__main() {
 	int32_t local_5 = 0; // Local with index '5'
 	int32_t local_6 = 0; // Local with index '6'
 	int32_t local_7 = 0; // Local with index '7'
+	int32_t local_8 = 0; // Local with index '8'
 
-	local_7 = global$3;
+	local_8 = global$3;
 	global$3 = global$3 + 16;
 	if (global$3 >= global$4) {
 		import$7(16);
 
 	} // <No else block>
+	local_6 = local_8;
 	local_0 = 0;
 	while (1) { // Loop name: 'label$2'
 		local_2 = local_1;
@@ -190,7 +198,10 @@ int32_t fn__main() {
 		} // <No else block>
 		break;
 	} // End of loop 'label$2'
-	global$3 = local_7;
+/* Drop routine */
+	import$8(import$3 + 0, local_6);
+ /* End of drop routine */
+	global$3 = local_8;
 	return 0;
 }
 /*
@@ -213,7 +224,7 @@ void fn_runPostSets() {
 */
 void fn___post_instantiate() {
 	// Function contains no non-parameter locals
-	global$3 = import$3 + 0;
+	global$3 = import$3 + 32;
 	global$4 = global$3 + 5242880;
 	fn_runPostSets();
 }
