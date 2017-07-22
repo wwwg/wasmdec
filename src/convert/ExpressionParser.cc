@@ -146,8 +146,8 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		// TODO : Implement WASM address loading
 	} else if (ex->is<Store>()) {
 		Store* sxp = ex->cast<Store>();
-		string var = parseExpr(ctx, sxp->ptr);
-		string val = parseExpr(ctx, sxp->value);
+		string var = parseExpr(ctx, sxp->ptr, depth);
+		string val = parseExpr(ctx, sxp->value, depth);
 	} else if (ex->is<Unary>()) {
 		// TODO : WASM unary operations
 	} else if (ex->is<AtomicRMW>()) {
