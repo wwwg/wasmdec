@@ -12,6 +12,7 @@ namespace wdis {
 		static string tab(int);
 		static string getLiteralValue(Literal*);
 		static int getLocalIndex(Function*, int);
+		static string getAddrStr(Address*);
 	};
 }; // namespace wdis
 

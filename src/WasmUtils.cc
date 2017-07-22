@@ -52,3 +52,10 @@ string util::getLiteralValue(Literal* val) {
 int util::getLocalIndex(Function* fn, int index) {
 	return (&fn->params)->size() + index;
 }
+string util::getAddrStr(Address* addr) {
+	stringstream stream;
+	stream << "0x" 
+		 << setfill('0') << setw(sizeof(uint32_t) * 2) 
+		 << hex << addr->addr;
+	return stream.str();
+}
