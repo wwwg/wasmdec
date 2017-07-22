@@ -59,3 +59,11 @@ string util::getAddrStr(Address* addr) {
 		 << hex << addr->addr;
 	return stream.str();
 }
+template<typename T>
+string util::getHex(T val) {
+  stringstream stream;
+  stream << "0x" 
+         << setfill ('0') << setw(sizeof(T) * 2) 
+         << hex << val;
+  return stream.str();
+}

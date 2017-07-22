@@ -13,6 +13,8 @@ namespace wdis {
 		static string getLiteralValue(Literal*);
 		static int getLocalIndex(Function*, int);
 		static string getAddrStr(Address*);
+		template<typename T>
+		static string getHex(T i);
 	};
 }; // namespace wdis
 
