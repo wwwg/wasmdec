@@ -148,8 +148,29 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		ret += parseExpr(ctx, sl->value, depth);
 		ret += ";\n";
 	} else if (ex->is<Load>()) {
+		// Memory loading
 		Load* lxp = ex->cast<Load>();
 		string var = parseExpr(ctx, lxp->ptr, depth);
+		ret += util::tab(depth);
+		ret += "/*  Load:\n";
+		depth++;
+		ret += util::tab(depth) + "Offset: ";
+		ret += util::getAddrStr(&(lxp->offset));
+		ret += "\n";
+		ret += util::tab(depth) + "Align:  ";
+		ret += util::getAddrStr(&(lxp->align));
+		ret += "\n";
+		ret += util::tab(depth) + "Bytes:  ";
+		ret += util::getHex<int>(lxp->bytes);
+		ret += "\n";
+		ret += util::tab(depth) + "Atomic: ";
+		ret += util::boolStr(lxp->isAtomic);
+		ret += "\n";
+		ret += util::tab(depth) + "Signed: ";
+		ret += util::boolStr(lxp->signed_);
+		depth--;
+		ret += "  */\n";
+		ret += var;
 	} else if (ex->is<Store>()) {
 		Store* sxp = ex->cast<Store>();
 		string var = parseExpr(ctx, sxp->ptr, depth);
