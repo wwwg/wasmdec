@@ -128,7 +128,12 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 	} else if (ex->is<Switch>()) {
 		// TODO : Implement WASM switch routine conversions
 	} else if (ex->is<CallIndirect>()) {
-		// TODO : Implement CallIndirect expressions
+		CallIndirect* ci = ex->cast<CallIndirect>();
+		string _icall = parseExpr(ctx, ci->target, depth);
+		ret += "// Indirect call:\n";
+		ret += "(" + _icall + ")";
+		ret += parseOperandList(ctx, &(ci->operands), depth);
+		ret += "; \n";
 	} else if (ex->is<SetLocal>()) {
 		// Resolve variable's C name
 		SetLocal* sl = ex->cast<SetLocal>();
@@ -143,7 +148,7 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		ret += parseExpr(ctx, sl->value, depth);
 		ret += ";\n";
 	} else if (ex->is<Load>()) {
-		Store* lxp = ex->cast<Load>();
+		Load* lxp = ex->cast<Load>();
 		string var = parseExpr(ctx, lxp->ptr, depth);
 	} else if (ex->is<Store>()) {
 		Store* sxp = ex->cast<Store>();

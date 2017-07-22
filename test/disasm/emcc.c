@@ -198,7 +198,7 @@ int32_t fn__main() {
 		} // <No else block>
 		break;
 	} // End of loop 'label$2'
-	/* Load expression:
+	/* Store:
 		Offset: 0x00000000
 		Align:  0x00000004
 		Bytes:  0x00000004
