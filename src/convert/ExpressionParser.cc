@@ -156,7 +156,7 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		string val = parseExpr(ctx, sxp->value, depth);
 		// Append information about the expression
 		ret += util::tab(depth);
-		ret += "/* Store:\n";
+		ret += "/*  Store:\n";
 		depth++;
 		ret += util::tab(depth) + "Offset: ";
 		ret += util::getAddrStr(&(sxp->offset));
