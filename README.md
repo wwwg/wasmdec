@@ -36,3 +36,4 @@ wdis **lacks** the following WASM features:
 - Indirect calls
 - Switch / case statements
 - Address loading
+<br>Support is planned for all of these but atomics.
