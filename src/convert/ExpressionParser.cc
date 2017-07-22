@@ -148,6 +148,18 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		Store* sxp = ex->cast<Store>();
 		string var = parseExpr(ctx, sxp->ptr, depth);
 		string val = parseExpr(ctx, sxp->value, depth);
+		// Append information about the expression
+		ret += util::tab(depth);
+		ret += "/* Load expression:\n";
+		depth++;
+		ret += util::tab(depth) + " Address: ";
+		ret += sxp->offset.addr;
+		ret += "\n";
+		depth--;
+		ret += util::tab(depth);
+		ret += "*/\n";
+		// Append C representation
+		ret += util::tab(depth) + var + " = " + val + "; \n";
 	} else if (ex->is<Unary>()) {
 		// TODO : WASM unary operations
 	} else if (ex->is<AtomicRMW>()) {
