@@ -143,7 +143,8 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		ret += parseExpr(ctx, sl->value, depth);
 		ret += ";\n";
 	} else if (ex->is<Load>()) {
-		// TODO : Implement WASM address loading
+		Store* lxp = ex->cast<Load>();
+		string var = parseExpr(ctx, lxp->ptr, depth);
 	} else if (ex->is<Store>()) {
 		Store* sxp = ex->cast<Store>();
 		string var = parseExpr(ctx, sxp->ptr, depth);
