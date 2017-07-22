@@ -157,7 +157,10 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 	} else if (ex->is<Select>()) {
 		// TODO : implement select expressions
 	} else if (ex->is<Drop>()) {
-		// TODO : implement drop expressions
+		Drop* dex = ex->cast<Drop>();
+		ret += "/* Drop routine */\n";
+		ret += parseExpr(ctx, dex->value, depth);
+		ret += " /* End of drop routine */\n";
 	} else if (ex->is<Host>()) {
 		// TODO : implement host expressions
 	} else if (ex->is<Unreachable>()) {
