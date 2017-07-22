@@ -198,12 +198,11 @@ int32_t fn__main() {
 		} // <No else block>
 		break;
 	} // End of loop 'label$2'
-	/* Store:
+	/*  Store:
 		Offset: 0x00000000
 		Align:  0x00000004
 		Bytes:  0x00000004
-		Atomic: false
-	*/
+		Atomic: false  */
 	local_6 = import$3 + 4; 
 	/* Drop routine */
 	import$8(import$3 + 0, local_6);

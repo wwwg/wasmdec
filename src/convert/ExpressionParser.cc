@@ -169,10 +169,8 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		ret += "\n";
 		ret += util::tab(depth) + "Atomic: ";
 		ret += util::boolStr(sxp->isAtomic);
-		ret += "\n";
 		depth--;
-		ret += util::tab(depth);
-		ret += "*/\n";
+		ret += "  */\n";
 		// Append C representation
 		ret += util::tab(depth) + var + " = " + val + "; \n";
 	} else if (ex->is<Unary>()) {
