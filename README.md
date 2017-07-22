@@ -34,5 +34,4 @@ wdis **lacks** the following WASM features:
 - Host calls
 - Select expressions
 - Switch / case statements
-- Address loading
 <br>Support is planned for all of these but atomics.
