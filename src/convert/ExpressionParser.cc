@@ -150,13 +150,19 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		string val = parseExpr(ctx, sxp->value, depth);
 		// Append information about the expression
 		ret += util::tab(depth);
-		ret += "/* Load expression:\n";
+		ret += "/* Store:\n";
 		depth++;
-		ret += util::tab(depth) + " Offset: ";
+		ret += util::tab(depth) + "Offset: ";
 		ret += util::getAddrStr(&(sxp->offset));
 		ret += "\n";
-		ret += util::tab(depth) + " Align:  ";
+		ret += util::tab(depth) + "Align:  ";
 		ret += util::getAddrStr(&(sxp->align));
+		ret += "\n";
+		ret += util::tab(depth) + "Bytes:  ";
+		ret += util::getHex<int>(sxp->bytes);
+		ret += "\n";
+		ret += util::tab(depth) + "Atomic: ";
+		ret += util::boolStr(sxp->isAtomic);
 		ret += "\n";
 		depth--;
 		ret += util::tab(depth);

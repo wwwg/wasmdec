@@ -199,8 +199,10 @@ int32_t fn__main() {
 		break;
 	} // End of loop 'label$2'
 	/* Load expression:
-		 Offset: 0x00000000
-		 Align:  0x00000004
+		Offset: 0x00000000
+		Align:  0x00000004
+		Bytes:  0x00000004
+		Atomic: false
 	*/
 	local_6 = import$3 + 4; 
 	/* Drop routine */

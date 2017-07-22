@@ -13,9 +13,19 @@ namespace wdis {
 		static string getLiteralValue(Literal*);
 		static int getLocalIndex(Function*, int);
 		static string getAddrStr(Address*);
+		static string boolStr(bool);
 		template<typename T>
-		static string getHex(T i);
+		static string getHex(T val);
 	};
 }; // namespace wdis
+
+template<typename T>
+string wdis::util::getHex(T val) {
+  stringstream stream;
+  stream << "0x" 
+         << setfill ('0') << setw(sizeof(T) * 2) 
+         << hex << val;
+  return stream.str();
+}
 
 #endif // _WASM_UTILS
