@@ -33,7 +33,6 @@ wdis **lacks** the following WASM features:
 - Unary operations
 - Host calls
 - Select expressions
-- Indirect calls
 - Switch / case statements
 - Address loading
 <br>Support is planned for all of these but atomics.
