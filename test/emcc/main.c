@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 int main() {
 	int val;
 	while (1) {
@@ -6,5 +8,6 @@ int main() {
 			break;
 		}
 	}
+	printf("%s\n", "Hello, wdis!");
 	return 0;
 }
