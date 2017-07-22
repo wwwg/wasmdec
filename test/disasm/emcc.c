@@ -134,7 +134,7 @@ int32_t fn_stackSave() {
 */
 void fn_stackRestore(int32_t local_0) {
 	// Function contains no non-parameter locals
-global$3 = local_0;
+	global$3 = local_0;
 }
 /*
 	Function '$establishStackSpace'
@@ -155,11 +155,11 @@ void fn_establishStackSpace(int32_t local_0, int32_t local_1) {
 */
 void fn_setThrew(int32_t local_0, int32_t local_1) {
 	// Function contains no non-parameter locals
-if (global$5 == 0) {
+	if (global$5 == 0) {
 	global$5 = local_0;
 	global$6 = local_1;
 
-} // <No else block>
+	} // <No else block>
 }
 /*
 	Function '$_main'
@@ -198,9 +198,9 @@ int32_t fn__main() {
 		} // <No else block>
 		break;
 	} // End of loop 'label$2'
-/* Drop routine */
+	/* Drop routine */
 	import$8(import$3 + 0, local_6);
- /* End of drop routine */
+	/* End of drop routine */
 	global$3 = local_8;
 	return 0;
 }
@@ -214,7 +214,7 @@ void fn_runPostSets() {
 	// Parsed WASM function locals:
 	int32_t local_0 = 0; // Local with index '0'
 
-// <Nop expression>
+	// <Nop expression>
 }
 /*
 	Function '$__post_instantiate'

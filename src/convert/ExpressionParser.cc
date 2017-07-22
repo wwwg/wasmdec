@@ -160,8 +160,10 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		// TODO : implement select expressions
 	} else if (ex->is<Drop>()) {
 		Drop* dex = ex->cast<Drop>();
+		ret += util::tab(1);
 		ret += "/* Drop routine */\n";
 		ret += parseExpr(ctx, dex->value, depth);
+		ret += util::tab(1);
 		ret += "/* End of drop routine */\n";
 	} else if (ex->is<Host>()) {
 		// TODO : implement host expressions

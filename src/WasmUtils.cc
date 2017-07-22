@@ -12,6 +12,9 @@ FunctionType* util::resolveFType(Module* m, Name nm) {
 string util::tab(int tabTimes) {
 	// Util for generating nicer looking C
 	string ret;
+	if (tabTimes < 1) {
+		tabTimes = 1;
+	}
 	for (int i = 0; i < tabTimes; ++i) {
 		ret += "\t";
 	}
