@@ -32,6 +32,5 @@ wdis **lacks** the following WASM features:
 - Atomics (No support currently planned)
 - Unary operations
 - Host calls
-- Select expressions
 - Switch / case statements
 <br>Support is planned for all of these but atomics.

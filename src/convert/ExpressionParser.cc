@@ -203,7 +203,12 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		// WASM currently has no support for atomics
 		ret = "/* Atomic operation unsupported */\n";
 	} else if (ex->is<Select>()) {
-		// TODO : implement select expressions
+		// Select is the WASM equivalent of C's ternary operator.
+		Select* slex = ex->cast<Select>();
+		string cond = parseExpr(ctx, slex->condition, depth);
+		string ifTrue = parseExpr(ctx, slex->ifTrue, depth);
+		string ifFalse = parseExpr(ctx, slex->ifFalse, depth);
+		ret += "(" + cond + ") ? (" + ifTrue + ") : (" + ifFalse + ");\n";
 	} else if (ex->is<Drop>()) {
 		Drop* dex = ex->cast<Drop>();
 		ret += util::tab(1);
