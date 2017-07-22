@@ -152,8 +152,11 @@ string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		ret += util::tab(depth);
 		ret += "/* Load expression:\n";
 		depth++;
-		ret += util::tab(depth) + " Address: ";
-		ret += sxp->offset.addr;
+		ret += util::tab(depth) + " Offset: ";
+		ret += util::getAddrStr(&(sxp->offset));
+		ret += "\n";
+		ret += util::tab(depth) + " Align:  ";
+		ret += util::getAddrStr(&(sxp->align));
 		ret += "\n";
 		depth--;
 		ret += util::tab(depth);
