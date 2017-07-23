@@ -95,8 +95,14 @@ string wasmdec::Convert::getBinOperator(string e1, wasm::BinaryOp bop, string e2
 		case CopySignFloat64:
 			return "copysign(" + e1 + ", " + e2 + ")";
 			break;
+		case RemSInt64:
+		case RemSInt32:
+		case RemUInt32:
+		case RemSInt64:
+			op = "%"; return e1 + " " + op + " " + e2;
+			break;
 	}
-	op = "NONE"; // Operation unimplemented or an unknown enumeration
+	op = "/* Unsupported binary operator */"; // Operation unimplemented or an unknown enumeration
 	return op;
 }
 string wasmdec::Convert::resolveType(wasm::WasmType typ) {
