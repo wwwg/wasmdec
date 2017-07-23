@@ -260,7 +260,15 @@ string wasmdec::Convert::parseOperandList(Context* ctx, ExpressionList* list, in
 	}
 }
 string wasmdec::Convert::getUnary(string exp, UnaryOp op) {
-	string ret;
-	//
-	return ret;
+	switch (op) {
+		case ClzInt32:
+		case ClzInt64:
+			return "__builtin_clz(" + exp + ")";
+			break;
+		case CtzInt32:
+		case CtzInt64:
+			return "__builtin_ctz(" + exp + ")";
+			break;
+	}
+	return "/* Unsupported unary operator */";
 }
