@@ -24,7 +24,7 @@ Emitter::Emitter() {
     "#define MAX(a,b) ((a) > (b) ? a : b)\n"
 	"#define MIN(a,b) ((a) < (b) ? a : b)\n"
 	"// Host functions: used to request information from host machine.\n"
-	"extern int32_t host_has_feature(const char* feature);\n"
+	"extern int32_t host_has_feature(int32_t feature_opcode);\n"
 	"extern void host_grow_memory(int32_t size);\n"
 	"extern int32_t host_get_current_memory(void);\n"
 	"extern int32_t host_get_page_size(void);\n"
