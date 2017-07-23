@@ -96,9 +96,9 @@ string wasmdec::Convert::getBinOperator(string e1, wasm::BinaryOp bop, string e2
 			return "copysign(" + e1 + ", " + e2 + ")";
 			break;
 		case RemSInt64:
+		case RemUInt64:
 		case RemSInt32:
 		case RemUInt32:
-		case RemSInt64:
 			op = "%"; return e1 + " " + op + " " + e2;
 			break;
 	}

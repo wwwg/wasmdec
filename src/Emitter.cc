@@ -11,6 +11,16 @@ Emitter::Emitter() {
 	<< "// Bit size specific types not declared in stdint.h:" << endl
 	<< "typedef float float32_t;" << endl
 	<< "typedef double float64_t;" << endl
+	<< "// C implementation of WASM expressions:" << endl
+	<< "unsigned int _rotl(const unsigned int value, int shift) {\n"
+	"\tif ((shift &= sizeof(value) * 8 - 1) == 0)\n"
+	"\t\treturn value;\n"
+	"\treturn (value << shift) | (value >> (sizeof(value)*8 - shift));\n"
+	"}\n"
+	"unsigned int _rotr(const unsigned int value, int shift) {\n"
+    "\tif ((shift &= sizeof(value) * 8 - 1) == 0)\n"
+    "\t\treturn value;\n"
+    "\treturn (value >> shift) | (value << (sizeof(value)*8 - shift));\n}\n"
 	<< "// End of preamble" << endl << endl;
 }
 stringstream& Emitter::operator<<(string out) {

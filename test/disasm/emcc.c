@@ -5,6 +5,17 @@ typedef const char* wasm_table_t; // WASM tables
 // Bit size specific types not declared in stdint.h:
 typedef float float32_t;
 typedef double float64_t;
+// C implementation of WASM expressions:
+unsigned int _rotl(const unsigned int value, int shift) {
+	if ((shift &= sizeof(value) * 8 - 1) == 0)
+		return value;
+	return (value << shift) | (value >> (sizeof(value)*8 - shift));
+}
+unsigned int _rotr(const unsigned int value, int shift) {
+	if ((shift &= sizeof(value) * 8 - 1) == 0)
+		return value;
+	return (value >> shift) | (value << (sizeof(value)*8 - shift));
+}
 // End of preamble
 
 // WASM imports:
