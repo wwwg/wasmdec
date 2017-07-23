@@ -66,6 +66,7 @@ string wasmdec::Convert::getBinOperator(string e1, wasm::BinaryOp bop, string e2
 		case LeUInt32:
 		case LeFloat32:
 		case LeFloat64:
+		case LeUInt64:
 			op = "<="; return e1 + " " + op + " " + e2;
 			break;
 		case LtUInt32:
@@ -87,11 +88,17 @@ string wasmdec::Convert::getBinOperator(string e1, wasm::BinaryOp bop, string e2
 		case GtUInt64:
 		case GtFloat64:
 		case GtFloat32:
+		case GtSInt32:
+		case GtUInt32:
+		case LtUInt64:
 			op = ">"; return e1 + " " + op + " " + e2;
 			break;
 		case GeSInt64:
 		case GeSInt32:
 		case GeFloat64:
+		case GeFloat32:
+		case GeUInt32:
+		case GeUInt64:
 			op = ">="; return e1 + " " + op + " " + e2;
 			break;
 		case CopySignFloat32:
