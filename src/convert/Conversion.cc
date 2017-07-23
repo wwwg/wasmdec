@@ -63,6 +63,9 @@ string wasmdec::Convert::getBinOperator(string e1, wasm::BinaryOp bop, string e2
 			break;
 		case LeSInt64:
 		case LeSInt32:
+		case LeUInt32:
+		case LeFloat32:
+		case LeFloat64:
 			op = "<="; return e1 + " " + op + " " + e2;
 			break;
 		case LtUInt32:
