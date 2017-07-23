@@ -31,7 +31,6 @@ int32_t fn_addTwo(int32_t arg0, int32_t arg1) {
 wasmdec **lacks** the following WASM features:
 - Atomics (No support currently planned)
 - Unary operations
-- A few uncommon binary operations
 - Host calls
 - Switch / case statements
 <br>Support is planned for all of these but atomics.
