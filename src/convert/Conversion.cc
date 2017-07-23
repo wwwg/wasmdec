@@ -269,6 +269,75 @@ string wasmdec::Convert::getUnary(string exp, UnaryOp op) {
 		case CtzInt64:
 			return "__builtin_ctz(" + exp + ")";
 			break;
+		case PopcntInt32:
+		case PopcntInt64:
+			return "__builtin_popcount(" + exp + ")";
+			break;
+		case NegFloat32:
+		case NegFloat64:
+			return "-(" + exp + ")";
+			break;
+		case AbsFloat32:
+		case AbsFloat64:
+			return "abs(" + exp + ")";
+			break;
+		case CeilFloat32:
+		case CeilFloat64:
+			return "ceil(" + exp + ")";
+			break;
+		case FloorFloat32:
+		case FloorFloat64:
+			return "floor(" + exp + ")";
+			break;
+		case TruncFloat32:
+		case TruncFloat64:
+			return "trunc(" + exp + ")";
+			break;
+		case NearestFloat32:
+		case NearestFloat64:
+			return "fromfp(" + exp + ", FP_INT_TONEAREST) /* Round to nearest integer, ties to even */";
+			break;
+		case SqrtFloat32:
+		case SqrtFloat64:
+			return "sqrt(" + exp + ")";
+			break;
+		case EqZInt32: // Equals 0
+		case EqZInt64:
+			return exp + " == 0";
+			break;
+		case ExtendSInt32:
+		case ExtendUInt32:
+		case TruncSFloat32ToInt64:
+		case TruncUFloat32ToInt64:
+		case TruncSFloat64ToInt64:
+		case TruncUFloat64ToInt64:
+		case ReinterpretFloat64:
+			return "(int64_t)" + exp;
+			break;
+		case WrapInt64:
+		case TruncSFloat32ToInt32:
+		case TruncUFloat32ToInt32:
+		case TruncSFloat64ToInt32:
+		case TruncUFloat64ToInt32:
+		case ReinterpretFloat32:
+			return "(int32_t)" + exp;
+			break;
+		case ConvertSInt32ToFloat32:
+		case ConvertUInt32ToFloat32:
+		case ConvertSInt64ToFloat32:
+		case ConvertUInt64ToFloat32:
+		case DemoteFloat64:
+		case ReinterpretInt32:
+			return "(float32_t)" + exp;
+			break;
+		case ConvertSInt32ToFloat64:
+		case ConvertUInt32ToFloat64:
+		case ConvertSInt64ToFloat64:
+		case ConvertUInt64ToFloat64:
+		case PromoteFloat32:
+		case ReinterpretInt64:
+			return "(float64_t)" + exp;
+			break;
 	}
 	return "/* Unsupported unary operator */";
 }
