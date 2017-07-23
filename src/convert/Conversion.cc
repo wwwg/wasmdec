@@ -12,61 +12,65 @@ string wasmdec::Convert::voidCall(wasm::Function* fn) {
 	// Call a void function
 	return getFName(fn->name) + "();";
 }
-string wasmdec::Convert::getBinOperator(wasm::BinaryOp op) { // TODO : Add more binary operations
+string wasmdec::Convert::getBinOperator(string e1, wasm::BinaryOp bop, string e2) { // TODO : Add more binary operations
 	// Convert WASM binary operations to their respective C representation
-	switch (op) {
+	string op;
+	switch (bop) {
 		case AddInt32:
 		case AddInt64:
 		case AddFloat32:
 		case AddFloat64:
-			return "+";
+			op = "+";
+			return e1 + " " + op + " " + e2;
 			break;
 		case SubInt32:
 		case SubInt64:
 		case SubFloat32:
 		case SubFloat64:
-			return "-";
+			op = "-";
+			return e1 + " " + op + " " + e2;
 			break;
 		case XorInt64:
 		case XorInt32:
-			return "^";
+			op = "^";
+			return e1 + " " + op + " " + e2;
 			break;
 		case OrInt64:
 		case OrInt32:
-			return "||";
+			op = "||"; return e1 + " " + op + " " + e2;
 			break;
 		case MulInt32:
 		case MulInt64:
 		case MulFloat32:
 		case MulFloat64:
-			return "*";
+			op = "*"; return e1 + " " + op + " " + e2;
 			break;
 		case EqInt32:
 		case EqInt64:
 		case EqFloat32:
 		case EqFloat64:
-			return "==";
+			op = "=="; return e1 + " " + op + " " + e2;
 			break;
 		case NeInt32:
 		case NeInt64:
 		case NeFloat32:
 		case NeFloat64:
-			return "!=";
+			op = "!="; return e1 + " " + op + " " + e2;
 			break;
 		case AndInt32:
 		case AndInt64:
-			return "&&";
+			op = "&&"; return e1 + " " + op + " " + e2;
 			break;
 		case LeSInt64:
 		case LeSInt32:
-			return "<=";
+			op = "<="; return e1 + " " + op + " " + e2;
 			break;
 		case LtUInt32:
 		case LtSInt32:
 		case LtSInt64:
 		case LtFloat32:
 		case LtFloat64:
-			return "<";
+			op = "<"; return e1 + " " + op + " " + e2;
 			break;
 		case DivSInt32:
 		case DivUInt32:
@@ -74,20 +78,26 @@ string wasmdec::Convert::getBinOperator(wasm::BinaryOp op) { // TODO : Add more 
 		case DivUInt64:
 		case DivFloat32:
 		case DivFloat64:
-			return "/";
+			op = "/"; return e1 + " " + op + " " + e2;
 			break;
 		case GtSInt64:
 		case GtUInt64:
 		case GtFloat64:
 		case GtFloat32:
-			return ">";
+			op = ">"; return e1 + " " + op + " " + e2;
 			break;
 		case GeSInt64:
 		case GeSInt32:
 		case GeFloat64:
-			return ">=";
+			op = ">="; return e1 + " " + op + " " + e2;
+			break;
+		case CopySignFloat32:
+		case CopySignFloat64:
+			return "copysign(" + e1 + ", " + e2 + ")";
+			break;
 	}
-	return "NONE"; // Operation unimplemented or an unknown enumeration
+	op = "NONE"; // Operation unimplemented or an unknown enumeration
+	return op;
 }
 string wasmdec::Convert::resolveType(wasm::WasmType typ) {
 	// Resolve wasm::WasmType to a C type

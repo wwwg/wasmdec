@@ -15,8 +15,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		Binary* spex = ex->cast<Binary>();
 		string e1 = parseExpr(ctx, spex->left, depth);
 		string e2 = parseExpr(ctx, spex->right, depth);
-		string operation = getBinOperator(spex->op);
-		ret += e1 + " " + operation + " " + e2;
+		ret += getBinOperator(e1, spex->op, e2);
 	} else if (ex->is<GetLocal>()) {
 		// Convert WASM local variable to C local variable
 		GetLocal* spex = ex->cast<GetLocal>();
