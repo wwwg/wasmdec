@@ -259,3 +259,8 @@ string wasmdec::Convert::parseOperandList(Context* ctx, ExpressionList* list, in
 		return "()";
 	}
 }
+string wasmdec::Convert::getUnary(string exp) {
+	string ret;
+	//
+	return ret;
+}
