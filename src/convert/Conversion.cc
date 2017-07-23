@@ -341,3 +341,19 @@ string wasmdec::Convert::getUnary(string exp, UnaryOp op) {
 	}
 	return "/* Unsupported unary operator */";
 }
+string wasmdec::Convert::getHostFunc(HostOp hop) {
+	switch (hop) {
+		case PageSize:
+			return "host_get_page_size";
+			break;
+		case HasFeature:
+			return "host_has_feature";
+			break;
+		case GrowMemory:
+			return "host_grow_memory";
+			break;
+		case CurrentMemory:
+			return "host_get_current_memory";
+			break;
+	}
+}

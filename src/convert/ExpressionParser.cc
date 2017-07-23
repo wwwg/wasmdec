@@ -224,7 +224,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		ret += "/* End of drop routine */\n";
 	} else if (ex->is<Host>()) {
 		Host* hexp = ex->cast<Host>();
-		string hoperands = parseOperandList(hexp->operands);
+		string hoperands = parseOperandList(ctx, &(hexp->operands), depth);
 	} else if (ex->is<Unreachable>()) {
 		// Unreachable contains no information
 		ret = "/* Unreachable */";
