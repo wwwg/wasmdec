@@ -21,6 +21,8 @@ Emitter::Emitter() {
     "\tif ((shift &= sizeof(value) * 8 - 1) == 0)\n"
     "\t\treturn value;\n"
     "\treturn (value >> shift) | (value << (sizeof(value)*8 - shift));\n}\n"
+    "#define MAX(a,b) ((a) > (b) ? a : b)\n"
+	"#define MIN(a,b) ((a) < (b) ? a : b)\n"
 	<< "// End of preamble" << endl << endl;
 }
 stringstream& Emitter::operator<<(string out) {
