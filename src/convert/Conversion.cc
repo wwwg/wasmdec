@@ -109,6 +109,16 @@ string wasmdec::Convert::getBinOperator(string e1, wasm::BinaryOp bop, string e2
 		case RotRInt64:
 			return "_rotr(" + e1 + ", " + e2 + ")";
 			break;
+		case ShlInt32:
+		case ShlInt64:
+			op = "<<"; return e1 + " " + op + " " + e2;
+			break;
+		case ShrUInt32:
+		case ShrSInt32:
+		case ShrUInt64:
+		case ShrSInt64:
+			op = ">>"; return e1 + " " + op + " " + e2;
+			break;
 	}
 	op = "/* Unsupported binary operator */"; // Operation unimplemented or an unknown enumeration
 	return op;
