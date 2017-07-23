@@ -16,6 +16,8 @@ unsigned int _rotr(const unsigned int value, int shift) {
 		return value;
 	return (value >> shift) | (value << (sizeof(value)*8 - shift));
 }
+#define MAX(a,b) ((a) > (b) ? a : b)
+#define MIN(a,b) ((a) < (b) ? a : b)
 // End of preamble
 
 // WASM imports:

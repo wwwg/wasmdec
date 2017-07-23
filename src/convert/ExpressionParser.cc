@@ -78,6 +78,10 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 			// Literal breaking
 			ret += "break;";
 		}
+		if (br->value) {
+			string val = parseExpr(ctx, br->value, depth);
+			// TODO : parse break values
+		}
 	} else if (ex->is<Call>()) {
 		// Function call
 		Call* fnCall = ex->cast<Call>();
