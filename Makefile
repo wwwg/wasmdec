@@ -1,6 +1,6 @@
 SRC=$(wildcard src/*.cc src/convert/*.cc)
 OBJS=$(SRC:.cc=.o)
-OUT=wdis
+OUT=wasmdec
 CC=clang++
 CCOPTS=-g -std=c++14 -Isrc/binaryen/src -c -Wall
 LDOPTS=-Lsrc/binaryen/lib -lbinaryen
@@ -18,7 +18,7 @@ $(OUT): $(OBJS)
 	$(CC) $(CCOPTS) $< -o $@
 
 clean:
-	rm -f *.o wdis
+	rm -f *.o wasmdec
 	rm -f src/*.o
 
 # To build binaryen

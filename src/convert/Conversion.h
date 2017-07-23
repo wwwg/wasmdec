@@ -9,7 +9,7 @@
 #include "../WasmContext.h"
 using namespace std;
 
-namespace wdis {
+namespace wasmdec {
 	class Convert {
 	public:
 		static string getFName(wasm::Name);
@@ -27,6 +27,6 @@ namespace wdis {
 		static string getFuncBody(Context, bool);
 		static string parseOperandList(Context*, wasm::ExpressionList*, int);
 	};
-} // namespace wdis
+} // namespace wasmdec
 
 #endif // _CONVER_H

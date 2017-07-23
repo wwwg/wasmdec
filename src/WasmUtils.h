@@ -5,7 +5,7 @@
 using namespace wasm;
 using namespace std;
 
-namespace wdis {
+namespace wasmdec {
 	class util {
 	public:
 		static FunctionType* resolveFType(Module*, Name);
@@ -17,10 +17,10 @@ namespace wdis {
 		template<typename T>
 		static string getHex(T val);
 	};
-}; // namespace wdis
+}; // namespace wasmdec
 
 template<typename T>
-string wdis::util::getHex(T val) {
+string wasmdec::util::getHex(T val) {
   stringstream stream;
   stream << "0x" 
          << setfill ('0') << setw(sizeof(T) * 2) 

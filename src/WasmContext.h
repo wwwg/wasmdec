@@ -4,7 +4,7 @@
 #include "wasm.h"
 using namespace wasm;
 
-namespace wdis {
+namespace wasmdec {
 	// Context is a union between WASM functions and modules
 	class Context {
 	public:
@@ -14,6 +14,6 @@ namespace wdis {
 		Context(Function*, Module*);
 		Context(Module*);
 	};
-} // namespace wdis
+} // namespace wasmdec
 
 #endif // _WASM_CONTEXT_H

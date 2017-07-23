@@ -8,7 +8,7 @@
 class Convert;
 #endif
 
-namespace wdis {
+namespace wasmdec {
 	class InterLocal {
 	public:
 		wasm::Function* fn;
@@ -27,6 +27,6 @@ namespace wdis {
 			return ret;
 		}
 	};
-} // namespace wdis
+} // namespace wasmdec
 
 #endif // _INTER_LOCAL_H

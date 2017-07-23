@@ -1,5 +1,5 @@
 #include "WasmUtils.h"
-using namespace wdis;
+using namespace wasmdec;
 
 FunctionType* util::resolveFType(Module* m, Name nm) {
 	for (int i = 0; i < m->functionTypes.size(); ++i) {

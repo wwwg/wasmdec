@@ -1,5 +1,5 @@
 #include "CodeGen.h"
-using namespace wdis;
+using namespace wasmdec;
 using namespace std;
 
 CodeGenerator::CodeGenerator(vector<char>* inbin, bool useDebug, bool _emitExtraData) : binary((*inbin)), parser(module, binary, useDebug) {
@@ -100,7 +100,7 @@ string CodeGenerator::getEmittedCode() {
 // Debug functions
 void CodeGenerator::debug(string msg) {
 	if (isDebug) {
-		cerr << "wdis CodeGen: " << msg;
+		cerr << "wasmdec CodeGen: " << msg;
 	}
 }
 void CodeGenerator::debugf(string msg) {

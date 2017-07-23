@@ -1,5 +1,5 @@
-#ifndef _WDIS_EMITTER_H
-#define _WDIS_EMITTER_H
+#ifndef _wasmdec_EMITTER_H
+#define _wasmdec_EMITTER_H
 
 #include <fstream>
 #include <sstream>
@@ -9,7 +9,7 @@
 #include <iterator>
 using namespace std;
 
-namespace wdis {
+namespace wasmdec {
 	class Emitter {
 	public:
 		Emitter();
@@ -20,6 +20,6 @@ namespace wdis {
 	protected:
 		stringstream str;
 	};
-} // namespace wdis
+} // namespace wasmdec
 
-#endif // _WDIS_EMITTER_H
+#endif // _wasmdec_EMITTER_H

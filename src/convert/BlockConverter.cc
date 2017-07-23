@@ -5,7 +5,7 @@
 using namespace std;
 using namespace wasm;
 
-string wdis::Convert::getBlockBody(Context* ctx, Block* blck, int depth) {
+string wasmdec::Convert::getBlockBody(Context* ctx, Block* blck, int depth) {
 	// Stream all block expressions and components into a string
 	stringstream s;
 	for (auto& expr : blck->list) {
@@ -13,7 +13,7 @@ string wdis::Convert::getBlockBody(Context* ctx, Block* blck, int depth) {
 	}
 	return s.str();
 }
-string wdis::Convert::getFuncBody(Context ctx, bool addExtraInfo) {
+string wasmdec::Convert::getFuncBody(Context ctx, bool addExtraInfo) {
 	string fnBody;
 	fnBody += " {\n";
 	// Convert function locals to intermediate locals

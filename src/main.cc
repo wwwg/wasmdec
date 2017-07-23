@@ -7,7 +7,7 @@
 #include "CodeGen.h"
 
 using namespace std;
-using namespace wdis;
+using namespace wasmdec;
 
 vector<char> readFile(string path) {
 	ifstream file(path);
@@ -28,7 +28,7 @@ void writeFile(string path, string data) {
 }
 int usage() {
 	cout << "Usage:" << endl
-	<< "wdis <infile> <outfile>" << endl;
+	<< "wasmdec <infile> <outfile>" << endl;
 	return 1;
 }
 int main(int argc, const char** argv) {

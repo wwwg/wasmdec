@@ -1,5 +1,5 @@
 #include "WasmContext.h"
-using namespace wdis;
+using namespace wasmdec;
 
 Context::Context(Function* _fn, Module* _md) {
 	isGlobal = false;

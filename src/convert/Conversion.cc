@@ -1,18 +1,18 @@
 #include "Conversion.h"
 
-string wdis::Convert::getFName(wasm::Name name) {
+string wasmdec::Convert::getFName(wasm::Name name) {
 	// Convert WASM names to C function names
 	return "fn_" + string(name.str);
 }
-string wdis::Convert::getLocal(wasm::Index argIdx) {
+string wasmdec::Convert::getLocal(wasm::Index argIdx) {
 	// Convert WASM function locals to C variable names
 	return "local_" + to_string((int)argIdx);
 }
-string wdis::Convert::voidCall(wasm::Function* fn) {
+string wasmdec::Convert::voidCall(wasm::Function* fn) {
 	// Call a void function
 	return getFName(fn->name) + "();";
 }
-string wdis::Convert::getBinOperator(wasm::BinaryOp op) { // TODO : Add more binary operations
+string wasmdec::Convert::getBinOperator(wasm::BinaryOp op) { // TODO : Add more binary operations
 	// Convert WASM binary operations to their respective C representation
 	switch (op) {
 		case AddInt32:
@@ -89,7 +89,7 @@ string wdis::Convert::getBinOperator(wasm::BinaryOp op) { // TODO : Add more bin
 	}
 	return "NONE"; // Operation unimplemented or an unknown enumeration
 }
-string wdis::Convert::resolveType(wasm::WasmType typ) {
+string wasmdec::Convert::resolveType(wasm::WasmType typ) {
 	// Resolve wasm::WasmType to a C type
 	switch (typ) {
 		case wasm::WasmType::none:
@@ -110,7 +110,7 @@ string wdis::Convert::resolveType(wasm::WasmType typ) {
 			break;
 	}
 }
-string wdis::Convert::getDecl(wasm::FunctionType* typ, string fname) {
+string wasmdec::Convert::getDecl(wasm::FunctionType* typ, string fname) {
 	// Get a C function decloration from a FunctionType and name
 	string ret = resolveType(typ->result); // Return type
 	ret += " "; // Space between ret type and name
@@ -127,7 +127,7 @@ string wdis::Convert::getDecl(wasm::FunctionType* typ, string fname) {
 	ret += ")";
 	return ret;
 }
-string wdis::Convert::getDecl(wasm::FunctionType* typ, wasm::Name fname) {
+string wasmdec::Convert::getDecl(wasm::FunctionType* typ, wasm::Name fname) {
 	// Overload to support WASM names
 	string ret = resolveType(typ->result); // Return type
 	ret += " "; // Space between ret type and name
@@ -144,7 +144,7 @@ string wdis::Convert::getDecl(wasm::FunctionType* typ, wasm::Name fname) {
 	ret += ")";
 	return ret;
 }
-string wdis::Convert::getDecl(wasm::Function* fn) {
+string wasmdec::Convert::getDecl(wasm::Function* fn) {
 	// Get C function decloration from WASM function
 	string ret = resolveType(fn->result); // Return type
 	ret += " "; // Space between ret type and name
@@ -162,7 +162,7 @@ string wdis::Convert::getDecl(wasm::Function* fn) {
 	ret += ")";
 	return ret;
 }
-string wdis::Convert::getDecl(wasm::Module* m, unique_ptr<wasm::Import>& i) {
+string wasmdec::Convert::getDecl(wasm::Module* m, unique_ptr<wasm::Import>& i) {
 	// Convert WASM imports to their respective C declorations as C externs
 	string ret = "extern ";
 	if (i->kind == wasm::ExternalKind::Function) {
@@ -188,7 +188,7 @@ string wdis::Convert::getDecl(wasm::Module* m, unique_ptr<wasm::Import>& i) {
 	}
 	return ret;
 }
-string wdis::Convert::parseOperandList(Context* ctx, ExpressionList* list, int depth) {
+string wasmdec::Convert::parseOperandList(Context* ctx, ExpressionList* list, int depth) {
 	if (list->size()) {
 		string ret = "(";
 		for (int i = 0; i < list->size(); ++i) {

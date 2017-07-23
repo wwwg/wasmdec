@@ -8,6 +8,6 @@ int main() {
 			break;
 		}
 	}
-	printf("%s\n", "Hello, wdis!");
+	printf("%s\n", "Hello, wasmdec!");
 	return 0;
 }

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-namespace wdis {
+namespace wasmdec {
 	class CodeGenerator {
 	public:
 		wasm::Module module;
@@ -22,6 +22,6 @@ namespace wdis {
 		void debug(string);
 		void debugf(string);
 	};
-} // namespace wdis
+} // namespace wasmdec
 
 #endif // _CODEGEN_H

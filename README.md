@@ -1,12 +1,12 @@
-# wdis
-wdis is a program that converts WebAssembly binaries to pseudo-C code.
+# wasmdec
+wasmdec is a program that converts WebAssembly binaries to pseudo-C code.
 
 # Building
 To build, run `make binaryen && make`.
 If the executable fails to locate `libbinaryen.so`, move / copy `src/binaryen/lib/libbinaryen.so` to `/usr/lib64`.
 
 # Example
-wdis will translate this WebAssembly binary:
+wasmdec will translate this WebAssembly binary:
 ```
 (module
 	(func $addTwo (param i32 i32) (result i32)
@@ -28,7 +28,7 @@ int32_t fn_addTwo(int32_t arg0, int32_t arg1) {
 ```
 
 # Support
-wdis **lacks** the following WASM features:
+wasmdec **lacks** the following WASM features:
 - Atomics (No support currently planned)
 - Unary operations
 - A few uncommon binary operations

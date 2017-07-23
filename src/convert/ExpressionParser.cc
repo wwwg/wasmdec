@@ -2,7 +2,7 @@
 using namespace std;
 using namespace wasm;
 
-string wdis::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
+string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 	string ret;
 	if (ex->is<Block>()) {
 		// Recursively parse blocks
