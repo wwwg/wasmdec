@@ -18,6 +18,11 @@ unsigned int _rotr(const unsigned int value, int shift) {
 }
 #define MAX(a,b) ((a) > (b) ? a : b)
 #define MIN(a,b) ((a) < (b) ? a : b)
+// Host functions: used to request information from host machine.
+extern int32_t host_has_feature(const char* feature);
+extern void host_grow_memory(int32_t size);
+extern int32_t host_get_current_memory(void);
+extern int32_t host_get_page_size(void);
 // End of preamble
 
 // WASM imports:

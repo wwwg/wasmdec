@@ -81,6 +81,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		if (br->value) {
 			string val = parseExpr(ctx, br->value, depth);
 			// TODO : parse break values
+			// cout << "Break val: " << val << endl;
 		}
 	} else if (ex->is<Call>()) {
 		// Function call
@@ -222,7 +223,8 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		ret += util::tab(1);
 		ret += "/* End of drop routine */\n";
 	} else if (ex->is<Host>()) {
-		// TODO : implement host expressions
+		Host* hexp = ex->cast<Host>();
+		string hoperands = parseOperandList(hexp->operands);
 	} else if (ex->is<Unreachable>()) {
 		// Unreachable contains no information
 		ret = "/* Unreachable */";
