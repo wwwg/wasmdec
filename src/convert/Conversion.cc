@@ -119,6 +119,14 @@ string wasmdec::Convert::getBinOperator(string e1, wasm::BinaryOp bop, string e2
 		case ShrSInt64:
 			op = ">>"; return e1 + " " + op + " " + e2;
 			break;
+		case MinFloat32:
+		case MinFloat64:
+			return "MIN(" + e1 + ", " + e2 + ")";
+			break;
+		case MaxFloat32:
+		case MaxFloat64:
+			return "MAX(" + e1 + ", " + e2 + ")";
+			break;
 	}
 	op = "/* Unsupported binary operator */"; // Operation unimplemented or an unknown enumeration
 	return op;
