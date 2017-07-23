@@ -231,8 +231,10 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		// Unreachable contains no information
 		ret = "/* Unreachable */";
 	}
+	/*
 	cout << "<Parsed>" << endl
 	<< ret << endl
 	<< "</Parsed>" << endl << endl;
+	*/
 	return ret;
 }
