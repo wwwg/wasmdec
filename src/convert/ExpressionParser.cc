@@ -194,7 +194,8 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		// Append C representation
 		ret += util::tab(depth) + var + " = " + val + "; \n";
 	} else if (ex->is<Unary>()) {
-		// TODO : WASM unary operations
+		Unary* uex = ex->cast<Unary>();
+		string unaryEx = parseExpr(ctx, uex->value, depth);
 	} else if (ex->is<AtomicRMW>()) {
 		// WASM currently has no support for atomics
 		ret = "/* Atomic operation unsupported */\n";
