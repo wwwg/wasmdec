@@ -225,6 +225,8 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 	} else if (ex->is<Host>()) {
 		Host* hexp = ex->cast<Host>();
 		string hoperands = parseOperandList(ctx, &(hexp->operands), depth);
+		string hfunc = getHostFunc(hexp->op);
+		ret += "/* Host call */\n" + hfunc + hoperands;
 	} else if (ex->is<Unreachable>()) {
 		// Unreachable contains no information
 		ret = "/* Unreachable */";
