@@ -45,13 +45,17 @@ int usage() {
 	<< "\t -v / --version : Print the program's version" << endl;
 	return 1;
 }
+int usage(int optionalRetVal) {
+	usage();
+	return optionalRetVal;
+}
 int main(int argc, const char** argv) {
 	string infile, outfile;
 	bool enableDebugging = false;
 	bool enableExtra = false;
 	if (argc == 2) {
 		string argv1 = string(argv[1]);
-		if (argv1 == "-h" || argv1 == "--help") return usage();
+		if (argv1 == "-h" || argv1 == "--help") return usage(0);
 		if (argv1 == "-v" || argv1 == "--version") {
 			cout << "wasmdec v" << __WASMDEC_VERSION << endl;
 			return 0;
