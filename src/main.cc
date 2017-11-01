@@ -77,14 +77,18 @@ int main(int argc, const char** argv) {
 		return usage();
 	}
 	vector<char> vfile = vector<char>();
-	bool success = readFile(&vfile, infile);
-	if (!success) {
+	bool rsuccess = readFile(&vfile, infile);
+	if (!rsuccess) {
 		cout << "wasmdec: failed to read file '" << infile << "'" << endl;
 		return 1;
 	}
 	CodeGenerator generator(&vfile, enableDebugging, enableExtra);
 	generator.gen();
 	auto res = generator.getEmittedCode();
-	writeFile(outfile, res);
+	bool wsuccess = writeFile(outfile, res);
+	if (!wsuccess) {
+		cout << "wasmdec: failed to write file '" << outfile << "'" << endl;
+		return 1;
+	}
 	return 0;
 }
