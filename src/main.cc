@@ -1,3 +1,5 @@
+#define __WASMDEC_VERSION "1.0.0"
+
 #include <fstream>
 #include <sstream>
 #include <vector>
@@ -39,7 +41,8 @@ int usage() {
 	<< "\t -i / --in <infile> : Path to input file (Required)" << endl
 	<< "\t -d / --debug : Enable debug output" << endl
 	<< "\t -e / --extra : Emit extra data into outfile" << endl
-	<< "\t -h / --help : Print usage information" << endl;
+	<< "\t -h / --help : Print usage information" << endl
+	<< "\t -v / --version : Print the program's version" << endl;
 	return 1;
 }
 int main(int argc, const char** argv) {
@@ -49,6 +52,10 @@ int main(int argc, const char** argv) {
 	if (argc == 2) {
 		string argv1 = string(argv[1]);
 		if (argv1 == "-h" || argv1 == "--help") return usage();
+		if (argv1 == "-v" || argv1 == "--version") {
+			cout << "wasmdec v" << __WASMDEC_VERSION << endl;
+			return 0;
+		}
 	}
 	if (argc < 2) return usage();
 	for (int i = 0; i < argc; ++i) {
