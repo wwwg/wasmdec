@@ -40,10 +40,7 @@ int main(int argc, const char** argv) {
 	string infile, outfile;
 	bool enableDebugging = false;
 	bool enableExtra = false;
-	if (argc < 2) {
-		cout << "Not enough arguments!" << endl;
-		return usage();
-	}
+	if (argc < 2) return usage();
 	for (int i = 0; i < argc; ++i) {
 		string sarg = string(argv[i]);
 		if (sarg == "-d" || sarg == "--debug") {
