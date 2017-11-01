@@ -115,16 +115,9 @@ float32_t global$18 = 0.000000;
 
 // WASM functions:
 
-/*
-	Function '$stackAlloc'
-	Local variables: 1
-	Parameters: 1
-	Immediate block expressions: 1
-*/
 int32_t fn_stackAlloc(int32_t local_0) {
 	// Parsed WASM function locals:
-	int32_t local_1 = 0; // Local with index '1'
-
+	int32_t local_1; 
 	local_1 = global$3;
 	global$3 = global$3 + local_0;
 	global$3 = global$3 + 15 && -16;
@@ -134,69 +127,34 @@ int32_t fn_stackAlloc(int32_t local_0) {
 	} // <No else block>
 	return local_1;
 }
-/*
-	Function '$stackSave'
-	Local variables: 0
-	Parameters: 0
-	Immediate block expressions: 1
-*/
 int32_t fn_stackSave() {
-	// Function contains no non-parameter locals
 	return global$3;
 }
-/*
-	Function '$stackRestore'
-	Local variables: 0
-	Parameters: 1
-	Immediate block expressions: 1
-*/
 void fn_stackRestore(int32_t local_0) {
-	// Function contains no non-parameter locals
 	global$3 = local_0;
 }
-/*
-	Function '$establishStackSpace'
-	Local variables: 0
-	Parameters: 2
-	Immediate block expressions: 1
-*/
 void fn_establishStackSpace(int32_t local_0, int32_t local_1) {
-	// Function contains no non-parameter locals
 	global$3 = local_0;
 	global$4 = local_1;
 }
-/*
-	Function '$setThrew'
-	Local variables: 0
-	Parameters: 2
-	Immediate block expressions: 1
-*/
 void fn_setThrew(int32_t local_0, int32_t local_1) {
-	// Function contains no non-parameter locals
 	if (global$5 == 0) {
 	global$5 = local_0;
 	global$6 = local_1;
 
 	} // <No else block>
 }
-/*
-	Function '$_main'
-	Local variables: 9
-	Parameters: 0
-	Immediate block expressions: 1
-*/
 int32_t fn__main() {
 	// Parsed WASM function locals:
-	int32_t local_0 = 0; // Local with index '0'
-	int32_t local_1 = 0; // Local with index '1'
-	int32_t local_2 = 0; // Local with index '2'
-	int32_t local_3 = 0; // Local with index '3'
-	int32_t local_4 = 0; // Local with index '4'
-	int32_t local_5 = 0; // Local with index '5'
-	int32_t local_6 = 0; // Local with index '6'
-	int32_t local_7 = 0; // Local with index '7'
-	int32_t local_8 = 0; // Local with index '8'
-
+	int32_t local_0; 
+	int32_t local_1; 
+	int32_t local_2; 
+	int32_t local_3; 
+	int32_t local_4; 
+	int32_t local_5; 
+	int32_t local_6; 
+	int32_t local_7; 
+	int32_t local_8; 
 	local_8 = global$3;
 	global$3 = global$3 + 16;
 	if (global$3 >= global$4) {
@@ -228,26 +186,12 @@ int32_t fn__main() {
 	global$3 = local_8;
 	return 0;
 }
-/*
-	Function '$runPostSets'
-	Local variables: 1
-	Parameters: 0
-	Immediate block expressions: 1
-*/
 void fn_runPostSets() {
 	// Parsed WASM function locals:
-	int32_t local_0 = 0; // Local with index '0'
-
+	int32_t local_0; 
 	// <Nop expression>
 }
-/*
-	Function '$__post_instantiate'
-	Local variables: 0
-	Parameters: 0
-	Immediate block expressions: 1
-*/
 void fn___post_instantiate() {
-	// Function contains no non-parameter locals
 	global$3 = import$3 + 32;
 	global$4 = global$3 + 5242880;
 	fn_runPostSets();

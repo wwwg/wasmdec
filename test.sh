@@ -1,2 +1,3 @@
-# Temporary script to run various tests
-./wasmdec test/wasm/emcc.wasm test/disasm/emcc.c
+#!/bin/bash
+clear
+./wasmdec --in test/emcc/main.c --out test/disasm/emcc.c --debug --extra
