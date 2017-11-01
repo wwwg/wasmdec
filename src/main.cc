@@ -28,20 +28,47 @@ void writeFile(string path, string data) {
 }
 int usage() {
 	cout << "Usage:" << endl
-	<< "wasmdec <infile> <outfile>" << endl;
+	<< "wasmdec {arguments}" << endl
+	<< "Arguments:" << endl
+	<< "\t -o / --out <outfile> : Path to output file" << endl
+	<< "\t -i / --in <infile> : Path to input file" << endl
+	<< "\t -d / --debug : Enable debug output" << endl
+	<< "\t -e / --extra : Emit extra data into outfile" << endl;
 	return 1;
 }
 int main(int argc, const char** argv) {
-	// Temporary hack to allow custom inputs/outputs. I know this isn't secure, but it's just for testing
-	if (argc != 3) {
+	string infile, outfile;
+	bool enableDebugging = false;
+	bool enableExtra = false;
+	if (argc < 2) {
+		cout << "Not enough arguments!" << endl;
 		return usage();
 	}
-	string infile = string(argv[1]);
-	string outfile = string(argv[2]);
-	cout << "Decompiling wasm file " << infile << " to " << outfile << endl;
-
+	for (int i = 0; i < argc; ++i) {
+		string sarg = string(argv[i]);
+		if (sarg == "-d" || sarg == "--debug") {
+			enableDebugging = true;
+		} else if (sarg == "-e" || sarg == "--extra") {
+			enableExtra = true;
+		} else if (sarg == "-o" || sarg == "--out") {
+			int outnameIndex = i + 1;
+			if (outnameIndexfnameIndex >= argc) {
+				return usage(); // Invalid arguments
+			}
+			// Set output file
+			outfile = string(argv[outnameIndex]);
+		} else if (sarg == "-i" || sarg == "--in") {
+			int innameIndex = i + 1;
+			if (innameIndex >= argc) {
+				return usage(); // Invalid arguments
+			}
+			// Set input file
+			infile = string(argv[innameIndex]);
+		}
+	}
+	
 	auto vfile = readFile(infile);
-	CodeGenerator generator(&vfile, true, true);
+	CodeGenerator generator(&vfile, enableDebugging, enableExtra);
 	generator.gen();
 	auto res = generator.getEmittedCode();
 	writeFile(outfile, res);
