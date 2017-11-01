@@ -10,8 +10,9 @@ CodeGenerator::CodeGenerator(vector<char>* inbin, bool useDebug, bool _emitExtra
 	try {
 		parser.read();
 	} catch (wasm::ParseException& err) {
+		cerr << "wasmdec: FAILED to parse wasm binary:"
 		err.dump(cerr);
-		cout << "Failed to parse wasm binary." << endl;
+		cerr << endl;
 		return;
 	}
 	debug("Parsed bin successfully.\n");
