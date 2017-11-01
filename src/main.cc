@@ -22,10 +22,15 @@ bool readFile(vector<char>* data, string path) {
 		return false;
 	}
 }
-void writeFile(string path, string data) {
-	ofstream f(path);
-	f << data;
-	f.close();
+bool writeFile(string path, string data) {
+	ofstream file(path);
+	if (!file.eof() && !file.fail()) {
+		file << data;
+		file.close();
+		return true;
+	} else {
+		return false;
+	}
 }
 int usage() {
 	cout << "Usage:" << endl
@@ -73,6 +78,10 @@ int main(int argc, const char** argv) {
 	}
 	vector<char> vfile = vector<char>();
 	bool success = readFile(&vfile, infile);
+	if (!success) {
+		cout << "wasmdec: failed to read file '" << infile << "'" << endl;
+		return 1;
+	}
 	CodeGenerator generator(&vfile, enableDebugging, enableExtra);
 	generator.gen();
 	auto res = generator.getEmittedCode();
