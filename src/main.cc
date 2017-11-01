@@ -30,8 +30,8 @@ int usage() {
 	cout << "Usage:" << endl
 	<< "wasmdec {arguments}" << endl
 	<< "Arguments:" << endl
-	<< "\t -o / --out <outfile> : Path to output file" << endl
-	<< "\t -i / --in <infile> : Path to input file" << endl
+	<< "\t -o / --out <outfile> : Path to output file (Required)" << endl
+	<< "\t -i / --in <infile> : Path to input file (Required)" << endl
 	<< "\t -d / --debug : Enable debug output" << endl
 	<< "\t -e / --extra : Emit extra data into outfile" << endl;
 	return 1;
