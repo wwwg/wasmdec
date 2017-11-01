@@ -66,7 +66,9 @@ int main(int argc, const char** argv) {
 			infile = string(argv[innameIndex]);
 		}
 	}
-	
+	if (!infile.length() || !outfile.length()) {
+		return usage();
+	}
 	auto vfile = readFile(infile);
 	CodeGenerator generator(&vfile, enableDebugging, enableExtra);
 	generator.gen();
