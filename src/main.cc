@@ -32,13 +32,18 @@ int usage() {
 	<< "\t -o / --out <outfile> : Path to output file (Required)" << endl
 	<< "\t -i / --in <infile> : Path to input file (Required)" << endl
 	<< "\t -d / --debug : Enable debug output" << endl
-	<< "\t -e / --extra : Emit extra data into outfile" << endl;
+	<< "\t -e / --extra : Emit extra data into outfile" << endl
+	<< "\t -h / --help : Print usage information" << endl;
 	return 1;
 }
 int main(int argc, const char** argv) {
 	string infile, outfile;
 	bool enableDebugging = false;
 	bool enableExtra = false;
+	if (argc == 2) {
+		string argv1 = string(argv[1]);
+		if (argv1 == "-h" || argv1 == "--help") return usage();
+	}
 	if (argc < 2) return usage();
 	for (int i = 0; i < argc; ++i) {
 		string sarg = string(argv[i]);
