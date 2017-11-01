@@ -28,8 +28,7 @@ void writeFile(string path, string data) {
 }
 int usage() {
 	cout << "Usage:" << endl
-	<< "wasmdec {arguments}" << endl
-	<< "Arguments:" << endl
+	<< "wasmdec {arguments}, where arguments is one of:" << endl
 	<< "\t -o / --out <outfile> : Path to output file (Required)" << endl
 	<< "\t -i / --in <infile> : Path to input file (Required)" << endl
 	<< "\t -d / --debug : Enable debug output" << endl
