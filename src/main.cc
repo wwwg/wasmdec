@@ -83,6 +83,10 @@ int main(int argc, const char** argv) {
 		return 1;
 	}
 	CodeGenerator generator(&vfile, enableDebugging, enableExtra);
+	if (generator.failed()) {
+		cerr << "wasmdec: Code generation failed, aborting." << endl;
+		return 1;
+	}
 	generator.gen();
 	auto res = generator.getEmittedCode();
 	bool wsuccess = writeFile(outfile, res);

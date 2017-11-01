@@ -18,6 +18,7 @@ namespace wasmdec {
 		CodeGenerator(vector<char>*, bool, bool);
 		void gen();
 		string getEmittedCode();
+		bool failed();
 	protected:
 		void debug(string);
 		void debugf(string);

@@ -114,3 +114,7 @@ void CodeGenerator::debugf(string msg) {
 		cerr << msg;
 	}
 }
+bool CodeGenerator::failed() {
+	// TODO : Develop this function to support other code generation failures
+	return parserFailed;
+}
