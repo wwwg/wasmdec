@@ -9,10 +9,12 @@ CodeGenerator::CodeGenerator(vector<char>* inbin, bool useDebug, bool _emitExtra
 	// Attempt to parse binary via Binaryen's AST parser
 	try {
 		parser.read();
+		parserFailed = false;
 	} catch (wasm::ParseException& err) {
 		cerr << "wasmdec: FAILED to parse wasm binary: " << endl;
 		err.dump(cerr);
 		cerr << endl;
+		parserFailed = true;
 		return;
 	}
 	debug("Parsed bin successfully.\n");

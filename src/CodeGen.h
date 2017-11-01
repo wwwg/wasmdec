@@ -21,6 +21,7 @@ namespace wasmdec {
 	protected:
 		void debug(string);
 		void debugf(string);
+		bool parserFailed;
 	};
 } // namespace wasmdec
 
