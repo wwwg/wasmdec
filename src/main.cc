@@ -9,17 +9,18 @@
 using namespace std;
 using namespace wasmdec;
 
-vector<char> readFile(string path) {
+bool readFile(vector<char>* data, string path) {
 	ifstream file(path);
-	vector<char> vfile;
 	if (!file.eof() && !file.fail()) {
 	    file.seekg(0, ios_base::end);
 	    streampos fileSize = file.tellg();
-	    vfile.resize(fileSize);
+	    data->resize(fileSize);
 	    file.seekg(0, ios_base::beg);
-	    file.read(&vfile[0], fileSize);
+	    file.read(&(data->operator[](0)), fileSize);
+		return true;
+	} else {
+		return false;
 	}
-	return vfile;
 }
 void writeFile(string path, string data) {
 	ofstream f(path);
@@ -70,7 +71,8 @@ int main(int argc, const char** argv) {
 	if (!infile.length() || !outfile.length()) {
 		return usage();
 	}
-	auto vfile = readFile(infile);
+	vector<char> vfile = vector<char>();
+	bool success = readFile(&vfile, infile);
 	CodeGenerator generator(&vfile, enableDebugging, enableExtra);
 	generator.gen();
 	auto res = generator.getEmittedCode();
