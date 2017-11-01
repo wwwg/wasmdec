@@ -6,8 +6,8 @@
 #include <string>
 #include <iostream>
 #include <iterator>
-#include "CodeGen.h"
 
+#include "CodeGen.h"
 using namespace std;
 using namespace wasmdec;
 
