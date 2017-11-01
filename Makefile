@@ -5,7 +5,7 @@ CC=clang++
 CCOPTS=-g -std=c++14 -Isrc/binaryen/src -c -Wall
 LDOPTS=-Lsrc/binaryen/lib -lbinaryen
 
-all: $(SRC) $(OUT)
+default: $(SRC) $(OUT)
 
 $(OUT): $(OBJS) 
 	@echo -n "Link "
