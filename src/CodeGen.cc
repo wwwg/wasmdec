@@ -20,6 +20,9 @@ CodeGenerator::CodeGenerator(vector<char>* inbin, bool useDebug, bool _emitExtra
 	debug("Parsed bin successfully.\n");
 }
 void CodeGenerator::gen() {
+	if (parserFailed) {
+		return;
+	}
 	debug("Starting code generation...\n");
 	// Process imports
 	if (module.imports.size()) {
