@@ -52,7 +52,7 @@ int main(int argc, const char** argv) {
 			enableExtra = true;
 		} else if (sarg == "-o" || sarg == "--out") {
 			int outnameIndex = i + 1;
-			if (outnameIndexfnameIndex >= argc) {
+			if (outnameIndex >= argc) {
 				return usage(); // Invalid arguments
 			}
 			// Set output file
