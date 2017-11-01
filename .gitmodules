@@ -1,6 +1,3 @@
 [submodule "binaryen"]
 	path = src/binaryen
 	url = https://github.com/WebAssembly/binaryen.git
-[submodule "uncrustify"]
-	path = src/uncrustify
-	url = https://github.com/uncrustify/uncrustify.git
