@@ -149,16 +149,16 @@ string wasmdec::Convert::resolveType(wasm::WasmType typ) {
 			return "void";
 			break;
 		case wasm::WasmType::i32:
-			return "int32_t";
+			return "int";
 			break;
 		case wasm::WasmType::i64:
-			return "int64_t";
+			return "long";
 			break;
 		case wasm::WasmType::f32:
-			return "float32_t";
+			return "float";
 			break;
 		case wasm::WasmType::f64:
-			return "float64_t";
+			return "double";
 			break;
 	}
 }
