@@ -7,7 +7,6 @@ CodeGenerator::CodeGenerator(vector<char>* inbin,
 	bool _emitExtraData) : binary((*inbin)), parser(module, binary, useDebug) {
 	isDebug = useDebug;
 	emitExtraData = _emitExtraData;
-	dumpMemory = _dumpMemory;
 	debug("Parsing wasm binary...\n");
 	// Attempt to parse binary via Binaryen's AST parser
 	try {
