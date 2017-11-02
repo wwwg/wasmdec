@@ -312,7 +312,7 @@ string wasmdec::Convert::getUnary(string exp, UnaryOp op) {
 		case TruncSFloat64ToInt64:
 		case TruncUFloat64ToInt64:
 		case ReinterpretFloat64:
-			return "(int64_t)" + exp;
+			return "(long)" + exp;
 			break;
 		case WrapInt64:
 		case TruncSFloat32ToInt32:
@@ -320,7 +320,7 @@ string wasmdec::Convert::getUnary(string exp, UnaryOp op) {
 		case TruncSFloat64ToInt32:
 		case TruncUFloat64ToInt32:
 		case ReinterpretFloat32:
-			return "(int32_t)" + exp;
+			return "(int)" + exp;
 			break;
 		case ConvertSInt32ToFloat32:
 		case ConvertUInt32ToFloat32:
@@ -328,7 +328,7 @@ string wasmdec::Convert::getUnary(string exp, UnaryOp op) {
 		case ConvertUInt64ToFloat32:
 		case DemoteFloat64:
 		case ReinterpretInt32:
-			return "(float32_t)" + exp;
+			return "(float)" + exp;
 			break;
 		case ConvertSInt32ToFloat64:
 		case ConvertUInt32ToFloat64:
@@ -336,7 +336,7 @@ string wasmdec::Convert::getUnary(string exp, UnaryOp op) {
 		case ConvertUInt64ToFloat64:
 		case PromoteFloat32:
 		case ReinterpretInt64:
-			return "(float64_t)" + exp;
+			return "(double)" + exp;
 			break;
 	}
 	return "/* Unsupported unary operator */";

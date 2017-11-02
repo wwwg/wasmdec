@@ -31,55 +31,55 @@ extern int32_t host_get_page_size(void);
 	Module: 'env'
 	Base: 'DYNAMICTOP_PTR'
 */
-extern int32_t import$0;
+extern int import$0;
 /*
 	Import 'import$1':
 	Module: 'env'
 	Base: 'tempDoublePtr'
 */
-extern int32_t import$1;
+extern int import$1;
 /*
 	Import 'import$2':
 	Module: 'env'
 	Base: 'ABORT'
 */
-extern int32_t import$2;
+extern int import$2;
 /*
 	Import 'import$3':
 	Module: 'env'
 	Base: 'memoryBase'
 */
-extern int32_t import$3;
+extern int import$3;
 /*
 	Import 'import$4':
 	Module: 'env'
 	Base: 'tableBase'
 */
-extern int32_t import$4;
+extern int import$4;
 /*
 	Import 'import$5':
 	Module: 'global'
 	Base: 'NaN'
 */
-extern float64_t import$5;
+extern double import$5;
 /*
 	Import 'import$6':
 	Module: 'global'
 	Base: 'Infinity'
 */
-extern float64_t import$6;
+extern double import$6;
 /*
 	Import 'import$7':
 	Module: 'env'
 	Base: 'abortStackOverflow'
 */
-extern void import$7(int32_t local_0)
+extern void import$7(int local_0)
 /*
 	Import 'import$8':
 	Module: 'env'
 	Base: '_printf'
 */
-extern int32_t import$8(int32_t local_0, int32_t local_1)
+extern int import$8(int local_0, int local_1)
 /*
 	Import 'import$9':
 	Module: 'env'
@@ -93,25 +93,25 @@ extern const char* import$9; // <Imported memory>
 */
 extern wasm_table_t import$10; // <Imported table>
 // WASM globals:
-int32_t global$0 = import$0;
-int32_t global$1 = import$1;
-int32_t global$2 = import$2;
-int32_t global$3 = 0;
-int32_t global$4 = 0;
-int32_t global$5 = 0;
-int32_t global$6 = 0;
-int32_t global$7 = 0;
-int32_t global$8 = 0;
-float64_t global$9 = import$5;
-float64_t global$10 = import$6;
-int32_t global$11 = 0;
-int32_t global$12 = 0;
-int32_t global$13 = 0;
-int32_t global$14 = 0;
-float64_t global$15 = 0.000000;
-int32_t global$16 = 0;
-float32_t global$17 = 0.000000;
-float32_t global$18 = 0.000000;
+int global$0 = import$0;
+int global$1 = import$1;
+int global$2 = import$2;
+int global$3 = 0;
+int global$4 = 0;
+int global$5 = 0;
+int global$6 = 0;
+int global$7 = 0;
+int global$8 = 0;
+double global$9 = import$5;
+double global$10 = import$6;
+int global$11 = 0;
+int global$12 = 0;
+int global$13 = 0;
+int global$14 = 0;
+double global$15 = 0.000000;
+int global$16 = 0;
+float global$17 = 0.000000;
+float global$18 = 0.000000;
 
 // WASM functions:
 
@@ -120,9 +120,9 @@ float32_t global$18 = 0.000000;
 	Local variables: 1
 	Parameters: 1
 */
-int32_t fn_stackAlloc(int32_t local_0) {
+int fn_stackAlloc(int local_0) {
 	// Parsed WASM function locals:
-	int32_t local_1 = 0; // Local with index '1'
+	int local_1 = 0; // Local with index '1'
 
 	local_1 = global$3;
 	global$3 = global$3 + local_0;
@@ -138,7 +138,7 @@ int32_t fn_stackAlloc(int32_t local_0) {
 	Local variables: 0
 	Parameters: 0
 */
-int32_t fn_stackSave() {
+int fn_stackSave() {
 	// Function contains no non-parameter locals
 	return global$3;
 }
@@ -147,7 +147,7 @@ int32_t fn_stackSave() {
 	Local variables: 0
 	Parameters: 1
 */
-void fn_stackRestore(int32_t local_0) {
+void fn_stackRestore(int local_0) {
 	// Function contains no non-parameter locals
 	global$3 = local_0;
 }
@@ -156,7 +156,7 @@ void fn_stackRestore(int32_t local_0) {
 	Local variables: 0
 	Parameters: 2
 */
-void fn_establishStackSpace(int32_t local_0, int32_t local_1) {
+void fn_establishStackSpace(int local_0, int local_1) {
 	// Function contains no non-parameter locals
 	global$3 = local_0;
 	global$4 = local_1;
@@ -166,7 +166,7 @@ void fn_establishStackSpace(int32_t local_0, int32_t local_1) {
 	Local variables: 0
 	Parameters: 2
 */
-void fn_setThrew(int32_t local_0, int32_t local_1) {
+void fn_setThrew(int local_0, int local_1) {
 	// Function contains no non-parameter locals
 	if (global$5 == 0) {
 	global$5 = local_0;
@@ -179,13 +179,13 @@ void fn_setThrew(int32_t local_0, int32_t local_1) {
 	Local variables: 5
 	Parameters: 1
 */
-int32_t fn__doubleValue(int32_t local_0) {
+int fn__doubleValue(int local_0) {
 	// Parsed WASM function locals:
-	int32_t local_1 = 0; // Local with index '1'
-	int32_t local_2 = 0; // Local with index '2'
-	int32_t local_3 = 0; // Local with index '3'
-	int32_t local_4 = 0; // Local with index '4'
-	int32_t local_5 = 0; // Local with index '5'
+	int local_1 = 0; // Local with index '1'
+	int local_2 = 0; // Local with index '2'
+	int local_3 = 0; // Local with index '3'
+	int local_4 = 0; // Local with index '4'
+	int local_5 = 0; // Local with index '5'
 
 	local_5 = global$3;
 	global$3 = global$3 + 16;
@@ -204,22 +204,22 @@ int32_t fn__doubleValue(int32_t local_0) {
 	Local variables: 14
 	Parameters: 0
 */
-int32_t fn__main() {
+int fn__main() {
 	// Parsed WASM function locals:
-	int32_t local_0 = 0; // Local with index '0'
-	int32_t local_1 = 0; // Local with index '1'
-	int32_t local_2 = 0; // Local with index '2'
-	int32_t local_3 = 0; // Local with index '3'
-	int32_t local_4 = 0; // Local with index '4'
-	int32_t local_5 = 0; // Local with index '5'
-	int32_t local_6 = 0; // Local with index '6'
-	int32_t local_7 = 0; // Local with index '7'
-	int32_t local_8 = 0; // Local with index '8'
-	int32_t local_9 = 0; // Local with index '9'
-	int32_t local_10 = 0; // Local with index '10'
-	int32_t local_11 = 0; // Local with index '11'
-	int32_t local_12 = 0; // Local with index '12'
-	int32_t local_13 = 0; // Local with index '13'
+	int local_0 = 0; // Local with index '0'
+	int local_1 = 0; // Local with index '1'
+	int local_2 = 0; // Local with index '2'
+	int local_3 = 0; // Local with index '3'
+	int local_4 = 0; // Local with index '4'
+	int local_5 = 0; // Local with index '5'
+	int local_6 = 0; // Local with index '6'
+	int local_7 = 0; // Local with index '7'
+	int local_8 = 0; // Local with index '8'
+	int local_9 = 0; // Local with index '9'
+	int local_10 = 0; // Local with index '10'
+	int local_11 = 0; // Local with index '11'
+	int local_12 = 0; // Local with index '12'
+	int local_13 = 0; // Local with index '13'
 
 	local_13 = global$3;
 	global$3 = global$3 + 32;
@@ -275,7 +275,7 @@ int32_t fn__main() {
 */
 void fn_runPostSets() {
 	// Parsed WASM function locals:
-	int32_t local_0 = 0; // Local with index '0'
+	int local_0 = 0; // Local with index '0'
 
 	// <Nop expression>
 }
