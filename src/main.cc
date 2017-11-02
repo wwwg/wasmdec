@@ -95,7 +95,7 @@ int main(int argc, const char** argv) {
 		cerr << "wasmdec: Failed to read file '" << infile << "'" << endl;
 		return 1;
 	}
-	CodeGenerator generator(&vfile, enableDebugging, enableExtra, enableMemdump);
+	CodeGenerator generator(&vfile, enableDebugging, enableExtra);
 	if (generator.failed()) {
 		cerr << "wasmdec: Code generation failed, aborting." << endl;
 		return 1;

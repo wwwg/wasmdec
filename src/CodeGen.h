@@ -13,7 +13,7 @@ namespace wasmdec {
 		vector<char> binary;
 		wasm::WasmBinaryBuilder parser;
 		Emitter emit;
-		CodeGenerator(vector<char>*, bool, bool, bool);
+		CodeGenerator(vector<char>*, bool, bool);
 		void gen();
 		string getEmittedCode();
 		bool failed();
@@ -24,7 +24,6 @@ namespace wasmdec {
 		bool isDebug;
 		bool emitExtraData;
 		// Memdump
-		bool dumpMemory;
 		vector<char> rawTable;
 		vector<char> rawMemory;
 	};

@@ -4,8 +4,7 @@ using namespace std;
 
 CodeGenerator::CodeGenerator(vector<char>* inbin,
 	bool useDebug,
-	bool _emitExtraData,
-	bool _dumpMemory) : binary((*inbin)), parser(module, binary, useDebug) {
+	bool _emitExtraData) : binary((*inbin)), parser(module, binary, useDebug) {
 	isDebug = useDebug;
 	emitExtraData = _emitExtraData;
 	dumpMemory = _dumpMemory;
