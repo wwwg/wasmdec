@@ -41,6 +41,7 @@ int usage() {
 	<< "\t -i / --in <infile> : Path to input file (Required)" << endl
 	<< "\t -d / --debug : Enable debug output" << endl
 	<< "\t -e / --extra : Emit extra data into outfile" << endl
+	<< "\t -d / --memdump : Dump the input file's memory to disk" << endl
 	<< "\t -h / --help : Print usage information" << endl
 	<< "\t -v / --version : Print the program's version" << endl;
 	return 1;
@@ -83,6 +84,8 @@ int main(int argc, const char** argv) {
 			}
 			// Set input file
 			infile = string(argv[innameIndex]);
+		} else if (sarg == "-d" || sarg == "--memdump") {
+			enableMemdump = true;
 		}
 	}
 	if (!infile.length() || !outfile.length()) {
