@@ -67,7 +67,6 @@ void CodeGenerator::gen() {
 		for (const auto &func : parser.functions) {
 			if (emitExtraData) {
 				// Emit information about the function as a comment
-				wasm::Block* fnBody = func->body->cast<wasm::Block>();
 				emit << "/*" << endl
 				<< "\tFunction '" << func->name << "'" << endl
 				<< "\tLocal variables: " << func->vars.size() << endl
