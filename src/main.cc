@@ -51,8 +51,9 @@ int usage(int optionalRetVal) {
 }
 int main(int argc, const char** argv) {
 	string infile, outfile;
-	bool enableDebugging = false;
-	bool enableExtra = false;
+	bool enableDebugging = false,
+		enableExtra = false,
+		enableMemdump = false;
 	if (argc == 2) {
 		string argv1 = string(argv[1]);
 		if (argv1 == "-h" || argv1 == "--help") return usage(0);
@@ -93,7 +94,7 @@ int main(int argc, const char** argv) {
 		cerr << "wasmdec: Failed to read file '" << infile << "'" << endl;
 		return 1;
 	}
-	CodeGenerator generator(&vfile, enableDebugging, enableExtra);
+	CodeGenerator generator(&vfile, enableDebugging, enableExtra, enableMemdump);
 	if (generator.failed()) {
 		cerr << "wasmdec: Code generation failed, aborting." << endl;
 		return 1;
