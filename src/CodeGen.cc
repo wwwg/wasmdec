@@ -120,7 +120,13 @@ bool CodeGenerator::failed() {
 }
 vector<char>* CodeGenerator::dumpMemory() {
 	if (module.memory.exists && module.memory.imported) {
-		// TODO
+		for (const auto &seg : module.memory.segments) {
+			// Push each raw byte from each segment into raw memory vector
+			for (const char byte : seg.data) {
+				rawMemory.push_back(byte);
+			}
+		}
+		return &rawMemory;
 	} else {
 		return nullptr;
 	}
