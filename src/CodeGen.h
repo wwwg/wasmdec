@@ -12,8 +12,6 @@ namespace wasmdec {
 		wasm::Module module;
 		vector<char> binary;
 		wasm::WasmBinaryBuilder parser;
-		bool isDebug;
-		bool emitExtraData;
 		Emitter emit;
 		CodeGenerator(vector<char>*, bool, bool);
 		void gen();
@@ -23,6 +21,8 @@ namespace wasmdec {
 		void debug(string);
 		void debugf(string);
 		bool parserFailed;
+		bool isDebug;
+		bool emitExtraData;
 	};
 } // namespace wasmdec
 
