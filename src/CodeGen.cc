@@ -100,11 +100,6 @@ void CodeGenerator::gen() {
 		emit.ln();
 	}
 	debug("Code generation complete.\n");
-	if (module.table.exists && module.table.imported) {
-		debug("Binary contains WASM table\n");
-	} else {
-		debug("Binary contains no functional WASM table\n");
-	}
 }
 string CodeGenerator::getEmittedCode() {
 	return emit.getCode();
