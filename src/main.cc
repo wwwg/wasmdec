@@ -113,8 +113,8 @@ int main(int argc, const char** argv) {
 		vector<char>* rawtable = generator.dumpTable();
 		string outMemFile = outfile + ".mem.bin";
 		string outTableFile = outfile + ".table.bin";
-		bool memWriteSuccess = writeFile(outMemFile, rawmem);
-		bool tableWriteSuccess = writeFile(outTableFile, rawtable);
+		bool memWriteSuccess = writeFile(outMemFile, string(rawmem->begin(), rawmem->end()));
+		bool tableWriteSuccess = writeFile(outTableFile, string(rawtable->begin(), rawtable->end()));
 		if (!memWriteSuccess || !tableWriteSuccess) {
 			cerr << "Failed to write one or more memory dump files, aborting." << endl;
 			return 1;
