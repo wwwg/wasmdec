@@ -72,7 +72,6 @@ void CodeGenerator::gen() {
 				<< "\tFunction '" << func->name << "'" << endl
 				<< "\tLocal variables: " << func->vars.size() << endl
 				<< "\tParameters: " << func->params.size() << endl
-				<< "\tImmediate block expressions: " << fnBody->list.size() << endl
 				<< "*/" << endl;
 			}
 			Context ctx = Context(func, &module);
