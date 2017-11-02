@@ -118,3 +118,17 @@ bool CodeGenerator::failed() {
 	// TODO : Develop this function to support other code generation failures
 	return parserFailed;
 }
+vector<char>* CodeGenerator::dumpMemory() {
+	if (module.memory.exists && module.memory.imported) {
+		// TODO
+	} else {
+		return nullptr;
+	}
+}
+vector<char>* CodeGenerator::dumpTable() {
+	if (module.table.exists && module.table.imported) {
+		// TODO
+	} else {
+		return nullptr;
+	}
+}

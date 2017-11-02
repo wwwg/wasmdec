@@ -17,13 +17,14 @@ namespace wasmdec {
 		void gen();
 		string getEmittedCode();
 		bool failed();
+		vector<char>* dumpMemory();
+		vector<char>* dumpTable();
 	protected:
 		void debug(string);
 		void debugf(string);
 		bool parserFailed;
 		bool isDebug;
 		bool emitExtraData;
-		// Memdump
 		vector<char> rawTable;
 		vector<char> rawMemory;
 	};
