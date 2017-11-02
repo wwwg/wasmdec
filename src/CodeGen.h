@@ -23,6 +23,7 @@ namespace wasmdec {
 		bool parserFailed;
 		bool isDebug;
 		bool emitExtraData;
+		bool dumpMemory;
 	};
 } // namespace wasmdec
 
