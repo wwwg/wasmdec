@@ -5,7 +5,7 @@ CC=clang++
 CCOPTS=-g -std=c++14 -Isrc/binaryen/src -c -Wall
 LDOPTS=-Lsrc/binaryen/lib -lbinaryen
 
-all: $(SRC) $(OUT)
+default: $(SRC) $(OUT)
 
 $(OUT): $(OBJS) 
 	@echo -n "Link "
@@ -23,4 +23,19 @@ clean:
 
 # To build binaryen
 binaryen:
-	cd src/binaryen; cmake .; make
+	cd src/binaryen && cmake . && make
+
+# To install binaryen
+installBinaryen:
+	if [ -d "/usr/lib64" ]; then cp src/binaryen/lib/libbinaryen.so /usr/lib64/; else cp src/binaryen/lib/libbinaryen.so /usr/lib/; fi
+
+# To install wasmdec
+install:
+	cp ./wasmdec /usr/bin
+
+# To build and install everything
+all:
+	make binaryen
+	make installBinaryen
+	make default
+	make install

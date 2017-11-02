@@ -32,10 +32,11 @@
  (global $tempRet0 (mut i32) (i32.const 0))
  (global $tempFloat (mut f32) (f32.const 0))
  (global $f0 (mut f32) (f32.const 0))
- (data (get_global $memoryBase) "%s\n\00Hello, wdis!")
- (export "__post_instantiate" (func $__post_instantiate))
+ (data (get_global $memoryBase) "%s\n\00Hello, wasmdec!\00secondVal: %d\n")
  (export "_main" (func $_main))
+ (export "__post_instantiate" (func $__post_instantiate))
  (export "runPostSets" (func $runPostSets))
+ (export "_doubleValue" (func $_doubleValue))
  (func $stackAlloc (param $size i32) (result i32)
   (local $ret i32)
   (set_local $ret
@@ -103,14 +104,10 @@
    )
   )
  )
- (func $_main (result i32)
-  (local $$0 i32)
+ (func $_doubleValue (param $$0 i32) (result i32)
   (local $$1 i32)
   (local $$2 i32)
   (local $$3 i32)
-  (local $$4 i32)
-  (local $$5 i32)
-  (local $$vararg_buffer i32)
   (local $label i32)
   (local $sp i32)
   (set_local $sp
@@ -131,6 +128,65 @@
     (i32.const 16)
    )
   )
+  (set_local $$1
+   (get_local $$0)
+  )
+  ;;@ main.c:4:0
+  (set_local $$2
+   (get_local $$1)
+  )
+  (set_local $$3
+   (i32.shl
+    (get_local $$2)
+    (i32.const 1)
+   )
+  )
+  (set_global $STACKTOP
+   (get_local $sp)
+  )
+  (return
+   (get_local $$3)
+  )
+ )
+ (func $_main (result i32)
+  (local $$0 i32)
+  (local $$1 i32)
+  (local $$2 i32)
+  (local $$3 i32)
+  (local $$4 i32)
+  (local $$5 i32)
+  (local $$6 i32)
+  (local $$7 i32)
+  (local $$8 i32)
+  (local $$9 i32)
+  (local $$vararg_buffer i32)
+  (local $$vararg_buffer1 i32)
+  (local $label i32)
+  (local $sp i32)
+  (set_local $sp
+   (get_global $STACKTOP)
+  )
+  (set_global $STACKTOP
+   (i32.add
+    (get_global $STACKTOP)
+    (i32.const 32)
+   )
+  )
+  (if
+   (i32.ge_s
+    (get_global $STACKTOP)
+    (get_global $STACK_MAX)
+   )
+   (call $abortStackOverflow
+    (i32.const 32)
+   )
+  )
+  (set_local $$vararg_buffer1
+   (i32.add
+    (get_local $sp)
+    (i32.const 8)
+   )
+  )
   (set_local $$vararg_buffer
    (get_local $sp)
   )
@@ -139,37 +195,37 @@
   )
   (loop $while-in
    (block $while-out
-    ;;@ main.c:6:0
-    (set_local $$2
+    ;;@ main.c:10:0
+    (set_local $$3
      (get_local $$1)
     )
-    (set_local $$3
+    (set_local $$4
      (i32.add
-      (get_local $$2)
+      (get_local $$3)
       (i32.const 1)
      )
     )
     (set_local $$1
-     (get_local $$3)
+     (get_local $$4)
     )
-    ;;@ main.c:7:0
-    (set_local $$4
+    ;;@ main.c:11:0
+    (set_local $$5
      (get_local $$1)
     )
-    (set_local $$5
+    (set_local $$6
      (i32.lt_s
-      (get_local $$4)
+      (get_local $$5)
       (i32.const 10)
      )
     )
     (if
-     (get_local $$5)
+     (get_local $$6)
      (br $while-out)
     )
     (br $while-in)
    )
   )
-  ;;@ main.c:11:0
+  ;;@ main.c:15:0
   (i32.store
    (get_local $$vararg_buffer)
    (i32.add
@@ -186,10 +242,43 @@
     (get_local $$vararg_buffer)
    )
   )
+  ;;@ main.c:17:0
+  (set_local $$1
+   (i32.const 6)
+  )
+  ;;@ main.c:19:0
+  (set_local $$7
+   (get_local $$1)
+  )
+  (set_local $$8
+   (call $_doubleValue
+    (get_local $$7)
+   )
+  )
+  (set_local $$2
+   (get_local $$8)
+  )
+  ;;@ main.c:20:0
+  (set_local $$9
+   (get_local $$2)
+  )
+  (i32.store
+   (get_local $$vararg_buffer1)
+   (get_local $$9)
+  )
+  (drop
+   (call $_printf
+    (i32.add
+     (get_global $memoryBase)
+     (i32.const 20)
+    )
+    (get_local $$vararg_buffer1)
+   )
+  )
   (set_global $STACKTOP
    (get_local $sp)
   )
-  ;;@ main.c:12:0
+  ;;@ main.c:21:0
   (return
    (i32.const 0)
   )
@@ -202,7 +291,7 @@
   (set_global $STACKTOP
    (i32.add
     (get_global $memoryBase)
-    (i32.const 32)
+    (i32.const 48)
    )
   )
   (set_global $STACK_MAX

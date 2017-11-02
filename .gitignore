@@ -2,3 +2,4 @@ out
 wasmdec
 libbinaryen.so
 *.o
+*.bin

@@ -119,7 +119,6 @@ float32_t global$18 = 0.000000;
 	Function '$stackAlloc'
 	Local variables: 1
 	Parameters: 1
-	Immediate block expressions: 1
 */
 int32_t fn_stackAlloc(int32_t local_0) {
 	// Parsed WASM function locals:
@@ -129,7 +128,7 @@ int32_t fn_stackAlloc(int32_t local_0) {
 	global$3 = global$3 + local_0;
 	global$3 = global$3 + 15 && -16;
 	if (global$3 >= global$4) {
-		import$7(local_0);
+	import$7(local_0);
 
 	} // <No else block>
 	return local_1;
@@ -138,7 +137,6 @@ int32_t fn_stackAlloc(int32_t local_0) {
 	Function '$stackSave'
 	Local variables: 0
 	Parameters: 0
-	Immediate block expressions: 1
 */
 int32_t fn_stackSave() {
 	// Function contains no non-parameter locals
@@ -148,7 +146,6 @@ int32_t fn_stackSave() {
 	Function '$stackRestore'
 	Local variables: 0
 	Parameters: 1
-	Immediate block expressions: 1
 */
 void fn_stackRestore(int32_t local_0) {
 	// Function contains no non-parameter locals
@@ -158,7 +155,6 @@ void fn_stackRestore(int32_t local_0) {
 	Function '$establishStackSpace'
 	Local variables: 0
 	Parameters: 2
-	Immediate block expressions: 1
 */
 void fn_establishStackSpace(int32_t local_0, int32_t local_1) {
 	// Function contains no non-parameter locals
@@ -169,7 +165,6 @@ void fn_establishStackSpace(int32_t local_0, int32_t local_1) {
 	Function '$setThrew'
 	Local variables: 0
 	Parameters: 2
-	Immediate block expressions: 1
 */
 void fn_setThrew(int32_t local_0, int32_t local_1) {
 	// Function contains no non-parameter locals
@@ -180,10 +175,34 @@ void fn_setThrew(int32_t local_0, int32_t local_1) {
 	} // <No else block>
 }
 /*
+	Function '$_doubleValue'
+	Local variables: 5
+	Parameters: 1
+*/
+int32_t fn__doubleValue(int32_t local_0) {
+	// Parsed WASM function locals:
+	int32_t local_1 = 0; // Local with index '1'
+	int32_t local_2 = 0; // Local with index '2'
+	int32_t local_3 = 0; // Local with index '3'
+	int32_t local_4 = 0; // Local with index '4'
+	int32_t local_5 = 0; // Local with index '5'
+
+	local_5 = global$3;
+	global$3 = global$3 + 16;
+	if (global$3 >= global$4) {
+	import$7(16);
+
+	} // <No else block>
+	local_1 = local_0;
+	local_2 = local_1;
+	local_3 = local_2 << 1;
+	global$3 = local_5;
+	return local_3;
+}
+/*
 	Function '$_main'
-	Local variables: 9
+	Local variables: 14
 	Parameters: 0
-	Immediate block expressions: 1
 */
 int32_t fn__main() {
 	// Parsed WASM function locals:
@@ -196,43 +215,63 @@ int32_t fn__main() {
 	int32_t local_6 = 0; // Local with index '6'
 	int32_t local_7 = 0; // Local with index '7'
 	int32_t local_8 = 0; // Local with index '8'
+	int32_t local_9 = 0; // Local with index '9'
+	int32_t local_10 = 0; // Local with index '10'
+	int32_t local_11 = 0; // Local with index '11'
+	int32_t local_12 = 0; // Local with index '12'
+	int32_t local_13 = 0; // Local with index '13'
 
-	local_8 = global$3;
-	global$3 = global$3 + 16;
+	local_13 = global$3;
+	global$3 = global$3 + 32;
 	if (global$3 >= global$4) {
-		import$7(16);
+	import$7(32);
 
 	} // <No else block>
-	local_6 = local_8;
+	local_11 = local_13 + 8;
+	local_10 = local_13;
 	local_0 = 0;
-	while (1) { // Loop name: 'label$2'
-		local_2 = local_1;
-		local_3 = local_2 + 1;
-		local_1 = local_3;
-		local_4 = local_1;
-		local_5 = local_4 < 10;
-		if (local_5) {
-			break;
-		} // <No else block>
-		break;
-	} // End of loop 'label$2'
+	while (1) { // Loop name: 'label$3'
+	local_3 = local_1;
+	local_4 = local_3 + 1;
+	local_1 = local_4;
+	local_5 = local_1;
+	local_6 = local_5 < 10;
+	if (local_6) {
+	break;
+	} // <No else block>
+	break;
+	} // End of loop 'label$3'
 	/*  Store:
-		Offset: 0x00000000
-		Align:  0x00000004
-		Bytes:  0x00000004
-		Atomic: false  */
-	local_6 = import$3 + 4; 
+	Offset: 0x00000000
+	Align:  0x00000004
+	Bytes:  0x00000004
+	Atomic: false  */
+	local_10 = import$3 + 4; 
 	/* Drop routine */
-	import$8(import$3 + 0, local_6);
+	import$8(import$3 + 0, local_10);
 	/* End of drop routine */
-	global$3 = local_8;
+	local_1 = 6;
+	local_7 = local_1;
+	local_8 = 	fn__doubleValue(local_7);
+;
+	local_2 = local_8;
+	local_9 = local_2;
+	/*  Store:
+	Offset: 0x00000000
+	Align:  0x00000004
+	Bytes:  0x00000004
+	Atomic: false  */
+	local_11 = local_9; 
+	/* Drop routine */
+	import$8(import$3 + 20, local_11);
+	/* End of drop routine */
+	global$3 = local_13;
 	return 0;
 }
 /*
 	Function '$runPostSets'
 	Local variables: 1
 	Parameters: 0
-	Immediate block expressions: 1
 */
 void fn_runPostSets() {
 	// Parsed WASM function locals:
@@ -244,27 +283,30 @@ void fn_runPostSets() {
 	Function '$__post_instantiate'
 	Local variables: 0
 	Parameters: 0
-	Immediate block expressions: 1
 */
 void fn___post_instantiate() {
 	// Function contains no non-parameter locals
-	global$3 = import$3 + 32;
+	global$3 = import$3 + 48;
 	global$4 = global$3 + 5242880;
 	fn_runPostSets();
 }
 
 /*
 	Exported WASM functions:
-	Function 'fn___post_instantiate':
-		WASM name: '__post_instantiate'
-		Export name: '__post_instantiate'
-
 	Function 'fn__main':
 		WASM name: '_main'
 		Export name: '_main'
 
+	Function 'fn___post_instantiate':
+		WASM name: '__post_instantiate'
+		Export name: '__post_instantiate'
+
 	Function 'fn_runPostSets':
 		WASM name: 'runPostSets'
 		Export name: 'runPostSets'
+
+	Function 'fn__doubleValue':
+		WASM name: '_doubleValue'
+		Export name: '_doubleValue'
 
 */

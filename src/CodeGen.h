@@ -12,15 +12,21 @@ namespace wasmdec {
 		wasm::Module module;
 		vector<char> binary;
 		wasm::WasmBinaryBuilder parser;
-		bool isDebug;
-		bool emitExtraData;
 		Emitter emit;
 		CodeGenerator(vector<char>*, bool, bool);
 		void gen();
 		string getEmittedCode();
+		bool failed();
+		vector<char>* dumpMemory();
+		vector<char>* dumpTable();
 	protected:
 		void debug(string);
 		void debugf(string);
+		bool parserFailed;
+		bool isDebug;
+		bool emitExtraData;
+		vector<char> rawTable;
+		vector<char> rawMemory;
 	};
 } // namespace wasmdec
 

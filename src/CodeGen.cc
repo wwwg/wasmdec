@@ -2,21 +2,29 @@
 using namespace wasmdec;
 using namespace std;
 
-CodeGenerator::CodeGenerator(vector<char>* inbin, bool useDebug, bool _emitExtraData) : binary((*inbin)), parser(module, binary, useDebug) {
+CodeGenerator::CodeGenerator(vector<char>* inbin,
+	bool useDebug,
+	bool _emitExtraData) : binary((*inbin)), parser(module, binary, useDebug) {
 	isDebug = useDebug;
 	emitExtraData = _emitExtraData;
 	debug("Parsing wasm binary...\n");
 	// Attempt to parse binary via Binaryen's AST parser
 	try {
 		parser.read();
+		parserFailed = false;
 	} catch (wasm::ParseException& err) {
+		cerr << "wasmdec: FAILED to parse wasm binary: " << endl;
 		err.dump(cerr);
-		cout << "Failed to parse wasm binary." << endl;
+		cerr << endl;
+		parserFailed = true;
 		return;
 	}
 	debug("Parsed bin successfully.\n");
 }
 void CodeGenerator::gen() {
+	if (parserFailed) {
+		return;
+	}
 	debug("Starting code generation...\n");
 	// Process imports
 	if (module.imports.size()) {
@@ -61,12 +69,10 @@ void CodeGenerator::gen() {
 		for (const auto &func : parser.functions) {
 			if (emitExtraData) {
 				// Emit information about the function as a comment
-				wasm::Block* fnBody = func->body->cast<wasm::Block>();
 				emit << "/*" << endl
 				<< "\tFunction '" << func->name << "'" << endl
 				<< "\tLocal variables: " << func->vars.size() << endl
 				<< "\tParameters: " << func->params.size() << endl
-				<< "\tImmediate block expressions: " << fnBody->list.size() << endl
 				<< "*/" << endl;
 			}
 			Context ctx = Context(func, &module);
@@ -91,7 +97,6 @@ void CodeGenerator::gen() {
 		emit.comment("No WASM exports.");
 		emit.ln();
 	}
-
 	debug("Code generation complete.\n");
 }
 string CodeGenerator::getEmittedCode() {
@@ -106,5 +111,39 @@ void CodeGenerator::debug(string msg) {
 void CodeGenerator::debugf(string msg) {
 	if (isDebug) {
 		cerr << msg;
+	}
+}
+bool CodeGenerator::failed() {
+	// TODO : Develop this function to support other code generation failures
+	return parserFailed;
+}
+vector<char>* CodeGenerator::dumpMemory() {
+	if (module.memory.exists && module.memory.imported) {
+		for (const auto &seg : module.memory.segments) {
+			// Push each raw byte from each segment into raw memory vector
+			for (const char byte : seg.data) {
+				rawMemory.push_back(byte);
+			}
+		}
+		return &rawMemory;
+	} else {
+		return nullptr;
+	}
+}
+vector<char>* CodeGenerator::dumpTable() {
+	if (module.table.exists && module.table.imported) {
+		for (const auto &seg : module.table.segments) {
+			for (const auto &name : seg.data) {
+				const char* _data = name.c_str();
+				char* i = (char*)_data;
+				while (i[0] != '\0') {
+					rawTable.push_back((char)i[0]);
+					++i;
+				}
+			}
+		}
+		return &rawTable;
+	} else {
+		return nullptr;
 	}
 }
