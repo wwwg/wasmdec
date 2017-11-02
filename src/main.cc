@@ -88,9 +88,7 @@ int main(int argc, const char** argv) {
 			enableMemdump = true;
 		}
 	}
-	if (!infile.length() || !outfile.length()) {
-		return usage();
-	}
+	if (!infile.length() || !outfile.length()) return usage();
 	vector<char> vfile = vector<char>();
 	bool rsuccess = readFile(&vfile, infile);
 	if (!rsuccess) {
