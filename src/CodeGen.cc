@@ -133,11 +133,13 @@ vector<char>* CodeGenerator::dumpMemory() {
 vector<char>* CodeGenerator::dumpTable() {
 	if (module.table.exists && module.table.imported) {
 		for (const auto &seg : module.table.segments) {
-			const char* _data = seg.data.c_str();
-			char* i = (char*)_data;
-			while (i[0] != NULL) {
-				rawTable.push_back((char)i[0]);
-				++i;
+			for (const auto &name : seg.data) {
+				const char* _data = name.c_str();
+				char* i = (char*)_data;
+				while (i[0] != NULL) {
+					rawTable.push_back((char)i[0]);
+					++i;
+				}
 			}
 		}
 		return &rawTable;
