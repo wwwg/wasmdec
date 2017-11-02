@@ -107,5 +107,10 @@ int main(int argc, const char** argv) {
 		cerr << "wasmdec: Failed to write file '" << outfile << "'" << endl;
 		return 1;
 	}
+	// Memdump
+	if (enableMemdump) {
+		vector<char>* rawmem = generator.dumpMemory();
+		vector<char>* rawtable = generator.dumpTable();
+	}
 	return 0;
 }
