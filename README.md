@@ -1,10 +1,6 @@
 # wasmdec
 wasmdec is a program that converts WebAssembly binaries to pseudo-C code.
 
-# Building
-To build, run `make binaryen && make`.
-If the executable fails to locate `libbinaryen.so`, move / copy `src/binaryen/lib/libbinaryen.so` to `/usr/lib64`.
-
 # Example
 wasmdec will translate this WebAssembly binary:
 ```
@@ -26,6 +22,8 @@ int32_t fn_addTwo(int32_t arg0, int32_t arg1) {
 	return arg0 + arg1;
 }
 ```
+# Building
+To build wasmdec and install all of it's dependencies, run `sudo make all`.
 
-# Support
+# WebAssembly Feature Support
 wasmdec supports almost every single WASM expression, with the exception of atomics. No support for atomics are planned.
