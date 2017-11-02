@@ -136,7 +136,7 @@ vector<char>* CodeGenerator::dumpTable() {
 			for (const auto &name : seg.data) {
 				const char* _data = name.c_str();
 				char* i = (char*)_data;
-				while (i[0] != NULL) {
+				while (i[0] != '\0') {
 					rawTable.push_back((char)i[0]);
 					++i;
 				}
