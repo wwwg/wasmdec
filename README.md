@@ -3,14 +3,15 @@ wasmdec is a program that converts WebAssembly binaries to pseudo-C code.
 
 # Example
 wasmdec will translate this WebAssembly binary:
-```
+```wasm
 (module
 	(func $addTwo (param i32 i32) (result i32)
-	(return
-		(i32.add
-			(get_local 0)
-			(get_local 1))))
-	(export "addTwo" $addTwo))
+		(return
+			(i32.add (get_local 0) (get_local 1))
+		)
+	)
+	(export "addTwo" $addTwo)
+)
 ```
 To the following pseudo-C code:
 ```c
