@@ -111,6 +111,14 @@ int main(int argc, const char** argv) {
 	if (enableMemdump) {
 		vector<char>* rawmem = generator.dumpMemory();
 		vector<char>* rawtable = generator.dumpTable();
+		string outMemFile = outfile + ".mem.bin";
+		string outTableFile = outfile + ".table.bin";
+		bool memWriteSuccess = writeFile(outMemFile, rawmem);
+		bool tableWriteSuccess = writeFile(outTableFile, rawtable);
+		if (!memWriteSuccess || !tableWriteSuccess) {
+			cerr << "Failed to write one or more memory dump files, aborting." << endl;
+			return 1;
+		}
 	}
 	return 0;
 }
