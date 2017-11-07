@@ -1,7 +1,7 @@
 SRC=$(wildcard src/*.cc src/convert/*.cc)
 OBJS=$(SRC:.cc=.o)
 OUT=wasmdec
-CC=clang++
+CC=g++
 CCOPTS=-g -std=c++14 -Isrc/binaryen/src -c -Wall
 LDOPTS=-Lsrc/binaryen/lib -lbinaryen
 
