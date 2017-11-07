@@ -15,11 +15,7 @@ wasmdec will translate this WebAssembly binary:
 ```
 To the following pseudo-C code:
 ```c
-#include <stdint.h>
-typedef float float32_t;
-typedef double float64_t;
-
-int32_t fn_addTwo(int32_t arg0, int32_t arg1) {
+int fn_addTwo(int arg0, int arg1) {
 	return arg0 + arg1;
 }
 ```
