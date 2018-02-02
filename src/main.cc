@@ -88,7 +88,19 @@ int main(int argc, const char** argv) {
 			enableMemdump = true;
 		}
 	}
-	if (!infile.length() || !outfile.length()) return usage();
+	if (!outfile.length()) {
+		cout << "Missing output file!";
+		if (enableMemdump) {
+			cout << " You must provide an output file when using memdump!" << endl;
+		} else {
+			cout << endl;
+		}
+		return usage();
+	}
+	if (!infile.length()) {
+		cout << "Missing input file!" << endl;
+		return usage();
+	}
 	vector<char> vfile = vector<char>();
 	bool rsuccess = readFile(&vfile, infile);
 	if (!rsuccess) {
