@@ -1,4 +1,4 @@
-SRC=$(wildcard src/*.cc src/convert/*.cc)
+SRC=$(wildcard src/*.cc src/**/*.cc)
 OBJS=$(SRC:.cc=.o)
 OUT=wasmdec
 CC=g++
