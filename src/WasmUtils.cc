@@ -48,6 +48,7 @@ string util::getLiteralValue(Literal* val) {
 			return to_string(conv_f64);
 			break;
 	}
+	return "/* invalid type */";
 }
 int util::getLocalIndex(Function* fn, int index) {
 	return (&fn->params)->size() + index;
