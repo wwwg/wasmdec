@@ -2,7 +2,7 @@ SRC=$(wildcard src/*.cc src/**/*.cc)
 OBJS=$(SRC:.cc=.o)
 OUT=wasmdec
 CC=g++
-CCOPTS=-g -std=c++14 -Isrc/binaryen/src -c -Wall
+CCOPTS=-O3 -std=c++14 -Isrc/binaryen/src -c -Wall
 LDOPTS=-Lsrc/binaryen/lib -lbinaryen
 
 default: $(SRC) $(OUT)
