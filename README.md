@@ -21,6 +21,13 @@ int fn_addTwo(int arg0, int arg1) {
 ```
 # Building
 To build wasmdec and install all of it's dependencies, run `sudo make all`.
+# Usage
+```bash
+wasmdec -i (input file) -o (output file) (options)
+```
+Where options is one of:
+- `-e` or `--extra` : Writes extra information about the binary to output files
+- `-d` or `--debug` : Print extra debug information
 
 # WebAssembly Feature Support
 wasmdec supports almost every single WASM expression, with the exception of atomics. No support for atomics are planned.
