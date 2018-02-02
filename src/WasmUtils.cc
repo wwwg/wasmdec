@@ -2,7 +2,7 @@
 using namespace wasmdec;
 
 FunctionType* util::resolveFType(Module* m, Name nm) {
-	for (int i = 0; i < m->functionTypes.size(); ++i) {
+	for (unsigned int i = 0; i < m->functionTypes.size(); ++i) {
 		if (m->functionTypes[i]->name == nm) {
 			return m->functionTypes[i].get();
 		}
