@@ -100,15 +100,9 @@ int main(int argc, const char** argv) {
 		cerr << "wasmdec: Code generation failed, aborting." << endl;
 		return 1;
 	}
-	generator.gen();
-	auto res = generator.getEmittedCode();
-	bool wsuccess = writeFile(outfile, res);
-	if (!wsuccess) {
-		cerr << "wasmdec: Failed to write file '" << outfile << "'" << endl;
-		return 1;
-	}
-	// Memdump
+	
 	if (enableMemdump) {
+		// If memdump is enabled, ONLY dump the binary's memory and exit
 		vector<char>* rawmem = generator.dumpMemory();
 		vector<char>* rawtable = generator.dumpTable();
 		string outMemFile = outfile + ".mem.bin";
@@ -117,6 +111,15 @@ int main(int argc, const char** argv) {
 		bool tableWriteSuccess = writeFile(outTableFile, string(rawtable->begin(), rawtable->end()));
 		if (!memWriteSuccess || !tableWriteSuccess) {
 			cerr << "Failed to write one or more memory dump files, aborting." << endl;
+			return 1;
+		}
+	} else {
+		// Otherwise we can normally decompile the binary
+		generator.gen();
+		auto res = generator.getEmittedCode();
+		bool wsuccess = writeFile(outfile, res);
+		if (!wsuccess) {
+			cerr << "wasmdec: Failed to write file '" << outfile << "'" << endl;
 			return 1;
 		}
 	}
