@@ -19,8 +19,16 @@ int fn_addTwo(int arg0, int arg1) {
 	return arg0 + arg1;
 }
 ```
-# Building
-To build wasmdec and install all of it's dependencies, run `sudo make all`.
+# How to install wasmdec for Linux
+## Getting the code
+Clone the repository with
+```bash
+git clone https://github.com/wwwg/wasmdec.git --recursive
+```
+Make sure the recursive flag is set to clone all the submodules.
+## Building
+To build wasmdec and install all of it's dependencies, run `sudo make all` in the `wasmdec` directory. GCC 7 or higher is reccomended.
+
 # Usage
 ```bash
 wasmdec -i (input file) -o (output file) (options)
