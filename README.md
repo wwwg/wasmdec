@@ -27,7 +27,7 @@ wasmdec -i (input file) -o (output file) (options)
 ```
 Where options is one of:
 - `-e` or `--extra` : Writes extra information about the binary to output files
-- `-m` or `--memdump` : Dumps the binary's memory to disk
+- `-m` or `--memdump` : Dumps the binary's memory to disk. Please note that if memdump ONLY dumps memory and doesn't perform any translation.
 - `-d` or `--debug` : Print extra debug information to stdout
 
 # WebAssembly Feature Support
