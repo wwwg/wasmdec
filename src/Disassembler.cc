@@ -3,13 +3,15 @@ using namespace wasmdec;
 using namespace std;
 
 Disassembler::Disassembler(DisasmConfig conf, vector<char>* inbin)
-	: binary((*inbin)), parser(module, binary, conf.debug) {
+: binary((*inbin)) {
 	isDebug = conf.debug;
 	emitExtraData = conf.extra;
+	// Create parser
+	parser = new wasm::WasmBinaryBuilder(module, binary, conf.debug);
 	debug("Parsing wasm binary...\n");
 	// Attempt to parse binary via Binaryen's AST parser
 	try {
-		parser.read();
+		parser->read();
 		parserFailed = false;
 	} catch (wasm::ParseException& err) {
 		cerr << "wasmdec: FAILED to parse wasm binary: " << endl;
@@ -62,10 +64,10 @@ void Disassembler::gen() {
 	}
 	emit.ln();
 	// Process functions
-	if (parser.functions.size()) {
+	if (parser->functions.size()) {
 		emit.comment("WASM functions:");
 		emit.ln();
-		for (const auto &func : parser.functions) {
+		for (const auto &func : parser->functions) {
 			if (emitExtraData) {
 				// Emit information about the function as a comment
 				emit << "/*" << endl
