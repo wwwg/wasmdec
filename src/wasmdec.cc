@@ -121,16 +121,15 @@ int main(int argc, const char** argv) {
 	DisasmMode mode = DisasmMode::None;
 	// Convert file extension to disassembler mode
 	if (ext == "wasm") {
-		mode = Disasm::Wasm;
+		mode = DisasmMode::Wasm;
 	} else if (ext == "wast") {
-		mode = Disasm::Wast;
+		mode = DisasmMode::Wast;
 	} else if (ext == "js") {
-		mode = Disasm::AsmJs;
+		mode = DisasmMode::AsmJs;
 	} else {
 		cerr << "wasmdec: Invalid input file extension, aborting." << endl;
 		return 1;
 	}
-	DisasmMode mode = DisasmMode::Wasm; // TODO : dynamic disassembly mode
 	DisasmConfig config(enableDebugging, enableExtra, mode);
 	Disassembler disasm(config, &vfile);
 	if (disasm.failed()) {
