@@ -35,6 +35,15 @@ bool writeFile(string path, string data) {
 		return false;
 	}
 }
+string getFileExt(string fname) {
+	string::size_type idx = fname.rfind('.');
+	if(idx != string::npos) {
+	    string extension = fname.substr(idx + 1);
+	    return extension;
+	} else {
+	    return "";
+	}
+}
 int usage() {
 	cout << "Usage:" << endl
 	<< "wasmdec {arguments}, where arguments is one of:" << endl
@@ -106,6 +115,19 @@ int main(int argc, const char** argv) {
 	bool rsuccess = readFile(&vfile, infile);
 	if (!rsuccess) {
 		cerr << "wasmdec: Failed to read file '" << infile << "'" << endl;
+		return 1;
+	}
+	string ext = getFileExt(infile);
+	DisasmMode mode = DisasmMode::None;
+	// Convert file extension to disassembler mode
+	if (ext == "wasm") {
+		mode = Disasm::Wasm;
+	} else if (ext == "wast") {
+		mode = Disasm::Wast;
+	} else if (ext == "js") {
+		mode = Disasm::AsmJs;
+	} else {
+		cerr << "wasmdec: Invalid input file extension, aborting." << endl;
 		return 1;
 	}
 	DisasmMode mode = DisasmMode::Wasm; // TODO : dynamic disassembly mode
