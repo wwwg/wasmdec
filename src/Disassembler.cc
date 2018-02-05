@@ -23,10 +23,18 @@ Disassembler::Disassembler(DisasmConfig conf, vector<char>* inbin)
 			return;
 		}
 	} else if (mode == DisasmMode::Wast) {
-		char* data = reinterpret_cast<char*>(binary.data());
-		sparser = new SExpressionParser(const_cast<char*>(data));
-		Element& _root = *sparser->root;
-		sbuilder = new SExpressionWasmBuilder(module, *_root[0]);
+		try {
+			char* data = reinterpret_cast<char*>(binary.data());
+			sparser = new SExpressionParser(const_cast<char*>(data));
+			Element& _root = *sparser->root;
+			sbuilder = new SExpressionWasmBuilder(module, *_root[0]);
+		} catch (wasm::ParseException& err) {
+			cerr << "wasmdec: FAILED to parse wast: " << endl;
+			err.dump(cerr);
+			cerr << endl;
+			parserFailed = true;
+			return;
+		}
 	}
 	debug("Parsed bin successfully.\n");
 }
