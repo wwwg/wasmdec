@@ -127,7 +127,7 @@ int main(int argc, const char** argv) {
 	} else if (ext == "js") {
 		mode = Disasm::AsmJs;
 	} else {
-		cerr << "wasmdec: Invalid input file extension, aborting.	" << endl;
+		cerr << "wasmdec: Invalid input file extension, aborting." << endl;
 		return 1;
 	}
 	DisasmMode mode = DisasmMode::Wasm; // TODO : dynamic disassembly mode
