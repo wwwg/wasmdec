@@ -149,13 +149,13 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 			
 			// routine body
 			Block* body = sw->condition->cast<Block>();
-			for (int i = 0; i < body->list.size(); ++i) {
-				string sname = string(sw->targets.at(i).str);
+			for (unsigned int i = 0; i < body->list.size(); ++i) {
+				string sname = string(sw->targets[i].str);
 				ret += "case ";
 				ret += sname;
 				ret += ":\n";
 				depth++;
-				Expression* thisExpr = body->list.at(i);
+				Expression* thisExpr = body->list[i];
 				ret += parseExpr(ctx, thisExpr, depth);
 				depth--;
 				ret += "\n";
