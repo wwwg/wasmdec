@@ -45,7 +45,7 @@ string getFileExt(string fname) {
 	}
 }
 int usage() {
-	cout << "Usage:" << endl
+	cerr << "Usage:" << endl
 	<< "wasmdec {arguments}, where arguments is one of:" << endl
 	<< "\t -o / --out <outfile> : Path to output file (Required)" << endl
 	<< "\t -i / --in <infile> : Path to input file (Required)" << endl
@@ -69,7 +69,7 @@ int main(int argc, const char** argv) {
 		string argv1 = string(argv[1]);
 		if (argv1 == "-h" || argv1 == "--help") return usage(0);
 		if (argv1 == "-v" || argv1 == "--version") {
-			cout << "wasmdec v" << __WASMDEC_VERSION << endl;
+			cerr << "wasmdec v" << __WASMDEC_VERSION << endl;
 			return 0;
 		}
 	}
@@ -99,16 +99,16 @@ int main(int argc, const char** argv) {
 		}
 	}
 	if (!outfile.length()) {
-		cout << "Missing output file!";
+		cerr << "Missing output file!";
 		if (enableMemdump) {
-			cout << " You must provide an output file when using memdump!" << endl;
+			cerr << " You must provide an output file when using memdump!" << endl;
 		} else {
-			cout << endl;
+			cerr << endl;
 		}
 		return usage();
 	}
 	if (!infile.length()) {
-		cout << "Missing input file!" << endl;
+		cerr << "Missing input file!" << endl;
 		return usage();
 	}
 	vector<char> vfile = vector<char>();
