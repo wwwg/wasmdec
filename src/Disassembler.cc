@@ -7,19 +7,21 @@ Disassembler::Disassembler(DisasmConfig conf, vector<char>* inbin)
 	isDebug = conf.debug;
 	emitExtraData = conf.extra;
 	mode = conf.mode;
-	// Create parser
-	parser = new wasm::WasmBinaryBuilder(module, binary, conf.debug);
-	debug("Parsing wasm binary...\n");
-	// Attempt to parse binary via Binaryen's AST parser
-	try {
-		parser->read();
-		parserFailed = false;
-	} catch (wasm::ParseException& err) {
-		cerr << "wasmdec: FAILED to parse wasm binary: " << endl;
-		err.dump(cerr);
-		cerr << endl;
-		parserFailed = true;
-		return;
+	if (mode == DisasmMode::Wasm) {
+		// Create parser
+		parser = new wasm::WasmBinaryBuilder(module, binary, conf.debug);
+		debug("Parsing wasm binary...\n");
+		// Attempt to parse binary via Binaryen's AST parser
+		try {
+			parser->read();
+			parserFailed = false;
+		} catch (wasm::ParseException& err) {
+			cerr << "wasmdec: FAILED to parse wasm binary: " << endl;
+			err.dump(cerr);
+			cerr << endl;
+			parserFailed = true;
+			return;
+		}
 	}
 	debug("Parsed bin successfully.\n");
 }
