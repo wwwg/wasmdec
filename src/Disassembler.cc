@@ -6,6 +6,7 @@ Disassembler::Disassembler(DisasmConfig conf, vector<char>* inbin)
 : binary((*inbin)) {
 	isDebug = conf.debug;
 	emitExtraData = conf.extra;
+	mode = conf.mode;
 	// Create parser
 	parser = new wasm::WasmBinaryBuilder(module, binary, conf.debug);
 	debug("Parsing wasm binary...\n");
