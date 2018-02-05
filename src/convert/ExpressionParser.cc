@@ -139,7 +139,30 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		*/
 		Switch* sw = ex->cast<Switch>();
 		if (sw->value) {
-			string scondition = parseExpr(ctx, sw->condition, depth);
+			string sval = parseExpr(ctx, sw->value, depth);
+			// start of switch routine
+			ret += util::tab(depth);
+			ret += "switch (";
+			ret += sval;
+			ret += ") {\n";
+			depth++;
+			
+			// routine body
+			Block* body = sw->condition->cast<Block>();
+			for (int i = 0; i < body->list.size(); ++i) {
+				string sname = string(sw->targets.at(i).str);
+				ret += "case ";
+				ret += sname;
+				ret += ":\n";
+				depth++;
+				Expression* thisExpr = body->list.at(i);
+				ret += parseExpr(ctx, thisExpr, depth);
+				depth--;
+				ret += "\n";
+			}
+			
+			// end of switch routine
+			ret += "}\n";
 		}
 		depth--;
 		ret += util::tab(depth) + "}\n";
