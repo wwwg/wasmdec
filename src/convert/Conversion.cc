@@ -141,23 +141,23 @@ string wasmdec::Convert::getBinOperator(string e1, wasm::BinaryOp bop, string e2
 	op = "/* Unsupported binary operator */"; // Operation unimplemented or an unknown enumeration
 	return op;
 }
-string wasmdec::Convert::resolveType(wasm::WasmType typ) {
-	// Resolve wasm::WasmType to a C type
+string wasmdec::Convert::resolveType(wasm::Type typ) {
+	// Resolve wasm::Type to a C type
 	switch (typ) {
-		case wasm::WasmType::none:
-		case wasm::WasmType::unreachable:
+		case wasm::Type::none:
+		case wasm::Type::unreachable:
 			return "void";
 			break;
-		case wasm::WasmType::i32:
+		case wasm::Type::i32:
 			return "int";
 			break;
-		case wasm::WasmType::i64:
+		case wasm::Type::i64:
 			return "long";
 			break;
-		case wasm::WasmType::f32:
+		case wasm::Type::f32:
 			return "float";
 			break;
-		case wasm::WasmType::f64:
+		case wasm::Type::f64:
 			return "double";
 			break;
 	}
