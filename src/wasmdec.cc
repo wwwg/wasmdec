@@ -107,16 +107,16 @@ int main(int argc, const char** argv) {
 		cerr << "wasmdec: Failed to read file '" << infile << "'" << endl;
 		return 1;
 	}
-	Disassembler generator(&vfile, enableDebugging, enableExtra);
-	if (generator.failed()) {
+	Disassembler disasm(&vfile, enableDebugging, enableExtra);
+	if (disasm.failed()) {
 		cerr << "wasmdec: Code generation failed, aborting." << endl;
 		return 1;
 	}
 	
 	if (enableMemdump) {
 		// If memdump is enabled, ONLY dump the binary's memory and exit
-		vector<char>* rawmem = generator.dumpMemory();
-		vector<char>* rawtable = generator.dumpTable();
+		vector<char>* rawmem = disasm.dumpMemory();
+		vector<char>* rawtable = disasm.dumpTable();
 		string outMemFile = outfile + ".mem.bin";
 		string outTableFile = outfile + ".table.bin";
 		bool memWriteSuccess = writeFile(outMemFile, string(rawmem->begin(), rawmem->end()));
@@ -127,8 +127,8 @@ int main(int argc, const char** argv) {
 		}
 	} else {
 		// Otherwise we can normally decompile the binary
-		generator.gen();
-		auto res = generator.getEmittedCode();
+		disasm.gen();
+		auto res = disasm.getEmittedCode();
 		bool wsuccess = writeFile(outfile, res);
 		if (!wsuccess) {
 			cerr << "wasmdec: Failed to write file '" << outfile << "'" << endl;
