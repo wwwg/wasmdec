@@ -1,6 +1,6 @@
 #ifndef _WASM_UTILS
 #define _WASM_UTILS
-#include "convert/Conversion.h"
+#include "../convert/Conversion.h"
 
 using namespace wasm;
 using namespace std;
