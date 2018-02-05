@@ -18,7 +18,7 @@ namespace wasmdec {
 		static string getBinOperator(string, wasm::BinaryOp, string);
 		static string getUnary(string, wasm::UnaryOp);
 		static string getHostFunc(HostOp);
-		static string resolveType(wasm::WasmType);
+		static string resolveType(wasm::Type);
 		static string getDecl(wasm::FunctionType*, string);
 		static string getDecl(wasm::FunctionType*, wasm::Name);
 		static string getDecl(wasm::Function*);

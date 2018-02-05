@@ -17,7 +17,7 @@ string wasmdec::Convert::getFuncBody(Context ctx, bool addExtraInfo) {
 	string fnBody;
 	fnBody += " {\n";
 	// Convert function locals to intermediate locals
-	vector<WasmType>* vars = &(ctx.fn->vars);
+	vector<Type>* vars = &(ctx.fn->vars);
 	if (vars->size()) {
 		vector<InterLocal> locals;
 		for (int i = 0; i < vars->size(); ++i) {

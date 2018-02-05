@@ -14,7 +14,7 @@ namespace wasmdec {
 		wasm::Function* fn;
 		int index;
 		string CLocal;
-		wasm::WasmType wasmLocal;
+		wasm::Type wasmLocal;
 		InterLocal(wasm::Function* _fn, int _index) {
 			fn = _fn;
 			wasmLocal = _fn->vars[_index];
