@@ -20,6 +20,7 @@ namespace wasmdec {
 		bool failed();
 		vector<char>* dumpMemory();
 		vector<char>* dumpTable();
+		DisasmMode mode;
 	protected:
 		void debug(string);
 		void debugf(string);
