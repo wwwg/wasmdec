@@ -116,7 +116,15 @@ int main(int argc, const char** argv) {
 	if (enableMemdump) {
 		// If memdump is enabled, ONLY dump the binary's memory and exit
 		vector<char>* rawmem = disasm.dumpMemory();
+		if (!rawmem) {
+			cerr << "wasmdec: FATAL: failed to dump memory" << endl;
+			return usage();
+		}
 		vector<char>* rawtable = disasm.dumpTable();
+		if (!rawtable) {
+			cerr << "wasmdec: FATAL: failed to dump table" << endl;
+			return usage();
+		}
 		string outMemFile = outfile + ".mem.bin";
 		string outTableFile = outfile + ".table.bin";
 		bool memWriteSuccess = writeFile(outMemFile, string(rawmem->begin(), rawmem->end()));
