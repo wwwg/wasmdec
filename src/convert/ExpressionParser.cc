@@ -130,26 +130,16 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		}
 		ret += "\n";
 	} else if (ex->is<Switch>()) {
+		/*
+			TODO : Write switch expression parser.
+			
+			value : Expression that the switch routine is comparing against
+				i.e. switch (value) {...}
+			condition: A block of expressions that act as the case expressions
+		*/
 		Switch* sw = ex->cast<Switch>();
-		string scond = parseExpr(ctx, sw->condition, depth);
-		string sval = parseExpr(ctx, sw->value, depth);
-		ret += "switch (" + scond + ") {\n";
-		depth++;
-		for (const auto& _case : sw->targets) {
-			ret += util::tab(depth);
-			ret += "case: ";
-			ret += _case.str;
-			ret += "\n" + util::tab(depth + 1);
-			ret += sval;
-			ret += "\n";
-		}
-		if (sw->default_.str) {
-			ret += util::tab(depth);
-			ret += "default: ";
-			ret += sw->default_.str;
-			ret += "\n" + util::tab(depth + 1);
-			ret += sval;
-			ret += "\n";
+		if (sw->value) {
+			string scondition = parseExpr(ctx, sw->condition, depth);
 		}
 		depth--;
 		ret += util::tab(depth) + "}\n";
