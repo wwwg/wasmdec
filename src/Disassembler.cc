@@ -22,6 +22,11 @@ Disassembler::Disassembler(DisasmConfig conf, vector<char>* inbin)
 			parserFailed = true;
 			return;
 		}
+	} else if (mode == DisasmMode::Wast) {
+		char* data = reinterpret_cast<char*>(binary.data());
+		sparser = new SExpressionParser(const_cast<char*>(data));
+		Element& _root = *sparser->root;
+		sbuilder = new SExpressionWasmBuilder(module, *_root[0]);
 	}
 	debug("Parsed bin successfully.\n");
 }

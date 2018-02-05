@@ -4,6 +4,7 @@
 #include "convert/Conversion.h"
 #include "Emitter.h"
 #include "DisasmConfig.h"
+#include "wasm-s-parser.h"
 
 using namespace std;
 
@@ -12,7 +13,6 @@ namespace wasmdec {
 	public:
 		wasm::Module module;
 		vector<char> binary;
-		wasm::WasmBinaryBuilder* parser;
 		Emitter emit;
 		Disassembler(DisasmConfig, vector<char>*);
 		void gen();
@@ -21,6 +21,11 @@ namespace wasmdec {
 		vector<char>* dumpMemory();
 		vector<char>* dumpTable();
 		DisasmMode mode;
+		
+		// Allocated as needed
+		wasm::WasmBinaryBuilder* parser;
+		wasm::SExpressionParser* sparser;
+		wasm::SExpressionWasmBuilder* sbuilder;
 	protected:
 		void debug(string);
 		void debugf(string);
