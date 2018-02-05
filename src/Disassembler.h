@@ -7,13 +7,13 @@
 using namespace std;
 
 namespace wasmdec {
-	class CodeGenerator {
+	class Disassembler {
 	public:
 		wasm::Module module;
 		vector<char> binary;
 		wasm::WasmBinaryBuilder parser;
 		Emitter emit;
-		CodeGenerator(vector<char>*, bool, bool);
+		Disassembler(vector<char>*, bool, bool);
 		void gen();
 		string getEmittedCode();
 		bool failed();
