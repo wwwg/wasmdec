@@ -1,8 +1,8 @@
-#include "CodeGen.h"
+#include "Disassembler.h"
 using namespace wasmdec;
 using namespace std;
 
-CodeGenerator::CodeGenerator(vector<char>* inbin,
+Disassembler::Disassembler(vector<char>* inbin,
 	bool useDebug,
 	bool _emitExtraData) : binary((*inbin)), parser(module, binary, useDebug) {
 	isDebug = useDebug;
@@ -21,7 +21,7 @@ CodeGenerator::CodeGenerator(vector<char>* inbin,
 	}
 	debug("Parsed bin successfully.\n");
 }
-void CodeGenerator::gen() {
+void Disassembler::gen() {
 	if (parserFailed) {
 		return;
 	}
@@ -99,25 +99,25 @@ void CodeGenerator::gen() {
 	}
 	debug("Code generation complete.\n");
 }
-string CodeGenerator::getEmittedCode() {
+string Disassembler::getEmittedCode() {
 	return emit.getCode();
 }
 // Debug functions
-void CodeGenerator::debug(string msg) {
+void Disassembler::debug(string msg) {
 	if (isDebug) {
 		cerr << "wasmdec CodeGen: " << msg;
 	}
 }
-void CodeGenerator::debugf(string msg) {
+void Disassembler::debugf(string msg) {
 	if (isDebug) {
 		cerr << msg;
 	}
 }
-bool CodeGenerator::failed() {
+bool Disassembler::failed() {
 	// TODO : Develop this function to support other code generation failures
 	return parserFailed;
 }
-vector<char>* CodeGenerator::dumpMemory() {
+vector<char>* Disassembler::dumpMemory() {
 	if (module.memory.exists && module.memory.imported) {
 		for (const auto &seg : module.memory.segments) {
 			// Push each raw byte from each segment into raw memory vector
@@ -130,7 +130,7 @@ vector<char>* CodeGenerator::dumpMemory() {
 		return nullptr;
 	}
 }
-vector<char>* CodeGenerator::dumpTable() {
+vector<char>* Disassembler::dumpTable() {
 	if (module.table.exists && module.table.imported) {
 		for (const auto &seg : module.table.segments) {
 			for (const auto &name : seg.data) {

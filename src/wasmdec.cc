@@ -7,7 +7,7 @@
 #include <iostream>
 #include <iterator>
 
-#include "CodeGen.h"
+#include "Disassembler.h"
 using namespace std;
 using namespace wasmdec;
 
@@ -107,7 +107,7 @@ int main(int argc, const char** argv) {
 		cerr << "wasmdec: Failed to read file '" << infile << "'" << endl;
 		return 1;
 	}
-	CodeGenerator generator(&vfile, enableDebugging, enableExtra);
+	Disassembler generator(&vfile, enableDebugging, enableExtra);
 	if (generator.failed()) {
 		cerr << "wasmdec: Code generation failed, aborting." << endl;
 		return 1;
