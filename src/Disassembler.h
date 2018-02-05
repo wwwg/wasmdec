@@ -12,7 +12,7 @@ namespace wasmdec {
 	public:
 		wasm::Module module;
 		vector<char> binary;
-		wasm::WasmBinaryBuilder parser;
+		wasm::WasmBinaryBuilder* parser;
 		Emitter emit;
 		Disassembler(DisasmConfig, vector<char>*);
 		void gen();
