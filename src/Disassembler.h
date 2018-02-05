@@ -1,6 +1,12 @@
 #ifndef _CODEGEN_H
 #define _CODEGEN_H
 
+enum DisasmMode {
+	Wasm,
+	AsmJs,
+	Wast
+};
+
 #include "convert/Conversion.h"
 #include "Emitter.h"
 
