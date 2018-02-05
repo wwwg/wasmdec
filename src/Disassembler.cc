@@ -2,11 +2,10 @@
 using namespace wasmdec;
 using namespace std;
 
-Disassembler::Disassembler(vector<char>* inbin,
-	bool useDebug,
-	bool _emitExtraData) : binary((*inbin)), parser(module, binary, useDebug) {
-	isDebug = useDebug;
-	emitExtraData = _emitExtraData;
+Disassembler::Disassembler(DisasmConfig conf, vector<char>* inbin)
+	: binary((*inbin)), parser(module, binary, conf.debug) {
+	isDebug = conf.debug;
+	emitExtraData = conf.extra;
 	debug("Parsing wasm binary...\n");
 	// Attempt to parse binary via Binaryen's AST parser
 	try {

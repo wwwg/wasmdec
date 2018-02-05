@@ -8,6 +8,7 @@
 #include <iterator>
 
 #include "Disassembler.h"
+#include "DisasmConfig.h"
 using namespace std;
 using namespace wasmdec;
 
@@ -107,7 +108,9 @@ int main(int argc, const char** argv) {
 		cerr << "wasmdec: Failed to read file '" << infile << "'" << endl;
 		return 1;
 	}
-	Disassembler disasm(&vfile, enableDebugging, enableExtra);
+	DisasmMode mode = DisasmMode::Wasm; // TODO : dynamic disassembly mode
+	DisasmConfig config(enableDebugging, enableExtra, mode);
+	Disassembler disasm(config, &vfile);
 	if (disasm.failed()) {
 		cerr << "wasmdec: Code generation failed, aborting." << endl;
 		return 1;

@@ -14,7 +14,7 @@ namespace wasmdec {
 		vector<char> binary;
 		wasm::WasmBinaryBuilder parser;
 		Emitter emit;
-		Disassembler(vector<char>*, bool, bool);
+		Disassembler(DisasmConfig, vector<char>*);
 		void gen();
 		string getEmittedCode();
 		bool failed();
