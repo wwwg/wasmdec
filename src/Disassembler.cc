@@ -25,8 +25,11 @@ Disassembler::Disassembler(DisasmConfig conf, vector<char>* inbin)
 	} else if (mode == DisasmMode::Wast) {
 		try {
 			char* data = reinterpret_cast<char*>(binary.data());
+			cout << data << endl;
+			debug("Starting SExpressionParser\n");
 			sparser = new SExpressionParser(const_cast<char*>(data));
 			Element& _root = *sparser->root;
+			debug("Starting SExpressionWasmBuilder\n");
 			sbuilder = new SExpressionWasmBuilder(module, *_root[0]);
 		} catch (wasm::ParseException& err) {
 			cerr << "wasmdec: FAILED to parse wast: " << endl;
