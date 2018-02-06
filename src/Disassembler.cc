@@ -80,20 +80,21 @@ void Disassembler::gen() {
 	}
 	emit.ln();
 	// Process functions
-	if (parser->functions.size()) {
+	if (module.functions.size()) {
 		emit.comment("WASM functions:");
 		emit.ln();
-		for (const auto &func : parser->functions) {
+		for (const auto &func : module.functions) {
+			Function* fn = func.get();
 			if (emitExtraData) {
 				// Emit information about the function as a comment
 				emit << "/*" << endl
-				<< "\tFunction '" << func->name << "'" << endl
-				<< "\tLocal variables: " << func->vars.size() << endl
-				<< "\tParameters: " << func->params.size() << endl
+				<< "\tFunction '" << fn->name << "'" << endl
+				<< "\tLocal variables: " << fn->vars.size() << endl
+				<< "\tParameters: " << fn->params.size() << endl
 				<< "*/" << endl;
 			}
-			Context ctx = Context(func, &module);
-			emit << Convert::getDecl(func) << Convert::getFuncBody(ctx, emitExtraData) << endl;
+			Context ctx = Context(fn, &module);
+			emit << Convert::getDecl(fn) << Convert::getFuncBody(ctx, emitExtraData) << endl;
 		}
 	} else {
 		emit.comment("No WASM functions.");
