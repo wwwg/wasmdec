@@ -30,6 +30,7 @@ Disassembler::Disassembler(DisasmConfig conf, vector<char>* inbin)
 			Element& _root = *sparser->root;
 			debug("Starting SExpressionWasmBuilder\n");
 			sbuilder = new SExpressionWasmBuilder(module, *_root[0]);
+			parserFailed = false;
 		} catch (wasm::ParseException& err) {
 			cerr << "wasmdec: FAILED to parse wast: " << endl;
 			err.dump(cerr);
