@@ -38,6 +38,9 @@ Disassembler::Disassembler(DisasmConfig conf, vector<char>* inbin)
 			parserFailed = true;
 			return;
 		}
+	} else if (mode == DisasmMode::AsmJs) {
+		Asm2WasmPreProcessor preproc;
+		preproc.process(binary.data());
 	}
 	debug("Parsed bin successfully.\n");
 }
