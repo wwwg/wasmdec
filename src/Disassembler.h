@@ -4,7 +4,9 @@
 #include "convert/Conversion.h"
 #include "Emitter.h"
 #include "DisasmConfig.h"
+
 #include "wasm-s-parser.h"
+#include "asm2wasm.h"
 
 using namespace std;
 
