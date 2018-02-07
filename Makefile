@@ -10,7 +10,7 @@ default: $(SRC) $(OUT)
 $(OUT): $(OBJS) 
 	@echo -n "Link "
 	@echo $@
-	$(CC) $(OBJS) -o $@ $(LDOPTS)
+	$(CC) $(OBJS) $(LDOPTS) -o $@
 
 .cc.o:
 	@echo -n "Build source "
