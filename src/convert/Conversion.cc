@@ -161,6 +161,7 @@ string wasmdec::Convert::resolveType(wasm::Type typ) {
 			return "double";
 			break;
 	}
+	return "void* /* Unknown type */";
 }
 string wasmdec::Convert::getDecl(wasm::FunctionType* typ, string fname) {
 	// Get a C function decloration from a FunctionType and name
