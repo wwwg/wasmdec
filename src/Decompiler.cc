@@ -1,8 +1,8 @@
-#include "Disassembler.h"
+#include "Decompiler.h"
 using namespace wasmdec;
 using namespace std;
 
-Disassembler::Disassembler(DisasmConfig conf, vector<char>* inbin)
+Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 : binary((*inbin)) {
 	isDebug = conf.debug;
 	emitExtraData = conf.extra;
@@ -44,7 +44,7 @@ Disassembler::Disassembler(DisasmConfig conf, vector<char>* inbin)
 	}
 	debug("Parsed bin successfully.\n");
 }
-void Disassembler::gen() {
+void Decompiler::gen() {
 	if (parserFailed) {
 		return;
 	}
@@ -123,25 +123,25 @@ void Disassembler::gen() {
 	}
 	debug("Code generation complete.\n");
 }
-string Disassembler::getEmittedCode() {
+string Decompiler::getEmittedCode() {
 	return emit.getCode();
 }
 // Debug functions
-void Disassembler::debug(string msg) {
+void Decompiler::debug(string msg) {
 	if (isDebug) {
 		cerr << "wasmdec CodeGen: " << msg;
 	}
 }
-void Disassembler::debugf(string msg) {
+void Decompiler::debugf(string msg) {
 	if (isDebug) {
 		cerr << msg;
 	}
 }
-bool Disassembler::failed() {
+bool Decompiler::failed() {
 	// TODO : Develop this function to support other code generation failures
 	return parserFailed;
 }
-vector<char>* Disassembler::dumpMemory() {
+vector<char>* Decompiler::dumpMemory() {
 	if (module.memory.exists && module.memory.imported) {
 		for (const auto &seg : module.memory.segments) {
 			// Push each raw byte from each segment into raw memory vector
@@ -154,7 +154,7 @@ vector<char>* Disassembler::dumpMemory() {
 		return nullptr;
 	}
 }
-vector<char>* Disassembler::dumpTable() {
+vector<char>* Decompiler::dumpTable() {
 	if (module.table.exists && module.table.imported) {
 		for (const auto &seg : module.table.segments) {
 			for (const auto &name : seg.data) {
