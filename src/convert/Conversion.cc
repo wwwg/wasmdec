@@ -357,4 +357,5 @@ string wasmdec::Convert::getHostFunc(HostOp hop) {
 			return "host_get_current_memory";
 			break;
 	}
+	return "/* unknown host call */ host_unknown";
 }
