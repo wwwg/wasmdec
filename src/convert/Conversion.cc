@@ -169,7 +169,7 @@ string wasmdec::Convert::getDecl(wasm::FunctionType* typ, string fname) {
 	ret += " "; // Space between ret type and name
 	ret += fname;
 	ret += "("; // Argument list
-	for (int i = 0; i < typ->params.size(); ++i) {
+	for (unsigned int i = 0; i < typ->params.size(); ++i) {
 		ret += resolveType(typ->params.at(i));
 		ret += " ";
 		ret += getLocal(i);
