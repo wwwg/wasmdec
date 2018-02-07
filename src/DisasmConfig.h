@@ -13,7 +13,7 @@ public:
     bool debug;
     bool extra;
     DisasmMode mode;
-    DisasmConfig(bool _debug, bool _extra, DisasmMode _mode) {
+    inline DisasmConfig(bool _debug, bool _extra, DisasmMode _mode) {
         debug = _debug;
         extra = extra;
         mode = _mode;
