@@ -20,6 +20,7 @@ $(OUT): $(OBJS)
 clean:
 	rm -f *.o wasmdec
 	rm -f src/*.o
+	rm -f src/**/*.o
 
 # To build binaryen
 binaryen:
