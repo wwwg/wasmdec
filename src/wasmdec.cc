@@ -9,8 +9,6 @@
 
 #include "Decompiler.h"
 #include "DisasmConfig.h"
-using namespace std;
-using namespace wasmdec;
 
 bool readFile(vector<char>* data, string path) {
 	ifstream file(path);

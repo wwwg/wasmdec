@@ -8,6 +8,7 @@
 #include "wasm-s-parser.h"
 #include "asm2wasm.h"
 
+using namespace wasmdec;
 using namespace std;
 
 namespace wasmdec {
