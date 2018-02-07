@@ -27,23 +27,23 @@ string util::getLiteralValue(Literal* val) {
 	double conv_f64;
 	switch (val->type) {
 		// Convert constant literal type to string
-		case WasmType::none:
-		case WasmType::unreachable:
+		case Type::none:
+		case Type::unreachable:
 			return "0";
 			break;
-		case WasmType::i32:
+		case Type::i32:
 			conv_i32 = val->geti32();
 			return to_string(conv_i32);
 			break;
-		case WasmType::i64:
+		case Type::i64:
 			conv_i64 = val->geti64();
 			return to_string(conv_i64);
 			break;
-		case WasmType::f32:
+		case Type::f32:
 			conv_f32 = val->getf32();
 			return to_string(conv_f32);
 			break;
-		case WasmType::f64:
+		case Type::f64:
 			conv_f64 = val->getf64();
 			return to_string(conv_f64);
 			break;
