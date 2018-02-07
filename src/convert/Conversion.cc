@@ -203,7 +203,7 @@ string wasmdec::Convert::getDecl(wasm::Function* fn) {
 	ret += " "; // Space between ret type and name
 	ret += getFName(fn->name); // name
 	ret += "("; // Argument list
-	for (int i = 0; i < fn->params.size(); ++i) {
+	for (unsigned int i = 0; i < fn->params.size(); ++i) {
 		ret += resolveType(fn->params.at(i));
 		ret += " ";
 		ret += getLocal(i);
@@ -244,7 +244,7 @@ string wasmdec::Convert::getDecl(wasm::Module* m, unique_ptr<wasm::Import>& i) {
 string wasmdec::Convert::parseOperandList(Context* ctx, ExpressionList* list, int depth) {
 	if (list->size()) {
 		string ret = "(";
-		for (int i = 0; i < list->size(); ++i) {
+		for (unsigned int i = 0; i < list->size(); ++i) {
 			Expression* operand = list->operator[](i);
 			string soperand = Convert::parseExpr(ctx, operand, depth);
 			ret += soperand;
