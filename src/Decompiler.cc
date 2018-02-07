@@ -1,6 +1,4 @@
 #include "Decompiler.h"
-using namespace wasmdec;
-using namespace std;
 
 Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 : binary((*inbin)) {
