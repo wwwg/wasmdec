@@ -131,20 +131,20 @@ int main(int argc, const char** argv) {
 		return 1;
 	}
 	DisasmConfig config(enableDebugging, enableExtra, mode);
-	Disassembler disasm(config, &vfile);
-	if (disasm.failed()) {
+	Decompiler decomp(config, &vfile);
+	if (decomp.failed()) {
 		cerr << "wasmdec: Code generation failed, aborting." << endl;
 		return 1;
 	}
 	
 	if (enableMemdump) {
 		// If memdump is enabled, ONLY dump the binary's memory and exit
-		vector<char>* rawmem = disasm.dumpMemory();
+		vector<char>* rawmem = decomp.dumpMemory();
 		if (!rawmem) {
 			cerr << "wasmdec: FATAL: failed to dump memory" << endl;
 			return usage();
 		}
-		vector<char>* rawtable = disasm.dumpTable();
+		vector<char>* rawtable = decomp.dumpTable();
 		if (!rawtable) {
 			cerr << "wasmdec: FATAL: failed to dump table" << endl;
 			return usage();
@@ -159,8 +159,8 @@ int main(int argc, const char** argv) {
 		}
 	} else {
 		// Otherwise we can normally decompile the binary
-		disasm.gen();
-		auto res = disasm.getEmittedCode();
+		decomp.gen();
+		auto res = decomp.getEmittedCode();
 		bool wsuccess = writeFile(outfile, res);
 		if (!wsuccess) {
 			cerr << "wasmdec: Failed to write file '" << outfile << "'" << endl;
