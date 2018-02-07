@@ -7,7 +7,7 @@
 #include <iostream>
 #include <iterator>
 
-#include "Disassembler.h"
+#include "Decompiler.h"
 #include "DisasmConfig.h"
 using namespace std;
 using namespace wasmdec;
