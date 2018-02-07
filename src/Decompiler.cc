@@ -37,8 +37,8 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 			return;
 		}
 	} else if (mode == DisasmMode::AsmJs) {
-		Asm2WasmPreProcessor preproc;
-		preproc.process(binary.data());
+		// Asm2WasmPreProcessor preproc;
+		// preproc.process(binary.data());
 	}
 	debug("Parsed bin successfully.\n");
 }
