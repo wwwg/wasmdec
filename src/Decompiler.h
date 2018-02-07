@@ -11,12 +11,12 @@
 using namespace std;
 
 namespace wasmdec {
-	class Disassembler {
+	class Decompiler {
 	public:
 		wasm::Module module;
 		vector<char> binary;
 		Emitter emit;
-		Disassembler(DisasmConfig, vector<char>*);
+		Decompiler(DisasmConfig, vector<char>*);
 		void gen();
 		string getEmittedCode();
 		bool failed();
