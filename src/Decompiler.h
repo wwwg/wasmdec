@@ -2,7 +2,7 @@
 #define _CODEGEN_H
 
 #include "wasm-s-parser.h"
-#include "asm2wasm.h"
+// #include "asm2wasm.h"
 
 #include "convert/Conversion.h"
 #include "Emitter.h"
