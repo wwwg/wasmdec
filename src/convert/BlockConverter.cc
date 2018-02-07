@@ -20,7 +20,7 @@ string wasmdec::Convert::getFuncBody(Context ctx, bool addExtraInfo) {
 	vector<Type>* vars = &(ctx.fn->vars);
 	if (vars->size()) {
 		vector<InterLocal> locals;
-		for (int i = 0; i < vars->size(); ++i) {
+		for (unsigned int i = 0; i < vars->size(); ++i) {
 			// Fill locals vector
 			InterLocal il(ctx.fn, i);
 			locals.push_back(il);
