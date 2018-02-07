@@ -1,12 +1,12 @@
 #ifndef _CODEGEN_H
 #define _CODEGEN_H
 
+#include "wasm-s-parser.h"
+#include "asm2wasm.h"
+
 #include "convert/Conversion.h"
 #include "Emitter.h"
 #include "DisasmConfig.h"
-
-#include "wasm-s-parser.h"
-#include "asm2wasm.h"
 
 using namespace wasmdec;
 using namespace std;
