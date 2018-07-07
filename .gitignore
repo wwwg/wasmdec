@@ -3,3 +3,4 @@ wasmdec
 libbinaryen.so
 *.o
 *.bin
+.gdb_history
