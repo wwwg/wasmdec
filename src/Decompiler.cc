@@ -13,9 +13,9 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 		try {
 			parser->read();
 			parserFailed = false;
-		} catch (wasm::ParseException& err) {
+		} catch (exception& err) {
 			cerr << "wasmdec: FAILED to parse wasm binary: " << endl;
-			err.dump(cerr);
+			cerr << err.what() << endl;
 			cerr << endl;
 			parserFailed = true;
 			return;
