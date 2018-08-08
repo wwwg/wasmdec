@@ -23,7 +23,8 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 	} else if (mode == DisasmMode::Wast) {
 		try {
 			debug("Starting SExpressionParser\n");
-			SExpressionParser parser(reinterpret_cast<char*>(binary.data()));
+			string binary_s(inbin->begin(), inbin->end());
+			SExpressionParser parser(const_cast<char*>(binary_s.c_str()));
 			Element& _root = *(parser.root);
 			debug("Starting SExpressionWasmBuilder\n");
 			SExpressionWasmBuilder sbuilder(module, *_root[0]);
