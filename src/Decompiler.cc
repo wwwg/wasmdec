@@ -7,11 +7,11 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 	mode = conf.mode;
 	if (mode == DisasmMode::Wasm) {
 		// Create parser
-		parser = new wasm::WasmBinaryBuilder(module, binary, conf.debug);
+		wasm::WasmBinaryBuilder parser(module, binary, conf.debug);
 		debug("Parsing wasm binary...\n");
 		// Attempt to parse binary via Binaryen's AST parser
 		try {
-			parser->read();
+			parser.read();
 			parserFailed = false;
 		} catch (exception& err) {
 			cerr << "wasmdec: FAILED to parse wasm binary: " << endl;
@@ -23,10 +23,10 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 	} else if (mode == DisasmMode::Wast) {
 		try {
 			debug("Starting SExpressionParser\n");
-			sparser = new SExpressionParser(reinterpret_cast<char*>(binary.data()));
-			Element& _root = *sparser->root;
+			SExpressionParser parser(reinterpret_cast<char*>(binary.data()));
+			Element& _root = *(parser.root);
 			debug("Starting SExpressionWasmBuilder\n");
-			sbuilder = new SExpressionWasmBuilder(module, *_root[0]);
+			SExpressionWasmBuilder sbuilder(module, *_root[0]);
 			parserFailed = false;
 		} catch (wasm::ParseException& err) {
 			cerr << "wasmdec: FAILED to parse wast: " << endl;

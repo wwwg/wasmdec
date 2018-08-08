@@ -24,11 +24,6 @@ namespace wasmdec {
 		vector<char>* dumpMemory();
 		vector<char>* dumpTable();
 		DisasmMode mode;
-		
-		// Allocated as needed
-		wasm::WasmBinaryBuilder* parser;
-		wasm::SExpressionParser* sparser;
-		wasm::SExpressionWasmBuilder* sbuilder;
 	protected:
 		void debug(string);
 		void debugf(string);
