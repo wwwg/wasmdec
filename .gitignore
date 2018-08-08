@@ -4,3 +4,4 @@ libbinaryen.so
 *.o
 *.bin
 .gdb_history
+out.c
