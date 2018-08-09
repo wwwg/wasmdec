@@ -41,9 +41,25 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 			return;
 		}
 	} else if (mode == DisasmMode::AsmJs) {
-		Asm2WasmPreProcessor a2w;
+		// preprocess
+		Asm2WasmPreProcessor a2wp;
 		string binary_s(inbin->begin(), inbin->end());
-		a2w.process(const_cast<char*>(binary_s.c_str()));
+		char* begin = a2wp.process(const_cast<char*>(binary_s.c_str()));
+
+		// parse
+		cashew::Parser<Ref, DotZeroValueBuilder> parser_builder;
+		Ref js = parser_builder.parseToplevel(begin);
+
+		// compile to wasm
+		PassOptions popts;
+		popts.debug = isDebug;
+		Asm2WasmBuilder a2w(module,
+							a2wp,
+							isDebug,
+							TrapMode::JS,
+							popts,
+							true, true, false);
+		a2w.processAsm(js);
 	}
 	debug("Parsed bin successfully.\n");
 }
