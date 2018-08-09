@@ -42,15 +42,18 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 		}
 	} else if (mode == DisasmMode::AsmJs) {
 		// preprocess
+		debug("Preprocessing asm.js\n");
 		Asm2WasmPreProcessor a2wp;
 		string binary_s(inbin->begin(), inbin->end());
 		char* begin = a2wp.process(const_cast<char*>(binary_s.c_str()));
 
 		// parse
+		debug("Initializing parser\n");
 		cashew::Parser<Ref, DotZeroValueBuilder> parser_builder;
 		Ref js = parser_builder.parseToplevel(begin);
 
 		// compile to wasm
+		debug("Compiling to wasm\n");
 		PassOptions popts;
 		popts.debug = isDebug;
 		Asm2WasmBuilder a2w(module,
@@ -60,6 +63,7 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 							popts,
 							true, true, false);
 		a2w.processAsm(js);
+		debug("Compilation finished");
 	}
 	debug("Parsed bin successfully.\n");
 }
