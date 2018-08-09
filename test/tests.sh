@@ -5,12 +5,15 @@
 WASMDEC=wasmdec
 
 do_test () {
-	if $(WASMDEC) -i $1 -o test.c -e -d; then
+	$(WASMDEC) -i $1 -o test.c -e -d
+	if [ $? -eq 0 ]; then
 		# test succeeded!
+		echo "TEST SUCCESS: test $1 passed"
 	else
-		echo "test $1 failed horribly"
+		# test fail
+		echo "TEST FAIL: test $1 failed horribly"
 		exit 1
 	fi
 }
 
-do_test("wasm/emcc.wast");
+do_test "wasm/emcc.wast"
