@@ -5,7 +5,7 @@
 WASMDEC=wasmdec
 
 do_test () {
-	$(WASMDEC) -i $1 -o test.c -e -d
+	WASMDEC -i $1 -o test.c -e -d
 	if [ $? -eq 0 ]; then
 		# test succeeded!
 		echo "TEST SUCCESS: test $1 passed"
