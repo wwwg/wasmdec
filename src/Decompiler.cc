@@ -42,7 +42,8 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 		}
 	} else if (mode == DisasmMode::AsmJs) {
 		Asm2WasmPreProcessor a2w;
-		// preproc.process(binary.data());
+		string binary_s(inbin->begin(), inbin->end());
+		a2w.process(const_cast<char*>(binary_s.c_str()));
 	}
 	debug("Parsed bin successfully.\n");
 }
