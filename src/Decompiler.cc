@@ -1,5 +1,9 @@
 #include "Decompiler.h"
 
+#ifndef wasm_asm2wasm_h
+#include "asm2wasm.h"
+#endif
+
 Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 : binary((*inbin)) {
 	isDebug = conf.debug;
@@ -37,7 +41,7 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 			return;
 		}
 	} else if (mode == DisasmMode::AsmJs) {
-		// Asm2WasmPreProcessor preproc;
+		Asm2WasmPreProcessor a2w;
 		// preproc.process(binary.data());
 	}
 	debug("Parsed bin successfully.\n");
