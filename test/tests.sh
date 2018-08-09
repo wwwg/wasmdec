@@ -16,4 +16,12 @@ do_test () {
 	rm -f test.c
 }
 
+# perform test for each binary
+
 do_test "wasm/emcc.wast"
+do_test "wasm/emcc.wasm"
+do_test "wasm/funcs.wasm"
+do_test "wasm/switch.wasm"
+do_test "wasm/switch.wast"
+do_test "wast-tests/addTwo.wast"
+do_test "wast-tests/funcs.wast"
