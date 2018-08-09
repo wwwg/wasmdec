@@ -13,6 +13,7 @@ do_test () {
 		echo "TEST FAIL: test $1 failed horribly"
 		exit 1
 	fi
+	rm -f test.c
 }
 
 do_test "wasm/emcc.wast"
