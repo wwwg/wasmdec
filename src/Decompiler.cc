@@ -10,6 +10,7 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 	emitExtraData = conf.extra;
 	mode = conf.mode;
 	if (mode == DisasmMode::Wasm) {
+		debug("Creating WasmBinaryBuilder\n");
 		// Create parser
 		wasm::WasmBinaryBuilder parser(module, binary, conf.debug);
 		debug("Parsing wasm binary...\n");
