@@ -45,7 +45,8 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 		// preprocess
 		debug("Preprocessing asm.js\n");
 		Asm2WasmPreProcessor a2wp;
-		char* begin = a2wp.process(binary.data());
+		string binary_s(inbin->begin(), inbin->end());
+		char* begin = a2wp.process(const_cast<char*>(binary_s.c_str()));
 
 		// parse
 		debug("Initializing parser\n");
