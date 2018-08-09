@@ -1,0 +1,2 @@
+default:
+	emcc main.c
