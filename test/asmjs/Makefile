@@ -1,2 +1,2 @@
 default:
-	emcc main.c
+	emcc -O3 main.c
