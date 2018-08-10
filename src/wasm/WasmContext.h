@@ -4,6 +4,8 @@
 #include "wasm.h"
 using namespace wasm;
 
+#include "../decompiler/DecompilerCtx.h"
+
 namespace wasmdec {
 	// Context is a union between WASM functions and modules
 	class Context {
@@ -11,9 +13,12 @@ namespace wasmdec {
 		bool isGlobal;
 		Function* fn;
 		Module* mod;
-		Context(Function*, Module*);
+		Context(Function*, Module*, DecompilerCtx*);
 		Context(Module*);
 		int depth;
+
+		bool hasDecompilerCtx;
+		DecompilerCtx* dctx;
 	};
 } // namespace wasmdec
 
