@@ -124,7 +124,7 @@ void Decompiler::gen() {
 				<< "\tParameters: " << fn->params.size() << endl
 				<< "*/" << endl;
 			}
-			Context ctx = Context(fn, &module);
+			Context ctx = Context(fn, &module, dctx);
 			emit << Convert::getDecl(fn) << Convert::getFuncBody(ctx, emitExtraData) << endl;
 		}
 	} else {
