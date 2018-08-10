@@ -24,10 +24,10 @@ namespace wasmdec {
 		static string getDecl(wasm::Function*);
 		static string getDecl(wasm::Module* m, unique_ptr<wasm::Import>& i);
 
-		static string parseExpr(Context*, wasm::Expression*, int);
-		static string getBlockBody(Context*, wasm::Block*, int);
+		static string parseExpr(Context*, wasm::Expression*);
+		static string getBlockBody(Context*, wasm::Block*);
 		static string getFuncBody(Context, bool);
-		static string parseOperandList(Context*, wasm::ExpressionList*, int);
+		static string parseOperandList(Context*, wasm::ExpressionList*);
 	};
 } // namespace wasmdec
 

@@ -5,6 +5,7 @@ Context::Context(Function* _fn, Module* _md) {
 	isGlobal = false;
 	fn = _fn;
 	mod = _md;
+	depth = 0;
 }
 Context::Context(Module* _md) {
 	isGlobal = true;

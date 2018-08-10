@@ -5,11 +5,11 @@
 using namespace std;
 using namespace wasm;
 
-string wasmdec::Convert::getBlockBody(Context* ctx, Block* blck, int depth) {
+string wasmdec::Convert::getBlockBody(Context* ctx, Block* blck) {
 	// Stream all block expressions and components into a string
 	stringstream s;
 	for (auto& expr : blck->list) {
-		s << Convert::parseExpr(ctx, expr, depth);
+		s << Convert::parseExpr(ctx, expr);
 	}
 	return s.str();
 }
@@ -49,7 +49,8 @@ string wasmdec::Convert::getFuncBody(Context ctx, bool addExtraInfo) {
 		}
 	}
 	// Function bodies are block expressions
-	fnBody += Convert::parseExpr(&ctx, ctx.fn->body, -1);
+	ctx.depth = -1;
+	fnBody += Convert::parseExpr(&ctx, ctx.fn->body);
 	fnBody += "}";
 	return fnBody;
 }

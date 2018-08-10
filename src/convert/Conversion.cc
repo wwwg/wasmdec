@@ -241,12 +241,12 @@ string wasmdec::Convert::getDecl(wasm::Module* m, unique_ptr<wasm::Import>& i) {
 	}
 	return ret;
 }
-string wasmdec::Convert::parseOperandList(Context* ctx, ExpressionList* list, int depth) {
+string wasmdec::Convert::parseOperandList(Context* ctx, ExpressionList* list) {
 	if (list->size()) {
 		string ret = "(";
 		for (unsigned int i = 0; i < list->size(); ++i) {
 			Expression* operand = list->operator[](i);
-			string soperand = Convert::parseExpr(ctx, operand, depth);
+			string soperand = Convert::parseExpr(ctx, operand);
 			ret += soperand;
 			if (i != (list->size() - 1)) {
 				// Only append comment if iterator is at the vector end
