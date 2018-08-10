@@ -7,7 +7,7 @@
 #include <iostream>
 #include <iterator>
 
-#include "Decompiler.h"
+#include "decompiler/Decompiler.h"
 
 bool readFile(vector<char>* data, string path) {
 	ifstream file(path);

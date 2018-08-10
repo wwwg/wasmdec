@@ -4,9 +4,11 @@
 #include "wasm-s-parser.h"
 // #include "asm2wasm.h"
 
-#include "convert/Conversion.h"
-#include "Emitter.h"
+#include "../convert/Conversion.h"
+#include "../Emitter.h"
+
 #include "DisasmConfig.h"
+#include "DecompilerCtx.h"
 
 using namespace wasmdec;
 using namespace std;
@@ -24,6 +26,7 @@ namespace wasmdec {
 		vector<char>* dumpMemory();
 		vector<char>* dumpTable();
 		DisasmMode mode;
+		DecompilerCtx* dctx;
 	protected:
 		void debug(string);
 		void debugf(string);

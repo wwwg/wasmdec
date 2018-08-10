@@ -67,6 +67,7 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 		debug("Compilation finished");
 	}
 	debug("Parsed bin successfully.\n");
+	dctx = new DecompilerCtx();
 }
 void Decompiler::gen() {
 	if (parserFailed) {
