@@ -13,6 +13,7 @@ namespace wasmdec {
 		Module* mod;
 		Context(Function*, Module*);
 		Context(Module*);
+		int depth;
 	};
 } // namespace wasmdec
 
