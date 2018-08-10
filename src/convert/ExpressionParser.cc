@@ -2,19 +2,19 @@
 using namespace std;
 using namespace wasm;
 
-string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
+string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 	string ret;
 	if (ex->is<Block>()) {
 		// Recursively parse blocks
 		Block* blck = ex->cast<Block>();
-		depth++;
-		ret += getBlockBody(ctx, blck, depth);
-		depth--;
+		ctx->depth++;
+		ret += getBlockBody(ctx, blck);
+		ctx->depth--;
 	} else if (ex->is<Binary>()) {
 		// Binary operations, including conditionals and arithmetic
 		Binary* spex = ex->cast<Binary>();
-		string e1 = parseExpr(ctx, spex->left, depth);
-		string e2 = parseExpr(ctx, spex->right, depth);
+		string e1 = parseExpr(ctx, spex->left);
+		string e2 = parseExpr(ctx, spex->right);
 		ret += getBinOperator(e1, spex->op, e2);
 	} else if (ex->is<GetLocal>()) {
 		// Convert WASM local variable to C local variable
@@ -22,32 +22,32 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		ret += getLocal(spex->index);
 	} else if (ex->is<Return>()) {
 		Return* spex = ex->cast<Return>();
-		if (depth < 1) {
+		if (ctx->depth < 1) {
 			ret += util::tab(1);
 		} else {
-			ret += util::tab(depth);
+			ret += util::tab(ctx->depth);
 		}
 		if (spex->value) {
 			// Insert expression as function return value
 			ret += "return ";
-			ret += parseExpr(ctx, spex->value, depth) + ";\n";
+			ret += parseExpr(ctx, spex->value) + ";\n";
 		} else {
 			ret += "return;\n"; // For void functions
 		}
 	} else if (ex->is<If>()) {
 		If* ife = ex->cast<If>();
-		string cond = parseExpr(ctx, ife->condition, depth);
-		string trueBlock = parseExpr(ctx, ife->ifTrue, depth);
-		ret += util::tab(depth);
+		string cond = parseExpr(ctx, ife->condition);
+		string trueBlock = parseExpr(ctx, ife->ifTrue);
+		ret += util::tab(ctx->depth);
 		ret += "if (" + cond + ") {\n";
 		ret += trueBlock;
-		ret += "\n" + util::tab(depth) + "} ";
+		ret += "\n" + util::tab(ctx->depth) + "} ";
 		if (ife->ifFalse) {
 			// Insert else block
-			string falseBlock = parseExpr(ctx, ife->ifFalse, depth);
+			string falseBlock = parseExpr(ctx, ife->ifFalse);
 			ret += "else {\n";
-			ret += util::tab(depth) + falseBlock + "\n";
-			ret += util::tab(depth) + "}";
+			ret += util::tab(ctx->depth) + falseBlock + "\n";
+			ret += util::tab(ctx->depth) + "}";
 		} else {
 			// No else statement
 			ret += "// <No else block>\n";
@@ -57,7 +57,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		Literal* val = &(ex->cast<Const>()->value);
 		ret += util::getLiteralValue(val);
 	} else if (ex->is<Nop>()) {
-		ret += util::tab(depth) + "// <Nop expression>\n"; // Nop expressions do nothing
+		ret += util::tab(ctx->depth) + "// <Nop expression>\n"; // Nop expressions do nothing
 	} else if (ex->is<GetGlobal>()) {
 		// Global variable lookup
 		ret += ex->cast<GetGlobal>()->name.str;
@@ -65,48 +65,48 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 	} else if (ex->is<SetGlobal>()) {
 		// Set global variable
 		SetGlobal* gex = ex->cast<SetGlobal>();
-		ret += util::tab(depth) + gex->name.str + " = ";
+		ret += util::tab(ctx->depth) + gex->name.str + " = ";
 		// The value is an expression
-		ret += parseExpr(ctx, gex->value, depth) + ";\n";
+		ret += parseExpr(ctx, gex->value) + ";\n";
 	} else if (ex->is<Break>()) {
 		Break* br = ex->cast<Break>();
-		ret += util::tab(depth);
+		ret += util::tab(ctx->depth);
 		if (br->condition) {
 			// Conditional breaking
-			ret += "if (" + parseExpr(ctx, br->condition, depth) + ") break;";
+			ret += "if (" + parseExpr(ctx, br->condition) + ") break;";
 		} else {
 			// Literal breaking
 			ret += "break;";
 		}
 		if (br->value) {
-			string val = parseExpr(ctx, br->value, depth);
+			string val = parseExpr(ctx, br->value);
 			// TODO : parse break values
 			// cout << "Break val: " << val << endl;
 		}
 	} else if (ex->is<Call>()) {
 		// Function call
 		Call* fnCall = ex->cast<Call>();
-		if (depth < 1) {
+		if (ctx->depth < 1) {
 			ret += util::tab(1);
 		} else {
-			ret += util::tab(depth);
+			ret += util::tab(ctx->depth);
 		}
-		ret += getFName(fnCall->target) + parseOperandList(ctx, &(fnCall->operands), depth);
+		ret += getFName(fnCall->target) + parseOperandList(ctx, &(fnCall->operands));
 		ret += ";\n";
 	} else if (ex->is<CallImport>()) {
 		// Imported function call
 		CallImport* imCall = ex->cast<CallImport>();
 		// ret += "/* Import call */ ";
-		if (depth < 1) {
+		if (ctx->depth < 1) {
 			ret += util::tab(1);
 		} else {
-			ret += util::tab(depth);
+			ret += util::tab(ctx->depth);
 		}
-		ret += imCall->target.str + parseOperandList(ctx, &(imCall->operands), depth);
+		ret += imCall->target.str + parseOperandList(ctx, &(imCall->operands));
 		ret += ";\n";
 	} else if (ex->is<Loop>()) {
 		Loop* lex = ex->cast<Loop>();
-		ret += util::tab(depth);
+		ret += util::tab(ctx->depth);
 		ret += "while (1) {";
 		if (lex->name.str) {
 			 ret += " // Loop name: '";
@@ -114,13 +114,13 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 			 ret += "'";
 		}
 		ret += "\n";
-		depth -= 1;
-		ret += parseExpr(ctx, lex->body, depth);
+		ctx->depth -= 1;
+		ret += parseExpr(ctx, lex->body);
 		ret += "\n";
-		if (depth < 1) {
+		if (ctx->depth < 1) {
 			ret += util::tab(1);
 		} else {
-			ret += util::tab(depth);
+			ret += util::tab(ctx->depth);
 		}
 		ret += "} " ;
 		if (lex->name.str) {
@@ -139,13 +139,13 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		*/
 		Switch* sw = ex->cast<Switch>();
 		if (sw->value) {
-			string sval = parseExpr(ctx, sw->value, depth);
+			string sval = parseExpr(ctx, sw->value);
 			// start of switch routine
-			ret += util::tab(depth);
+			ret += util::tab(ctx->depth);
 			ret += "switch (";
 			ret += sval;
 			ret += ") {\n";
-			depth++;
+			ctx->depth++;
 			
 			// routine body
 			Block* body = sw->condition->cast<Block>();
@@ -154,24 +154,24 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 				ret += "case ";
 				ret += sname;
 				ret += ":\n";
-				depth++;
+				ctx->depth++;
 				Expression* thisExpr = body->list[i];
-				ret += parseExpr(ctx, thisExpr, depth);
-				depth--;
+				ret += parseExpr(ctx, thisExpr);
+				ctx->depth--;
 				ret += "\n";
 			}
 			
 			// end of switch routine
 			ret += "}\n";
 		}
-		depth--;
-		ret += util::tab(depth) + "}\n";
+		ctx->depth--;
+		ret += util::tab(ctx->depth) + "}\n";
 	} else if (ex->is<CallIndirect>()) {
 		CallIndirect* ci = ex->cast<CallIndirect>();
-		string _icall = parseExpr(ctx, ci->target, depth);
+		string _icall = parseExpr(ctx, ci->target);
 		ret += "// Indirect call:\n";
 		ret += "(" + _icall + ")";
-		ret += parseOperandList(ctx, &(ci->operands), depth);
+		ret += parseOperandList(ctx, &(ci->operands));
 		ret += "; \n";
 	} else if (ex->is<SetLocal>()) {
 		// Resolve variable's C name
@@ -180,62 +180,62 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 		int idx = util::getLocalIndex(ctx->fn, sl->index);
 		*/
 		int idx = sl->index;
-		ret += util::tab(depth);
+		ret += util::tab(ctx->depth);
 		ret += getLocal((Index)idx);
 		ret += " = ";
 		// Resolve the value to be set
-		ret += parseExpr(ctx, sl->value, depth);
+		ret += parseExpr(ctx, sl->value);
 		ret += ";\n";
 	} else if (ex->is<Load>()) {
 		// Memory loading
 		Load* lxp = ex->cast<Load>();
-		string var = parseExpr(ctx, lxp->ptr, depth);
-		ret += util::tab(depth);
+		string var = parseExpr(ctx, lxp->ptr);
+		ret += util::tab(ctx->depth);
 		ret += "/*  Load:\n";
-		depth++;
-		ret += util::tab(depth) + "Offset: ";
+		ctx->depth++;
+		ret += util::tab(ctx->depth) + "Offset: ";
 		ret += util::getAddrStr(&(lxp->offset));
 		ret += "\n";
-		ret += util::tab(depth) + "Align:  ";
+		ret += util::tab(ctx->depth) + "Align:  ";
 		ret += util::getAddrStr(&(lxp->align));
 		ret += "\n";
-		ret += util::tab(depth) + "Bytes:  ";
+		ret += util::tab(ctx->depth) + "Bytes:  ";
 		ret += util::getHex<int>(lxp->bytes);
 		ret += "\n";
-		ret += util::tab(depth) + "Atomic: ";
+		ret += util::tab(ctx->depth) + "Atomic: ";
 		ret += util::boolStr(lxp->isAtomic);
 		ret += "\n";
-		ret += util::tab(depth) + "Signed: ";
+		ret += util::tab(ctx->depth) + "Signed: ";
 		ret += util::boolStr(lxp->signed_);
-		depth--;
+		ctx->depth--;
 		ret += "  */\n";
 		ret += var;
 	} else if (ex->is<Store>()) {
 		Store* sxp = ex->cast<Store>();
-		string var = parseExpr(ctx, sxp->ptr, depth);
-		string val = parseExpr(ctx, sxp->value, depth);
+		string var = parseExpr(ctx, sxp->ptr);
+		string val = parseExpr(ctx, sxp->value);
 		// Append information about the expression
-		ret += util::tab(depth);
+		ret += util::tab(ctx->depth);
 		ret += "/*  Store:\n";
-		depth++;
-		ret += util::tab(depth) + "Offset: ";
+		ctx->depth++;
+		ret += util::tab(ctx->depth) + "Offset: ";
 		ret += util::getAddrStr(&(sxp->offset));
 		ret += "\n";
-		ret += util::tab(depth) + "Align:  ";
+		ret += util::tab(ctx->depth) + "Align:  ";
 		ret += util::getAddrStr(&(sxp->align));
 		ret += "\n";
-		ret += util::tab(depth) + "Bytes:  ";
+		ret += util::tab(ctx->depth) + "Bytes:  ";
 		ret += util::getHex<int>(sxp->bytes);
 		ret += "\n";
-		ret += util::tab(depth) + "Atomic: ";
+		ret += util::tab(ctx->depth) + "Atomic: ";
 		ret += util::boolStr(sxp->isAtomic);
-		depth--;
+		ctx->depth--;
 		ret += "  */\n";
 		// Append C representation
-		ret += util::tab(depth) + var + " = " + val + "; \n";
+		ret += util::tab(ctx->depth) + var + " = " + val + "; \n";
 	} else if (ex->is<Unary>()) {
 		Unary* uex = ex->cast<Unary>();
-		string unaryEx = parseExpr(ctx, uex->value, depth);
+		string unaryEx = parseExpr(ctx, uex->value);
 		ret += getUnary(unaryEx, uex->op);
 	} else if (ex->is<AtomicRMW>()) {
 		// WASM currently has no support for atomics
@@ -246,20 +246,20 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex, int depth) {
 	} else if (ex->is<Select>()) {
 		// Select is the WASM equivalent of C's ternary operator.
 		Select* slex = ex->cast<Select>();
-		string cond = parseExpr(ctx, slex->condition, depth);
-		string ifTrue = parseExpr(ctx, slex->ifTrue, depth);
-		string ifFalse = parseExpr(ctx, slex->ifFalse, depth);
+		string cond = parseExpr(ctx, slex->condition);
+		string ifTrue = parseExpr(ctx, slex->ifTrue);
+		string ifFalse = parseExpr(ctx, slex->ifFalse);
 		ret += "(" + cond + ") ? (" + ifTrue + ") : (" + ifFalse + ");\n";
 	} else if (ex->is<Drop>()) {
 		Drop* dex = ex->cast<Drop>();
 		ret += util::tab(1);
 		ret += "/* Drop routine */\n";
-		ret += parseExpr(ctx, dex->value, depth);
+		ret += parseExpr(ctx, dex->value);
 		ret += util::tab(1);
 		ret += "/* End of drop routine */\n";
 	} else if (ex->is<Host>()) {
 		Host* hexp = ex->cast<Host>();
-		string hoperands = parseOperandList(ctx, &(hexp->operands), depth);
+		string hoperands = parseOperandList(ctx, &(hexp->operands));
 		string hfunc = getHostFunc(hexp->op);
 		ret += "/* Host call */\n" + hfunc + hoperands;
 	} else if (ex->is<Unreachable>()) {

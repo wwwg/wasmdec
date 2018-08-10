@@ -98,7 +98,7 @@ void Decompiler::gen() {
 		emit.comment("WASM globals:");
 		for (auto& glb : module.globals) {
 			string globalType = Convert::resolveType(glb->type);
-			string globalInitializer = Convert::parseExpr(&gctx, glb->init, 0);
+			string globalInitializer = Convert::parseExpr(&gctx, glb->init);
 			if (!glb->mutable_) { // Non-mutable global is represented by const
 				emit << "const ";
 			}
