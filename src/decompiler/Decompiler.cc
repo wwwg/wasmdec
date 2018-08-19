@@ -1,7 +1,11 @@
 #include "Decompiler.h"
 
+#ifdef ASM_JS_DECOMP
+
 #ifndef wasm_asm2wasm_h
 #include "asm2wasm.h"
+#endif
+
 #endif
 
 Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
@@ -41,7 +45,11 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 			parserFailed = true;
 			return;
 		}
-	} else if (mode == DisasmMode::AsmJs) {
+	}
+	
+	#ifdef ASM_JS_DECOMP
+
+	else if (mode == DisasmMode::AsmJs) {
 		// preprocess
 		debug("Preprocessing asm.js\n");
 		Asm2WasmPreProcessor a2wp;
@@ -66,6 +74,9 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 		a2w.processAsm(js);
 		debug("Compilation finished");
 	}
+
+	#endif
+
 	debug("Parsed bin successfully.\n");
 	dctx = new DecompilerCtx();
 }
