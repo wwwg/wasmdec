@@ -24,7 +24,7 @@ clean:
 
 # To build binaryen
 binaryen:
-	cd src/binaryen && cmake . && make
+	cd external/binaryen && cmake . && make
 
 # To install binaryen
 installBinaryen:
