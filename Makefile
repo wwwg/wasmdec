@@ -3,6 +3,7 @@ OBJS=$(SRC:.cc=.o)
 OUT=wasmdec
 CC=g++
 CCOPTS=-std=c++14 -Iexternal/binaryen/src -c -Wall -g
+RELEASE_CCOPTS=-std=c++14 -Iexternal/binaryen/src -c -Wall -O3
 LDOPTS=-Lexternal/binaryen/lib -lbinaryen -lpthread
 
 default: $(SRC) $(OUT)
