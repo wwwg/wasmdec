@@ -24,11 +24,11 @@ clean:
 
 # To build binaryen
 binaryen:
-	cd src/binaryen && cmake . && make
+	cd external/binaryen && cmake . && make
 
 # To install binaryen
 installBinaryen:
-	if [ -d "/usr/lib64" ]; then cp src/binaryen/lib/libbinaryen.so /usr/lib64/; else cp src/binaryen/lib/libbinaryen.so /usr/lib/; fi
+	if [ -d "/usr/lib64" ]; then cp external/binaryen/lib/libbinaryen.so /usr/lib64/; else cp external/binaryen/lib/libbinaryen.so /usr/lib/; fi
 
 # To install wasmdec
 install:
