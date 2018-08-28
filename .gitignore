@@ -7,4 +7,5 @@ libbinaryen.so
 out.c
 release/wasmdec
 release/libbinaryen.so
-release.tar.gz
+release*.tar.gz
+wasmdec*.tar.gz
