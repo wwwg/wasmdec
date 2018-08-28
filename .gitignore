@@ -5,3 +5,4 @@ libbinaryen.so
 *.bin
 .gdb_history
 out.c
+release/
