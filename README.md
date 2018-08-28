@@ -19,7 +19,13 @@ int fn_addTwo(int arg0, int arg1) {
 	return arg0 + arg1;
 }
 ```
-# How to install wasmdec for Linux
+# Installing with release
+
+- Grab a release on the releases page and select the correct tarball for your OS and arch.
+- Extract and run `install.sh` as root.
+
+# Installing manually
+
 ## Getting the code
 Clone the repository with
 ```bash
