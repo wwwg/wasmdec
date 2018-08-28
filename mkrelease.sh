@@ -14,3 +14,5 @@ make default
 
 cp wasmdec release/
 cp external/binaryen/lib/libbinaryen.so release/
+
+tar -czvf release.tar.gz release/
