@@ -7,7 +7,7 @@ using namespace std;
 namespace wasmdec {
 	class MultiDecompiler {
 	public:
-		MultiDecompiler(vector<string>);
+		MultiDecompiler(vector<string>, DisasmConfig);
 	protected:
 		bool readFile(vector<char>*, string);
 		bool failed;
