@@ -90,7 +90,7 @@ int main(int argc, const char** argv) {
 		("d,debug", "Enable debug output")
 		("m,memdump", "Dump memory instead of decompiling")
 		("e,extra", "Output extra information to decompiled binary")
-		("o,output", "Output C file", cxxopts::value<string>())
+		("o,output", "Output C file", cxxopts::value<string>(outfile))
 		;
 	auto res = opt.parse(argc, argv);
 	return 0;
