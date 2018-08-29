@@ -96,6 +96,8 @@ int main(int argc, char* argv[]) {
 		("h,help", "Print usage")
 		;
 	opt.parse_positional({"positional"});
+	opt.positional_help("[input file]")
+      .show_positional_help();
 	auto res = opt.parse(argc, argv);
 	// Help and version, boring
 	if (res.count("v")) {
