@@ -95,6 +95,7 @@ int main(int argc, char* argv[]) {
 		("positional", "Input file(s)", cxxopts::value<std::vector<std::string>>())
 		("h,help", "Print usage")
 		;
+	opt.parse_positional({"positional"});
 	auto res = opt.parse(argc, argv);
 	// Help and version, boring
 	if (res.count("v")) {
@@ -122,6 +123,13 @@ int main(int argc, char* argv[]) {
 	if (res.count("e")) {
 		enableExtra();
 	}
-
+	// Parse input file(s)
+	if (res.count("positional")) {
+		// TEMPORARY : print all positional arguments
+		auto& v = res["positional"].as<std::vector<std::string>>();
+		for (const auto& s : v) {
+			std::cout << s << " ";
+		}
+	}
 	return 0;
 }
