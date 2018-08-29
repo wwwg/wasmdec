@@ -11,6 +11,27 @@
 
 #include "decompiler/Decompiler.h"
 
+// legacy functions
+// TODO : REMOVE THESE
+
+int _usage_old() {
+	cerr << "Usage:" << endl
+	<< "wasmdec {arguments}, where arguments is one of:" << endl
+	<< "\t -o / --out <outfile> : Path to output file (Required)" << endl
+	<< "\t -i / --in <infile> : Path to input file (Required)" << endl
+	<< "\t -d / --debug : Enable debug output" << endl
+	<< "\t -e / --extra : Emit extra data into outfile" << endl
+	<< "\t -m / --memdump : Dump the input file's memory to disk" << endl
+	<< "\t -h / --help : Print usage information" << endl
+	<< "\t -v / --version : Print the program's version" << endl;
+	return 1;
+}
+int _usage_old(int optionalRetVal) {
+	usage();
+	return optionalRetVal;
+}
+
+// Helper functions
 bool readFile(vector<char>* data, string path) {
 	ifstream file(path);
 	if (!file.eof() && !file.fail()) {
@@ -42,22 +63,6 @@ string getFileExt(string fname) {
 	} else {
 	    return "";
 	}
-}
-int usage() {
-	cerr << "Usage:" << endl
-	<< "wasmdec {arguments}, where arguments is one of:" << endl
-	<< "\t -o / --out <outfile> : Path to output file (Required)" << endl
-	<< "\t -i / --in <infile> : Path to input file (Required)" << endl
-	<< "\t -d / --debug : Enable debug output" << endl
-	<< "\t -e / --extra : Emit extra data into outfile" << endl
-	<< "\t -m / --memdump : Dump the input file's memory to disk" << endl
-	<< "\t -h / --help : Print usage information" << endl
-	<< "\t -v / --version : Print the program's version" << endl;
-	return 1;
-}
-int usage(int optionalRetVal) {
-	usage();
-	return optionalRetVal;
 }
 int main(int argc, const char** argv) {
 	string infile, outfile;
