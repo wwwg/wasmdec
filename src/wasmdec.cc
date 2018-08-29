@@ -125,11 +125,7 @@ int main(int argc, char* argv[]) {
 	}
 	// Parse input file(s)
 	if (res.count("positional")) {
-		// TEMPORARY : print all positional arguments
-		auto& v = res["positional"].as<std::vector<std::string>>();
-		for (const auto& s : v) {
-			std::cout << s << " ";
-		}
+		// TODO: handle parsing of input file(s)
 	}
 	return 0;
 }
