@@ -99,6 +99,19 @@ int performMemdump(Decompiler* decompiler) {
 	}
 	return 0;
 }
+int decompile(Decompiler* decompiler) {
+	decompiler->decompile();
+	if (decompiler->failed()) {
+		std::cout << "ERROR: failed to decompile the binary." << std::endl;
+		return 1;
+	}
+	string decompiledCode = decompiler->getEmittedCode();
+	if (!writeFile(outfile, decompiledCode)) {
+		std::cout << "ERROR: failed to write the output file." << std::endl;
+		return 1;
+	}
+	return 0;
+}
 int main(int argc, char* argv[]) {
 	// Set up options
 	cxxopts::Options opt("wasmdec", "WebAssembly to C decompiler");
@@ -174,18 +187,9 @@ int main(int argc, char* argv[]) {
 	Decompiler decompiler(conf, input);
 
 	if (!memdump) {
-		decompiler.decompile();
-		if (decompiler.failed()) {
-			std::cout << "ERROR: failed to decompile the binary." << std::endl;
-			return 0;
-		}
-		string decompiledCode = decompiler.getEmittedCode();
-		if (!writeFile(outfile, decompiledCode)) {
-			std::cout << "ERROR: failed to write the output file." << std::endl;
-			return 0;
-		}
+		return decompile(&decompiler);
 	} else {
-		performMemdump(&decompiler);
+		return performMemdump(&decompiler);
 	}
 
 	return 0;
