@@ -32,9 +32,9 @@ int _usage_old(int optionalRetVal) {
 }
 
 // Global variables to be passed to the decompiler
-bool enableDebugging = false,
-		enableExtra = false,
-		enableMemdump = false;
+bool debugging = false,
+		extra = false,
+		memdump = false;
 string infile,
 	outfile;
 
@@ -94,19 +94,19 @@ int printVersion() {
 	return 0;
 }
 void enableDebugging() {
-	enableDebugging = true;
+	debugging = true;
 }
 void enableExtra() {
-	enableExtra = true;
+	extra = true;
+}
+void enableMemdump() {
+	memdump = true;
 }
 void setOutfile(string _outf) {
 	outfile = _outf;
 }
 void setInfile(string _inf) {
 	infile = _inf;
-}
-void enableMemdump() {
-	enableMemdump = true;
 }
 int main(int argc, const char** argv) {
 	Options opt("wasmdec", "WebAssembly to C decompiler");
