@@ -108,5 +108,16 @@ int main(int argc, char* argv[]) {
 		<< opt.help({"", "Group"}) << std::endl;
 		return 1;
 	}
+	if (res.count("d")) {
+		enableDebugging();
+	}
+
+	if (res.count("m")) {
+		enableMemdump();
+	}
+
+	if (res.count("e")) {
+		enableExtra();
+	}
 	return 0;
 }
