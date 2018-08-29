@@ -147,8 +147,8 @@ int main(int argc, char* argv[]) {
 	// Configure the decompiler
 	dmode = getDisasmMode(infile);
 	DisasmConfig conf(debugging, extra, dmode);
-	std::vector<char> input;
-	if (!readFile(&input, infile)) {
+	std::vector<char>* input = new std::vector<char>();
+	if (!readFile(input, infile)) {
 		std::cout << "ERROR: failed to read the input file!" << std::endl;
 		return 0;
 	}
