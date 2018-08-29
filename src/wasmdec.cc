@@ -113,7 +113,7 @@ int decompile(Decompiler* decompiler) {
 	}
 	return 0;
 }
-int multiDecompile(Decompiler* decompiler) {
+int multiDecompile(void) {
 	// TODO
 	return 0;
 }
