@@ -94,5 +94,9 @@ int main(int argc, const char** argv) {
 		("positional", "Input file(s)", cxxopts::value<std::vector<std::string>>())
 		;
 	auto res = opt.parse(argc, argv);
+	if (res.count("v")) {
+		// version argument passed
+		return printVersion();
+	}
 	return 0;
 }
