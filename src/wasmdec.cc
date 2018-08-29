@@ -16,6 +16,7 @@ bool debugging = false,
 		memdump = false;
 string infile,
 	outfile;
+DisasmMode dmode;
 
 // Helper functions
 bool readFile(vector<char>* data, string path) {
@@ -64,7 +65,7 @@ DisasmMode getDisasmMode(string infile) {
 	}
 }
 Decompiler getDecompiler(vector<char>* input) {
-	DisasmConfig config(debugging, extra, mode);
+	DisasmConfig config(debugging, extra, dmode);
 	return Decompiler(config, input);
 }
 int printVersion() {
