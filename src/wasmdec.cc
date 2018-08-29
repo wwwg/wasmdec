@@ -153,14 +153,18 @@ int main(int argc, char* argv[]) {
 		return 0;
 	}
 
-	// Now that everything is parsed, initialize the decompiler
-	Decompiler decompiler(conf, input);
-	decompiler.decompile();
-	if (decompiler.failed()) {
-		std::cout << "ERROR: failed to decompile the binary." << std::endl;
-		return 0;
+	if (!memdump) {
+		// Now that everything is parsed, initialize the decompiler
+		Decompiler decompiler(conf, input);
+		decompiler.decompile();
+		if (decompiler.failed()) {
+			std::cout << "ERROR: failed to decompile the binary." << std::endl;
+			return 0;
+		}
+		string decompiledCode = decompiler.getEmittedCode();
+	} else {
+		// TODO : reimplement memdump
 	}
-	string decompiledCode = decompiler.getEmittedCode();
 
 	return 0;
 }
