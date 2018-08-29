@@ -85,6 +85,17 @@ void setInfile(string _inf) {
 	infile = _inf;
 }
 int performMemdump(Decompiler* decompiler) {
+	// Initialize a decompiler for memory dumping
+	dmode = getDisasmMode(infile);
+	DisasmConfig conf(debugging, extra, dmode);
+	std::vector<char>* input = new std::vector<char>();
+	if (!readFile(input, infile)) {
+		std::cout << "ERROR: failed to read the input file!" << std::endl;
+		return 1;
+	}
+	Decompiler decompiler(conf, input);
+
+	// Dump the memory and table
 	std::vector<char> mem = decompiler->dumpMemory();
 	std::vector<char> table = decompiler->dumpTable();
 	std::string memOutFile = outfile + ".mem",
@@ -180,22 +191,29 @@ int main(int argc, char* argv[]) {
 			<< opt.help({"", "Group"}) << std::endl;
 		return 1;
 	}
-	// Configure the decompiler
-	dmode = getDisasmMode(infile);
-	DisasmConfig conf(debugging, extra, dmode);
-	std::vector<char>* input = new std::vector<char>();
-	if (!readFile(input, infile)) {
-		std::cout << "ERROR: failed to read the input file!" << std::endl;
-		return 0;
-	}
-
-	// Now that everything is parsed, initialize the decompiler
-	Decompiler decompiler(conf, input);
 
 	if (!memdump) {
-		return decompile(&decompiler);
+		if (!infile.size()) {
+			// There's more than one infile, use a multidecompiler
+			// TODO
+		} else {
+			// there's only one infile, use a regular decompiler
+
+			// Configure the decompiler
+			dmode = getDisasmMode(infile);
+			DisasmConfig conf(debugging, extra, dmode);
+			std::vector<char>* input = new std::vector<char>();
+			if (!readFile(input, infile)) {
+				std::cout << "ERROR: failed to read the input file!" << std::endl;
+				return 1;
+			}
+
+			// Now that everything is parsed, initialize the decompiler
+			Decompiler decompiler(conf, input);
+			return decompile(&decompiler);
+		}
 	} else {
-		return performMemdump(&decompiler);
+		return performMemdump();
 	}
 
 	return 0;
