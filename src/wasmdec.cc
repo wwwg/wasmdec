@@ -168,10 +168,8 @@ int main(int argc, char* argv[]) {
 			return 0;
 		}
 	} else {
-		std::vector<char>* pmem = decompiler.dumpMemory();
-		std::vector<char>* ptable = decompiler.dumpTable();
-		std::vector<char> mem = std::vector<char>(pmem->begin(), pmem->end());
-		std::vector<char> table = std::vector<char>(ptable->begin(), ptable->end());
+		std::vector<char> mem = decompiler.dumpMemory();
+		std::vector<char> table = decompiler.dumpTable();
 		std::string memOutFile = outfile + ".mem",
 			tableOutFile = outfile + ".table.bin",
 			stringMemory = std::string(mem.begin(), mem.end()),

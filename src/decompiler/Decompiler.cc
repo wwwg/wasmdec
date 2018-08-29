@@ -179,7 +179,7 @@ bool Decompiler::failed() {
 	// TODO : Develop this function to support other code generation failures
 	return parserFailed;
 }
-vector<char>* Decompiler::dumpMemory() {
+vector<char> Decompiler::dumpMemory() {
 	if (module.memory.exists && module.memory.imported) {
 		for (const auto &seg : module.memory.segments) {
 			// Push each raw byte from each segment into raw memory vector
@@ -187,12 +187,12 @@ vector<char>* Decompiler::dumpMemory() {
 				rawMemory.push_back(byte);
 			}
 		}
-		return &rawMemory;
+		return rawMemory;
 	} else {
-		return nullptr;
+		return vector<char>();
 	}
 }
-vector<char>* Decompiler::dumpTable() {
+vector<char> Decompiler::dumpTable() {
 	if (module.table.exists && module.table.imported) {
 		for (const auto &seg : module.table.segments) {
 			for (const auto &name : seg.data) {
@@ -204,8 +204,8 @@ vector<char>* Decompiler::dumpTable() {
 				}
 			}
 		}
-		return &rawTable;
+		return rawTable;
 	} else {
-		return nullptr;
+		return vector<char>();
 	}
 }
