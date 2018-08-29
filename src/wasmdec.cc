@@ -14,8 +14,7 @@
 bool debugging = false,
 		extra = false,
 		memdump = false;
-std::string infile,
-	outfile;
+std::string infile, outfile;
 std::vector<std::string> infiles; // will be empty if there's only one file to decompile
 DisasmMode dmode;
 
