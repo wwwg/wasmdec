@@ -100,7 +100,7 @@ int main(int argc, char* argv[]) {
 		return printVersion();
 	}
 	if (res.count("h")) {
-		std::cout << opts.help({"", "Group"}) << std::endl;
+		std::cout << opt.help({"", "Group"}) << std::endl;
 		return 0;
 	}
 	return 0;
