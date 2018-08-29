@@ -7,6 +7,8 @@
 #include <iostream>
 #include <iterator>
 
+#include "cxxopts.hpp"
+
 #include "decompiler/Decompiler.h"
 
 bool readFile(vector<char>* data, string path) {
