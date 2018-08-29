@@ -176,10 +176,10 @@ int main(int argc, char* argv[]) {
 			tableOutFile = outfile + ".table.bin",
 			stringMemory = std::string(mem->begin(), mem->end()),
 			stringTable = std::string(table->begin(), table->end());
-		if (!writeFile(memOutFile, mem)) {
+		if (!writeFile(memOutFile, stringMemory)) {
 			std::cout << "ERROR: failed to write memory file '" << memOutFile << '"' << std::endl;
 			return 1;
-		} else if (!writeFile(tableOutFile, mem)) {
+		} else if (!writeFile(tableOutFile, stringTable)) {
 			std::cout << "ERROR: failed to write memory file '" << tableOutFile << '"' << std::endl;
 			return 1;
 		}
