@@ -160,6 +160,7 @@ int main(int argc, char* argv[]) {
 		std::cout << "ERROR: failed to decompile the binary." << std::endl;
 		return 0;
 	}
+	string decompiledCode = decompiler.getEmittedCode();
 
 	return 0;
 }
