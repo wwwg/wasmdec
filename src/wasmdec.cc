@@ -113,6 +113,10 @@ int decompile(Decompiler* decompiler) {
 	}
 	return 0;
 }
+int multiDecompile(Decompiler* decompiler) {
+	// TODO
+	return 0;
+}
 int main(int argc, char* argv[]) {
 	// Set up options
 	cxxopts::Options opt("wasmdec", "WebAssembly to C decompiler");
