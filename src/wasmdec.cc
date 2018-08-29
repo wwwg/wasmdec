@@ -9,7 +9,6 @@
 
 #include "cxxopts.hpp"
 #include "decompiler/Decompiler.h"
-using namespace cxxopts;
 
 // legacy functions
 // TODO : REMOVE THESE
@@ -109,13 +108,13 @@ void setInfile(string _inf) {
 	infile = _inf;
 }
 int main(int argc, const char** argv) {
-	Options opt("wasmdec", "WebAssembly to C decompiler");
+	cxxopts::Options opt("wasmdec", "WebAssembly to C decompiler");
 	opt.add_options()
 		("v,version", "Print wasmdec version")
 		("d,debug", "Enable debug output")
 		("m,memdump", "Dump memory instead of decompiling")
 		("e,extra", "Output extra information to decompiled binary")
-		("o,output", "Output C file", value<string>())
+		("o,output", "Output C file", cxxopts::value<string>())
 		;
 	return 0;
 }
