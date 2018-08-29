@@ -73,7 +73,6 @@ string getFileExt(string fname) {
 DisasmMode getDisasmMode(string infile) {
 	// Convert file extension to disassembler mode
 	string ext = getFileExt(infile);
-	DisasmMode mode = DisasmMode::None;
 	if (ext == "wasm") {
 		return DisasmMode::Wasm;
 	} else if (ext == "wast") {
