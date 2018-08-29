@@ -3,11 +3,10 @@
 MultiDecompiler::MultiDecompiler(vector<string> _infiles) {
 	infiles = _infiles;
 	// Read all the infiles
-	for (int i = 0; i < infiles.size(); ++i) {
+	for (unsigned int i = 0; i < infiles.size(); ++i) {
 		vector<char> raw;
-		bool didFail = readFile(raw, infiles.at(i));
-		if (didFail)
-			fail = true;
+		bool didFail = readFile(&raw, infiles.at(i));
+		if (didFail) failed = true;
 		rawFiles.push_back(raw);
 	}
 }
