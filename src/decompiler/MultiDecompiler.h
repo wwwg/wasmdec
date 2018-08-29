@@ -9,6 +9,8 @@ namespace wasmdec {
 	public:
 		MultiDecompiler(vector<string>);
 	protected:
+		bool readFile(vector<char*>, string);
+		
 		vector<Decompiler> decomps;
 		vector<string> infiles;
 	};
