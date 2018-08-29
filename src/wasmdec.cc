@@ -14,8 +14,9 @@
 bool debugging = false,
 		extra = false,
 		memdump = false;
-string infile,
+std::string infile,
 	outfile;
+std::vector<std::string> infiles; // will be empty if there's only one file to decompile
 DisasmMode dmode;
 
 // Helper functions
@@ -163,9 +164,11 @@ int main(int argc, char* argv[]) {
 			return 1;
 		}
 		if (infiles.size() > 1) {
+			/*
 			std::cout << "ERROR: wasmdec currently doesn't support more than one input file." << std::endl
 				<< std::endl << opt.help({"", "Group"}) << std::endl;
 			return 1;
+			*/
 		} else {
 			infile = infiles.at(0);
 		}
