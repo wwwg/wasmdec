@@ -20,7 +20,7 @@ namespace wasmdec {
 		vector<char> binary;
 		Emitter emit;
 		Decompiler(DisasmConfig, vector<char>*);
-		void gen();
+		void decompile();
 		string getEmittedCode();
 		bool failed();
 		vector<char>* dumpMemory();
