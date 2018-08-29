@@ -108,11 +108,9 @@ int main(int argc, char* argv[]) {
 		std::cout << opt.help({"", "Group"}) << std::endl;
 		return 0;
 	}
-	// Fail if there's no output file
+	// Set default output file if there is none
 	if (!res.count("o")) {
-		std::cout << "ERROR: no output file provided!" << std::endl
-		<< std::endl << opt.help({"", "Group"}) << std::endl;
-		return 1;
+		outfile = "out.c";
 	}
 	// Parse decompiler flags
 	if (res.count("d")) {
