@@ -92,7 +92,7 @@ int main(int argc, char* argv[]) {
 		("m,memdump", "Dump memory instead of decompiling")
 		("e,extra", "Output extra information to decompiled binary")
 		("o,output", "Output C file", cxxopts::value<string>(outfile))
-		("positional", "Input file(s)", cxxopts::value<std::vector<std::string>>())
+		("positional", "Input file", cxxopts::value<std::vector<std::string>>())
 		("h,help", "Print usage")
 		;
 	opt.parse_positional({"positional"});
@@ -125,7 +125,18 @@ int main(int argc, char* argv[]) {
 	}
 	// Parse input file(s)
 	if (res.count("positional")) {
-		// TODO: handle parsing of input file(s)
+		std::vector<std::string> infiles;
+		try {
+			infiles = res["positional"].as<std::vector<std::string>>();
+		} catch (std::exception& e) {
+			std::cout << "ERROR: invalid input files!" << std::endl
+			<< opt.help({"", "Group"}) << std::endl;
+			return 1;
+		}
+	} else {
+		std::cout << "ERROR: no input file provided!" << std::endl
+		<< opt.help({"", "Group"}) << std::endl;
+		return 1;
 	}
 	return 0;
 }
