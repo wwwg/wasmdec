@@ -1,7 +1,7 @@
 #include "MultiDecompiler.h"
 
 // helper functions
-string getFileExt(string fname) {
+string MultiDecompiler::getFileExt(string fname) {
 	string::size_type idx = fname.rfind('.');
 	if(idx != string::npos) {
 	    string extension = fname.substr(idx + 1);
@@ -10,7 +10,7 @@ string getFileExt(string fname) {
 	    return "";
 	}
 }
-DisasmMode getDisasmMode(string infile) {
+DisasmMode MultiDecompiler::getDisasmMode(string infile) {
 	// Convert file extension to disassembler mode
 	string ext = getFileExt(infile);
 	if (ext == "wasm") {
@@ -21,6 +21,19 @@ DisasmMode getDisasmMode(string infile) {
 		return DisasmMode::AsmJs;
 	} else {
 		return DisasmMode::Wasm;
+	}
+}
+bool MultiDecompiler::readFile(vector<char>* data, string path) {
+	ifstream file(path);
+	if (!file.eof() && !file.fail()) {
+	    file.seekg(0, ios_base::end);
+	    streampos fileSize = file.tellg();
+	    data->resize(fileSize);
+	    file.seekg(0, ios_base::beg);
+	    file.read(&(data->operator[](0)), fileSize);
+		return true;
+	} else {
+		return false;
 	}
 }
 
@@ -41,18 +54,5 @@ MultiDecompiler::MultiDecompiler(vector<string> _infiles, DisasmConfig conf) {
 		// create compiler and add it to the vector
 		Decompiler* d = new Decompiler(thisConf, &raw);
 		decomps.push_back(d);
-	}
-}
-bool MultiDecompiler::readFile(vector<char>* data, string path) {
-	ifstream file(path);
-	if (!file.eof() && !file.fail()) {
-	    file.seekg(0, ios_base::end);
-	    streampos fileSize = file.tellg();
-	    data->resize(fileSize);
-	    file.seekg(0, ios_base::beg);
-	    file.read(&(data->operator[](0)), fileSize);
-		return true;
-	} else {
-		return false;
 	}
 }

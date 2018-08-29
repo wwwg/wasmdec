@@ -10,8 +10,10 @@ namespace wasmdec {
 		MultiDecompiler(vector<string>, DisasmConfig);
 	protected:
 		bool readFile(vector<char>*, string);
-		bool failed;
+		string getFileExt(string);
+		DisasmMode getDisasmMode(string);
 
+		bool failed;
 		vector<Decompiler*> decomps;
 		vector<string> infiles;
 		vector<vector<char>> rawFiles;
