@@ -23,8 +23,8 @@ namespace wasmdec {
 		void decompile();
 		string getEmittedCode();
 		bool failed();
-		vector<char>* dumpMemory();
-		vector<char>* dumpTable();
+		vector<char> dumpMemory();
+		vector<char> dumpTable();
 		DisasmMode mode;
 		DecompilerCtx* dctx;
 	protected:
