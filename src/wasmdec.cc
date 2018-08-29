@@ -83,7 +83,7 @@ void setOutfile(string _outf) {
 void setInfile(string _inf) {
 	infile = _inf;
 }
-int main(int argc, const char** argv) {
+int main(int argc, char* argv[]) {
 	cxxopts::Options opt("wasmdec", "WebAssembly to C decompiler");
 	opt.add_options()
 		("v,version", "Print wasmdec version")
