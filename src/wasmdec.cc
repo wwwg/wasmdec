@@ -92,11 +92,16 @@ int main(int argc, char* argv[]) {
 		("e,extra", "Output extra information to decompiled binary")
 		("o,output", "Output C file", cxxopts::value<string>(outfile))
 		("positional", "Input file(s)", cxxopts::value<std::vector<std::string>>())
+		("h,help", "Print usage")
 		;
 	auto res = opt.parse(argc, argv);
 	if (res.count("v")) {
 		// version argument passed
 		return printVersion();
+	}
+	if (res.count("h")) {
+		std::cout << options.help({"", "Group"}) << std::endl;
+		return 0;
 	}
 	return 0;
 }
