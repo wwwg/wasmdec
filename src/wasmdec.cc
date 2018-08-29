@@ -84,6 +84,7 @@ void setInfile(string _inf) {
 	infile = _inf;
 }
 int main(int argc, char* argv[]) {
+	// Set up options
 	cxxopts::Options opt("wasmdec", "WebAssembly to C decompiler");
 	opt.add_options()
 		("v,version", "Print wasmdec version")
@@ -95,6 +96,7 @@ int main(int argc, char* argv[]) {
 		("h,help", "Print usage")
 		;
 	auto res = opt.parse(argc, argv);
+	// Help and version, boring
 	if (res.count("v")) {
 		// version argument passed
 		return printVersion();
@@ -103,15 +105,16 @@ int main(int argc, char* argv[]) {
 		std::cout << opt.help({"", "Group"}) << std::endl;
 		return 0;
 	}
+	// Fail if there's no output file
 	if (!res.count("o")) {
 		std::cout << "ERROR: no output file provided!" << std::endl
 		<< opt.help({"", "Group"}) << std::endl;
 		return 1;
 	}
+	// Parse decompiler flags
 	if (res.count("d")) {
 		enableDebugging();
 	}
-
 	if (res.count("m")) {
 		enableMemdump();
 	}
@@ -119,5 +122,6 @@ int main(int argc, char* argv[]) {
 	if (res.count("e")) {
 		enableExtra();
 	}
+
 	return 0;
 }
