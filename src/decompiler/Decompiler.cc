@@ -10,6 +10,8 @@
 
 Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 : binary((*inbin)) {
+	rawMemory = vector<char>();
+	rawTable = vector<char>();
 	isDebug = conf.debug;
 	emitExtraData = conf.extra;
 	mode = conf.mode;
