@@ -109,6 +109,13 @@ void enableMemdump() {
 	enableMemdump = true;
 }
 int main(int argc, const char** argv) {
-	// TODO
+	Options opt("wasmdec", "WebAssembly to C decompiler");
+	opt.add_options()
+		("v,version", "Print wasmdec version")
+		("d,debug", "Enable debug output")
+		("m,memdump", "Dump memory instead of decompiling")
+		("e,extra", "Output extra information to decompiled binary")
+		("o,output", "Output C file", value<string>())
+		;
 	return 0;
 }
