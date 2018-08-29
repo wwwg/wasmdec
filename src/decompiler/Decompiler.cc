@@ -10,6 +10,9 @@
 
 Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 : binary((*inbin)) {
+	if (conf.includePreamble) {
+		emit.preamble();
+	}
 	rawMemory = vector<char>();
 	rawTable = vector<char>();
 	isDebug = conf.debug;
