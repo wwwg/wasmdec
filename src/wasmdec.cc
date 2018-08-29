@@ -144,5 +144,17 @@ int main(int argc, char* argv[]) {
 			<< opt.help({"", "Group"}) << std::endl;
 		return 1;
 	}
+	// Configure the decompiler
+	dmode = getDisasmMode(infile);
+	DisamConfig conf(debug, extra, dmode);
+	std::vector<char> input;
+	if (!readFile(input, infile)) {
+		std::cout << "ERROR: failed to read the input file!" << std::endl;
+		return 0;
+	}
+
+	// Now that everything is parsed, initialize the decompiler
+	Decompiler d(conf, infile);
+	
 	return 0;
 }
