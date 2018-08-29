@@ -103,5 +103,10 @@ int main(int argc, char* argv[]) {
 		std::cout << opt.help({"", "Group"}) << std::endl;
 		return 0;
 	}
+	if (!res.count("o")) {
+		std::cout << "ERROR: no output file provided!" << std::endl
+		<< opt.help({"", "Group"}) << std::endl;
+		return 1;
+	}
 	return 0;
 }
