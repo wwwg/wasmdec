@@ -133,7 +133,7 @@ int main(int argc, char* argv[]) {
 				<< opt.help({"", "Group"}) << std::endl;
 			return 1;
 		}
-		if (infiles.size > 1) {
+		if (infiles.size() > 1) {
 			std::cout << "ERROR: wasmdec currently doesn't support more than one input file." << std::endl
 				<< opt.help({"", "Group"}) << std::endl;
 			return 1;
