@@ -12,9 +12,10 @@ using namespace std;
 namespace wasmdec {
 	class Emitter {
 	public:
-		Emitter(bool);
+		Emitter();
 		stringstream& operator<<(string);
 		void comment(string);
+		void preamble();
 		void ln();
 		string getCode();
 	protected:
