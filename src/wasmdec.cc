@@ -31,6 +31,11 @@ int _usage_old(int optionalRetVal) {
 	return optionalRetVal;
 }
 
+// Global variables to be passed to the decompiler
+bool enableDebugging = false,
+		enableExtra = false,
+		enableMemdump = false;
+
 // Helper functions
 bool readFile(vector<char>* data, string path) {
 	ifstream file(path);
@@ -64,20 +69,12 @@ string getFileExt(string fname) {
 	    return "";
 	}
 }
+int printVersion() {
+	cerr << "wasmdec v" << __WASMDEC_VERSION << endl;
+	return 0;
+}
 int main(int argc, const char** argv) {
 	string infile, outfile;
-	bool enableDebugging = false,
-		enableExtra = false,
-		enableMemdump = false;
-	if (argc == 2) {
-		string argv1 = string(argv[1]);
-		if (argv1 == "-h" || argv1 == "--help") return usage(0);
-		if (argv1 == "-v" || argv1 == "--version") {
-			cerr << "wasmdec v" << __WASMDEC_VERSION << endl;
-			return 0;
-		}
-	}
-	if (argc < 2) return usage();
 	for (int i = 0; i < argc; ++i) {
 		string sarg = string(argv[i]);
 		if (sarg == "-d" || sarg == "--debug") {
