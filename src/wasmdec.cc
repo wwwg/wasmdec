@@ -83,7 +83,7 @@ void setOutfile(string _outf) {
 void setInfile(string _inf) {
 	infile = _inf;
 }
-void performMemdump(Decompiler* decompiler) {
+int performMemdump(Decompiler* decompiler) {
 	std::vector<char> mem = decompiler->dumpMemory();
 	std::vector<char> table = decompiler->dumpTable();
 	std::string memOutFile = outfile + ".mem",
@@ -97,6 +97,7 @@ void performMemdump(Decompiler* decompiler) {
 		std::cout << "ERROR: failed to write memory file '" << tableOutFile << '"' << std::endl;
 		return 1;
 	}
+	return 0;
 }
 int main(int argc, char* argv[]) {
 	// Set up options
