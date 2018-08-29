@@ -83,6 +83,21 @@ void setOutfile(string _outf) {
 void setInfile(string _inf) {
 	infile = _inf;
 }
+void performMemdump(Decompiler* decompiler) {
+	std::vector<char> mem = decompiler->dumpMemory();
+	std::vector<char> table = decompiler->dumpTable();
+	std::string memOutFile = outfile + ".mem",
+		tableOutFile = outfile + ".table.bin",
+		stringMemory = std::string(mem.begin(), mem.end()),
+		stringTable = std::string(table.begin(), table.end());
+	if (!writeFile(memOutFile, stringMemory)) {
+		std::cout << "ERROR: failed to write memory file '" << memOutFile << '"' << std::endl;
+		return 1;
+	} else if (!writeFile(tableOutFile, stringTable)) {
+		std::cout << "ERROR: failed to write memory file '" << tableOutFile << '"' << std::endl;
+		return 1;
+	}
+}
 int main(int argc, char* argv[]) {
 	// Set up options
 	cxxopts::Options opt("wasmdec", "WebAssembly to C decompiler");
@@ -137,8 +152,9 @@ int main(int argc, char* argv[]) {
 			std::cout << "ERROR: wasmdec currently doesn't support more than one input file." << std::endl
 				<< std::endl << opt.help({"", "Group"}) << std::endl;
 			return 1;
+		} else {
+			infile = infiles.at(0);
 		}
-		infile = infiles.at(0);
 	} else {
 		std::cout << "ERROR: no input file provided!" << std::endl
 			<< opt.help({"", "Group"}) << std::endl;
@@ -168,19 +184,7 @@ int main(int argc, char* argv[]) {
 			return 0;
 		}
 	} else {
-		std::vector<char> mem = decompiler.dumpMemory();
-		std::vector<char> table = decompiler.dumpTable();
-		std::string memOutFile = outfile + ".mem",
-			tableOutFile = outfile + ".table.bin",
-			stringMemory = std::string(mem.begin(), mem.end()),
-			stringTable = std::string(table.begin(), table.end());
-		if (!writeFile(memOutFile, stringMemory)) {
-			std::cout << "ERROR: failed to write memory file '" << memOutFile << '"' << std::endl;
-			return 1;
-		} else if (!writeFile(tableOutFile, stringTable)) {
-			std::cout << "ERROR: failed to write memory file '" << tableOutFile << '"' << std::endl;
-			return 1;
-		}
+		performMemdump(&decompiler);
 	}
 
 	return 0;
