@@ -96,8 +96,8 @@ int performMemdump() {
 	Decompiler decompiler(conf, input);
 
 	// Dump the memory and table
-	std::vector<char> mem = decompiler->dumpMemory();
-	std::vector<char> table = decompiler->dumpTable();
+	std::vector<char> mem = decompiler.dumpMemory();
+	std::vector<char> table = decompiler.dumpTable();
 	std::string memOutFile = outfile + ".mem",
 		tableOutFile = outfile + ".table.bin",
 		stringMemory = std::string(mem.begin(), mem.end()),
