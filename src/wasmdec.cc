@@ -154,7 +154,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	// Now that everything is parsed, initialize the decompiler
-	Decompiler decompiler(conf, infile);
+	Decompiler decompiler(conf, input);
 	decompiler.decompile();
 	if (decompiler.failed()) {
 		std::cout << "ERROR: failed to decompile the binary." << std::endl;
