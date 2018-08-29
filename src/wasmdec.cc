@@ -138,6 +138,7 @@ int main(int argc, char* argv[]) {
 				<< opt.help({"", "Group"}) << std::endl;
 			return 1;
 		}
+		infile = infiles.at(0);
 	} else {
 		std::cout << "ERROR: no input file provided!" << std::endl
 			<< opt.help({"", "Group"}) << std::endl;
