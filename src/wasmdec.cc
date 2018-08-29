@@ -64,7 +64,7 @@ DisasmMode getDisasmMode(string infile) {
 	}
 }
 Decompiler getDecompiler(vector<char>* input) {
-	DisasmConfig config(enableDebugging, enableExtra, mode);
+	DisasmConfig config(debugging, extra, mode);
 	return Decompiler(config, input);
 }
 int printVersion() {
