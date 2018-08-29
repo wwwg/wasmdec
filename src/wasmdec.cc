@@ -84,7 +84,7 @@ void setOutfile(string _outf) {
 void setInfile(string _inf) {
 	infile = _inf;
 }
-int performMemdump(Decompiler* decompiler) {
+int performMemdump() {
 	// Initialize a decompiler for memory dumping
 	dmode = getDisasmMode(infile);
 	DisasmConfig conf(debugging, extra, dmode);
