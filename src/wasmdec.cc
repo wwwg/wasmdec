@@ -111,7 +111,7 @@ int main(int argc, char* argv[]) {
 	// Fail if there's no output file
 	if (!res.count("o")) {
 		std::cout << "ERROR: no output file provided!" << std::endl
-		<< opt.help({"", "Group"}) << std::endl;
+		<< std::endl << opt.help({"", "Group"}) << std::endl;
 		return 1;
 	}
 	// Parse decompiler flags
@@ -132,12 +132,12 @@ int main(int argc, char* argv[]) {
 			infiles = res["positional"].as<std::vector<std::string>>();
 		} catch (std::exception& e) {
 			std::cout << "ERROR: invalid input files!" << std::endl
-				<< opt.help({"", "Group"}) << std::endl;
+				<< std::endl << opt.help({"", "Group"}) << std::endl;
 			return 1;
 		}
 		if (infiles.size() > 1) {
 			std::cout << "ERROR: wasmdec currently doesn't support more than one input file." << std::endl
-				<< opt.help({"", "Group"}) << std::endl;
+				<< std::endl << opt.help({"", "Group"}) << std::endl;
 			return 1;
 		}
 		infile = infiles.at(0);
