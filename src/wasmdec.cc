@@ -8,8 +8,8 @@
 #include <iterator>
 
 #include "cxxopts.hpp"
-
 #include "decompiler/Decompiler.h"
+using namespace cxxopts;
 
 // legacy functions
 // TODO : REMOVE THESE
