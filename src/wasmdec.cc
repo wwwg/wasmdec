@@ -168,12 +168,14 @@ int main(int argc, char* argv[]) {
 			return 0;
 		}
 	} else {
-		std::vector<char>* mem = decompiler.dumpMemory();
-		std::vector<char>* table = decompiler.dumpTable();
-		string memOutFile = outfile + ".mem",
+		std::vector<char>* pmem = decompiler.dumpMemory();
+		std::vector<char>* ptable = decompiler.dumpTable();
+		std::vector<char> mem = std::vector<char>(pmem->begin(), pmem->end());
+		std::vector<char> table = std::vector<char>(ptable->begin(), ptable->end());
+		std::string memOutFile = outfile + ".mem",
 			tableOutFile = outfile + ".table.bin",
-			stringMemory = std::string(mem->begin(), mem->end()),
-			stringTable = std::string(table->begin(), table->end());
+			stringMemory = std::string(mem.begin(), mem.end()),
+			stringTable = std::string(table.begin(), table.end());
 		if (!writeFile(memOutFile, stringMemory)) {
 			std::cout << "ERROR: failed to write memory file '" << memOutFile << '"' << std::endl;
 			return 1;
