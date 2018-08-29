@@ -35,6 +35,8 @@ int _usage_old(int optionalRetVal) {
 bool enableDebugging = false,
 		enableExtra = false,
 		enableMemdump = false;
+string infile,
+	outfile;
 
 // Helper functions
 bool readFile(vector<char>* data, string path) {
@@ -69,104 +71,44 @@ string getFileExt(string fname) {
 	    return "";
 	}
 }
+DisasmMode getDisasmMode(string infile) {
+	// Convert file extension to disassembler mode
+	string ext = getFileExt(infile);
+	DisasmMode mode = DisasmMode::None;
+	if (ext == "wasm") {
+		return DisasmMode::Wasm;
+	} else if (ext == "wast") {
+		return DisasmMode::Wast;
+	} else if (ext == "js") {
+		return DisasmMode::AsmJs;
+	} else {
+		return DisasmMode::None;
+	}
+}
+Decompiler getDecompiler(vector<char>* input) {
+	DisasmConfig config(enableDebugging, enableExtra, mode);
+	return Decompiler(config, input);
+}
 int printVersion() {
 	cerr << "wasmdec v" << __WASMDEC_VERSION << endl;
 	return 0;
 }
+void enableDebugging() {
+	enableDebugging = true;
+}
+void enableExtra() {
+	enableExtra = true;
+}
+void setOutfile(string _outf) {
+	outfile = _outf;
+}
+void setInfile(string _inf) {
+	infile = _inf;
+}
+void enableMemdump() {
+	enableMemdump = true;
+}
 int main(int argc, const char** argv) {
-	string infile, outfile;
-	for (int i = 0; i < argc; ++i) {
-		string sarg = string(argv[i]);
-		if (sarg == "-d" || sarg == "--debug") {
-			enableDebugging = true;
-		} else if (sarg == "-e" || sarg == "--extra") {
-			enableExtra = true;
-		} else if (sarg == "-o" || sarg == "--out") {
-			int outnameIndex = i + 1;
-			if (outnameIndex >= argc) {
-				return usage(); // Invalid arguments
-			}
-			// Set output file
-			outfile = string(argv[outnameIndex]);
-		} else if (sarg == "-i" || sarg == "--in") {
-			int innameIndex = i + 1;
-			if (innameIndex >= argc) {
-				return usage(); // Invalid arguments
-			}
-			// Set input file
-			infile = string(argv[innameIndex]);
-		} else if (sarg == "-m" || sarg == "--memdump") {
-			enableMemdump = true;
-		}
-	}
-	if (!outfile.length()) {
-		cerr << "Missing output file!";
-		if (enableMemdump) {
-			cerr << " You must provide an output file when using memdump!" << endl;
-		} else {
-			cerr << endl;
-		}
-		return usage();
-	}
-	if (!infile.length()) {
-		cerr << "Missing input file!" << endl;
-		return usage();
-	}
-	vector<char> vfile = vector<char>();
-	bool rsuccess = readFile(&vfile, infile);
-	if (!rsuccess) {
-		cerr << "wasmdec: Failed to read file '" << infile << "'" << endl;
-		return 1;
-	}
-	string ext = getFileExt(infile);
-	DisasmMode mode = DisasmMode::None;
-	// Convert file extension to disassembler mode
-	if (ext == "wasm") {
-		mode = DisasmMode::Wasm;
-	} else if (ext == "wast") {
-		mode = DisasmMode::Wast;
-	} else if (ext == "js") {
-		mode = DisasmMode::AsmJs;
-	} else {
-		cerr << "wasmdec: Invalid input file extension, aborting." << endl;
-		return 1;
-	}
-	DisasmConfig config(enableDebugging, enableExtra, mode);
-	Decompiler decomp(config, &vfile);
-	if (decomp.failed()) {
-		cerr << "wasmdec: Code generation failed, aborting." << endl;
-		return 1;
-	}
-	
-	if (enableMemdump) {
-		// If memdump is enabled, ONLY dump the binary's memory and exit
-		vector<char>* rawmem = decomp.dumpMemory();
-		if (!rawmem) {
-			cerr << "wasmdec: FATAL: failed to dump memory" << endl;
-			return usage();
-		}
-		vector<char>* rawtable = decomp.dumpTable();
-		if (!rawtable) {
-			cerr << "wasmdec: FATAL: failed to dump table" << endl;
-			return usage();
-		}
-		string outMemFile = outfile + ".mem.bin";
-		string outTableFile = outfile + ".table.bin";
-		bool memWriteSuccess = writeFile(outMemFile, string(rawmem->begin(), rawmem->end()));
-		bool tableWriteSuccess = writeFile(outTableFile, string(rawtable->begin(), rawtable->end()));
-		if (!memWriteSuccess || !tableWriteSuccess) {
-			cerr << "Failed to write one or more memory dump files, aborting." << endl;
-			return 1;
-		}
-	} else {
-		// Otherwise we can normally decompile the binary
-		decomp.gen();
-		auto res = decomp.getEmittedCode();
-		bool wsuccess = writeFile(outfile, res);
-		if (!wsuccess) {
-			cerr << "wasmdec: Failed to write file '" << outfile << "'" << endl;
-			return 1;
-		}
-	}
+	// TODO
 	return 0;
 }
