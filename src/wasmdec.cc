@@ -171,7 +171,7 @@ int main(int argc, char* argv[]) {
 		}
 	} else {
 		std::vector<char>* mem = decompiler.dumpMemory();
-		std::std::vector<char>* table = decompiler.dumpTable();
+		std::vector<char>* table = decompiler.dumpTable();
 		string memOutFile = outfile + ".mem",
 			tableOutFile = outfile + ".table.bin",
 			stringMemory = std::string(mem->begin(), mem->end()),
