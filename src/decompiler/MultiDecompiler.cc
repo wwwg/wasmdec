@@ -2,6 +2,14 @@
 
 MultiDecompiler::MultiDecompiler(vector<string> _infiles) {
 	infiles = _infiles;
+	// Read all the infiles
+	for (int i = 0; i < infiles.size(); ++i) {
+		vector<char> raw;
+		bool didFail = readFile(raw, infiles.at(i));
+		if (didFail)
+			fail = true;
+		rawFiles.push_back(raw);
+	}
 }
 bool MultiDecompiler::readFile(vector<char>* data, string path) {
 	ifstream file(path);
