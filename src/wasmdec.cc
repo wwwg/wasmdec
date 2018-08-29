@@ -92,5 +92,6 @@ int main(int argc, const char** argv) {
 		("e,extra", "Output extra information to decompiled binary")
 		("o,output", "Output C file", cxxopts::value<string>())
 		;
+	auto res = opt.parse(argc, argv);
 	return 0;
 }
