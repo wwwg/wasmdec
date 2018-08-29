@@ -12,7 +12,7 @@ namespace wasmdec {
 		bool readFile(vector<char>*, string);
 		bool failed;
 
-		vector<Decompiler> decomps;
+		vector<Decompiler*> decomps;
 		vector<string> infiles;
 		vector<vector<char>> rawFiles;
 	};

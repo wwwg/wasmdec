@@ -39,7 +39,7 @@ MultiDecompiler::MultiDecompiler(vector<string> _infiles, DisasmConfig conf) {
 		DisasmConfig thisConf = conf;
 		thisConf.mode = getDisasmMode(infiles.at(i));
 		// create compiler and add it to the vector
-		Decompiler d(thisConf, &raw);
+		Decompiler* d = new Decompiler(thisConf, &raw);
 		decomps.push_back(d);
 	}
 }
