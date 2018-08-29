@@ -10,26 +10,6 @@
 #include "cxxopts.hpp"
 #include "decompiler/Decompiler.h"
 
-// legacy functions
-// TODO : REMOVE THESE
-
-int _usage_old() {
-	cerr << "Usage:" << endl
-	<< "wasmdec {arguments}, where arguments is one of:" << endl
-	<< "\t -o / --out <outfile> : Path to output file (Required)" << endl
-	<< "\t -i / --in <infile> : Path to input file (Required)" << endl
-	<< "\t -d / --debug : Enable debug output" << endl
-	<< "\t -e / --extra : Emit extra data into outfile" << endl
-	<< "\t -m / --memdump : Dump the input file's memory to disk" << endl
-	<< "\t -h / --help : Print usage information" << endl
-	<< "\t -v / --version : Print the program's version" << endl;
-	return 1;
-}
-int _usage_old(int optionalRetVal) {
-	usage();
-	return optionalRetVal;
-}
-
 // Global variables to be passed to the decompiler
 bool debugging = false,
 		extra = false,
