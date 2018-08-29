@@ -5,3 +5,7 @@ libbinaryen.so
 *.bin
 .gdb_history
 out.c
+release/wasmdec
+release/libbinaryen.so
+release*.tar.gz
+wasmdec*.tar.gz
