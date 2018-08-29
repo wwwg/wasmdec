@@ -55,4 +55,8 @@ MultiDecompiler::MultiDecompiler(vector<string> _infiles, DisasmConfig conf) {
 		Decompiler* d = new Decompiler(thisConf, &raw);
 		decomps.push_back(d);
 	}
+	// After all the decompilers have been created, decompile each module independently	
+	for (unsigned int i = 0; i < decomps.size(); ++i) {
+		//
+	}
 }
