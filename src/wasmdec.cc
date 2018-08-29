@@ -64,10 +64,6 @@ DisasmMode getDisasmMode(string infile) {
 		return DisasmMode::None;
 	}
 }
-Decompiler getDecompiler(vector<char>* input) {
-	DisasmConfig config(debugging, extra, dmode);
-	return Decompiler(config, input);
-}
 int printVersion() {
 	cerr << "wasmdec v" << __WASMDEC_VERSION << endl;
 	return 0;
