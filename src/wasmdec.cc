@@ -130,12 +130,17 @@ int main(int argc, char* argv[]) {
 			infiles = res["positional"].as<std::vector<std::string>>();
 		} catch (std::exception& e) {
 			std::cout << "ERROR: invalid input files!" << std::endl
-			<< opt.help({"", "Group"}) << std::endl;
+				<< opt.help({"", "Group"}) << std::endl;
+			return 1;
+		}
+		if (infiles.size > 1) {
+			std::cout << "ERROR: wasmdec currently doesn't support more than one input file." << std::endl
+				<< opt.help({"", "Group"}) << std::endl;
 			return 1;
 		}
 	} else {
 		std::cout << "ERROR: no input file provided!" << std::endl
-		<< opt.help({"", "Group"}) << std::endl;
+			<< opt.help({"", "Group"}) << std::endl;
 		return 1;
 	}
 	return 0;
