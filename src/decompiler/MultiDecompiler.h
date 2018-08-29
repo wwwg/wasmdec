@@ -9,7 +9,7 @@ namespace wasmdec {
 	public:
 		MultiDecompiler(vector<string>);
 	protected:
-		bool readFile(vector<char*>, string);
+		bool readFile(vector<char>*, string);
 		bool failed;
 
 		vector<Decompiler> decomps;
