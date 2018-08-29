@@ -181,7 +181,7 @@ int main(int argc, char* argv[]) {
 		if (_infiles.size() > 1) {
 			infile = "";
 			for (int i = 0; i < _infiles.size(); ++i) {
-				infiles.push(_infiles.at(i));
+				infiles.push_back(_infiles.at(i));
 			}
 		} else {
 			infile = _infiles.at(0);
