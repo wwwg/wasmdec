@@ -155,9 +155,10 @@ int main(int argc, char* argv[]) {
 		return 0;
 	}
 
+	// Now that everything is parsed, initialize the decompiler
+	Decompiler decompiler(conf, input);
+
 	if (!memdump) {
-		// Now that everything is parsed, initialize the decompiler
-		Decompiler decompiler(conf, input);
 		decompiler.decompile();
 		if (decompiler.failed()) {
 			std::cout << "ERROR: failed to decompile the binary." << std::endl;
@@ -169,7 +170,19 @@ int main(int argc, char* argv[]) {
 			return 0;
 		}
 	} else {
-		// TODO : reimplement memdump
+		std::vector<char>* mem = decompiler.dumpMemory();
+		std::std::vector<char>* table = decompiler.dumpTable();
+		string memOutFile = outfile + ".mem",
+			tableOutFile = outfile + ".table.bin",
+			stringMemory = std::string(mem->begin(), mem->end()),
+			stringTable = std::string(table->begin(), table->end());
+		if (!writeFile(memOutFile, mem)) {
+			std::cout << "ERROR: failed to write memory file '" << memOutFile << '"' << std::endl;
+			return 1;
+		} else if (!writeFile(tableOutFile, mem)) {
+			std::cout << "ERROR: failed to write memory file '" << tableOutFile << '"' << std::endl;
+			return 1;
+		}
 	}
 
 	return 0;
