@@ -1,3 +1,6 @@
 [submodule "binaryen"]
 	path = external/binaryen
 	url = https://github.com/WebAssembly/binaryen.git
+[submodule "cxxopts"]
+	path = external/cxxopts
+	url = https://github.com/jarro2783/cxxopts.git
