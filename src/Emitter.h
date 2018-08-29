@@ -12,7 +12,7 @@ using namespace std;
 namespace wasmdec {
 	class Emitter {
 	public:
-		Emitter();
+		Emitter(bool);
 		stringstream& operator<<(string);
 		void comment(string);
 		void ln();
