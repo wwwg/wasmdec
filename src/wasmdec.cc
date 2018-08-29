@@ -162,6 +162,10 @@ int main(int argc, char* argv[]) {
 			return 0;
 		}
 		string decompiledCode = decompiler.getEmittedCode();
+		if (!writeFile(outfile, decompiledCode)) {
+			std::cout << "ERROR: failed to write the output file." << std::endl;
+			return 0;
+		}
 	} else {
 		// TODO : reimplement memdump
 	}
