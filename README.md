@@ -37,7 +37,7 @@ To build wasmdec and install all of it's dependencies, run `sudo make all` in th
 
 # Usage
 ```bash
-wasmdec -i (input file) -o (output file) (options)
+wasmdec -o (output file) (options) input file
 ```
 Where options is one of:
 - `-e` or `--extra` : Writes extra information about the binary to output files (Obsolete when using memdump)
