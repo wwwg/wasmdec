@@ -91,6 +91,7 @@ int main(int argc, const char** argv) {
 		("m,memdump", "Dump memory instead of decompiling")
 		("e,extra", "Output extra information to decompiled binary")
 		("o,output", "Output C file", cxxopts::value<string>(outfile))
+		("positional", "Input file(s)", cxxopts::value<std::vector<std::string>>())
 		;
 	auto res = opt.parse(argc, argv);
 	return 0;
