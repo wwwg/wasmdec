@@ -14,6 +14,7 @@ namespace wasmdec {
 		stringstream codeStream;
 		bool readFile(vector<char>*, string);
 		string getFileExt(string);
+		string getEverythingButFileExt(string);
 		DisasmMode getDisasmMode(string);
 
 		vector<string> infiles;
