@@ -126,6 +126,10 @@ int decompile(Decompiler* decompiler) {
 int multiDecompile(void) {
 	DisasmConfig conf(debugging, extra, DisasmMode::Wasm);
 	MultiDecompiler m(infiles, conf);
+	if (m.failed) {
+		std::cout << "ERROR: MultiDecompiler failed to decompile input." << std::endl;
+		return 1;
+	}
 	string out = m.getOutput();
 	if (!writeFile(outfile, out)) {
 		std::cout << "ERROR: failed to write output file to disk!" << std::endl;

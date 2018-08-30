@@ -9,13 +9,13 @@ namespace wasmdec {
 	public:
 		MultiDecompiler(vector<string>, DisasmConfig);
 		string getOutput(void);
+		bool failed;
 	protected:
 		stringstream codeStream;
 		bool readFile(vector<char>*, string);
 		string getFileExt(string);
 		DisasmMode getDisasmMode(string);
 
-		bool failed;
 		vector<string> infiles;
 		vector<vector<char>> rawFiles;
 	};
