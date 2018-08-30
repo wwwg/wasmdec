@@ -62,6 +62,8 @@ MultiDecompiler::MultiDecompiler(vector<string> _infiles, DisasmConfig conf) {
 
 		if (i == 0) {
 			thisConf.includePreamble = true;
+		} else {
+			thisConf.includePreamble = false;
 		}
 		thisConf.mode = getDisasmMode(infiles.at(i));
 		// create decompiler
