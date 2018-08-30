@@ -185,9 +185,7 @@ int main(int argc, char* argv[]) {
 		}
 		if (_infiles.size() > 1) {
 			infile = "";
-			for (unsigned int i = 0; i < _infiles.size(); ++i) {
-				infiles.push_back(_infiles.at(i));
-			}
+			infiles = _infiles;
 		} else {
 			infile = _infiles.at(0);
 		}
