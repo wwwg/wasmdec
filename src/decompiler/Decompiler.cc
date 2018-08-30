@@ -116,7 +116,7 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char> inbin)
 	} else if (mode == DisasmMode::Wast) {
 		try {
 			debug("Starting SExpressionParser\n");
-			string binary_s(inbin->begin(), inbin->end());
+			string binary_s(binary.begin(), binary.end());
 			SExpressionParser parser(const_cast<char*>(binary_s.c_str()));
 			Element& _root = *(parser.root);
 			debug("Starting SExpressionWasmBuilder\n");
@@ -137,7 +137,7 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char> inbin)
 		// preprocess
 		debug("Preprocessing asm.js\n");
 		Asm2WasmPreProcessor a2wp;
-		string binary_s(inbin->begin(), inbin->end());
+		string binary_s(binary.begin(), binary.end());
 		char* begin = a2wp.process(const_cast<char*>(binary_s.c_str()));
 
 		// parse
