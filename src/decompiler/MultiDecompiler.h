@@ -8,6 +8,7 @@ namespace wasmdec {
 	class MultiDecompiler {
 	public:
 		MultiDecompiler(vector<string>, DisasmConfig);
+		string getOutput(void);
 	protected:
 		stringstream codeStream;
 		bool readFile(vector<char>*, string);
@@ -15,7 +16,6 @@ namespace wasmdec {
 		DisasmMode getDisasmMode(string);
 
 		bool failed;
-		vector<Decompiler*> decomps;
 		vector<string> infiles;
 		vector<vector<char>> rawFiles;
 	};

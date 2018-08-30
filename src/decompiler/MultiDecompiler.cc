@@ -54,12 +54,20 @@ MultiDecompiler::MultiDecompiler(vector<string> _infiles, DisasmConfig conf) {
 			thisConf.includePreamble = true;
 		}
 		thisConf.mode = getDisasmMode(infiles.at(i));
-		// create compiler and add it to the vector
-		Decompiler* d = new Decompiler(thisConf, &raw);
-		decomps.push_back(d);
+		// create decompiler
+		Decompiler d(thisConf, &raw);
+		// do decompilation
+		d.decompile();
+		if (d.failed) {
+			failed = true;
+			break;
+		}
+		if (i != 0)
+			codeStream << endl << endl;
+		codeStream << "Module '" << infiles.at(i) << "':" << endl
+			<< decompiler->getEmittedCode();
 	}
-	// After all the decompilers have been created, decompile each module independently	
-	for (unsigned int i = 0; i < decomps.size(); ++i) {
-		//
-	}
+}
+string MultiDecompiler::getOutput() {
+	return codeStream.str();
 }
