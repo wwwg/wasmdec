@@ -133,9 +133,14 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		/*
 			TODO : Write switch expression parser.
 			
-			value : Expression that the switch routine is comparing against
-				i.e. switch (value) {...}
-			condition: A block of expressions that act as the case expressions
+			how wasm switches work:
+
+			switch (<topmost stack variable>) {
+				case <index of body expression>:
+					goto <body expression>
+				default:
+					<default value>
+			}
 		*/
 		// cout << "switch!\n" << endl;
 		Switch* sw = ex->cast<Switch>();
