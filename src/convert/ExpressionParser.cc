@@ -155,7 +155,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		for (unsigned int i = 0; i < sw->targets.size(); ++i) {
 			string sname = string(sw->targets[i].str);
 			ret += "case ";
-			ret += to_string(i);
+			ret += to_string(i + 1);
 			ret += ":\n";
 			ctx->depth++;
 			ret += util::tab(ctx->depth);
