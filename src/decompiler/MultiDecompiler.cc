@@ -65,7 +65,7 @@ MultiDecompiler::MultiDecompiler(vector<string> _infiles, DisasmConfig conf) {
 		if (i != 0)
 			codeStream << endl << endl;
 		codeStream << "Module '" << infiles.at(i) << "':" << endl
-			<< d->getEmittedCode();
+			<< d.getEmittedCode();
 	}
 }
 string MultiDecompiler::getOutput() {
