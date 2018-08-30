@@ -55,7 +55,11 @@ MultiDecompiler::MultiDecompiler(vector<string> _infiles, DisasmConfig conf) {
 		}
 		// create config
 		DisasmConfig thisConf = conf;
-		string fnPreface = getEverythingButFileExt(infiles.at(i));
+		string fnPreface = getEverythingButFileExt(infiles.at(i)) + "_";
+		for (int i = 0; i < fnPreface.length(); ++i) {
+		    if (fnPreface[i] == '/')
+		      fnPreface[i] = '_';
+		}
 		if (fnPreface == "")
 			fnPreface = "WASMDEC_UNKNOWN_MODULE_";
 		conf.fnPreface = fnPreface;
