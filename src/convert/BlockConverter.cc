@@ -8,6 +8,11 @@ using namespace wasm;
 string wasmdec::Convert::getBlockBody(Context* ctx, Block* blck) {
 	// Stream all block expressions and components into a string
 	stringstream s;
+	const char* bname = blck->name.str;
+	if (bname != nullptr && strlen(bname)) {
+		s << util:tab(ctx->depth);
+		s << blck->name.str << ":\n";
+	}
 	for (auto& expr : blck->list) {
 		s << Convert::parseExpr(ctx, expr);
 	}
