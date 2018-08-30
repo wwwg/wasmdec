@@ -42,7 +42,6 @@ MultiDecompiler::MultiDecompiler(vector<string> _infiles, DisasmConfig conf) {
 	// Read all the infiles
 	for (unsigned int i = 0; i < infiles.size(); ++i) {
 		vector<char> raw;
-		cout << infiles.at(i) << endl;
 		bool didFail = readFile(&raw, infiles.at(i));
 		if (didFail) {
 			failed = true;
