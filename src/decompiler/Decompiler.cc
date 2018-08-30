@@ -86,6 +86,84 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 	debug("Parsed bin successfully.\n");
 	dctx = new DecompilerCtx();
 }
+Decompiler::Decompiler(DisasmConfig conf, vector<char> inbin)
+: binary(inbin) {
+	if (conf.includePreamble) {
+		emit.preamble();
+	}
+	functionPreface = conf.fnPreface;
+	rawMemory = vector<char>();
+	rawTable = vector<char>();
+	isDebug = conf.debug;
+	emitExtraData = conf.extra;
+	mode = conf.mode;
+	if (mode == DisasmMode::Wasm) {
+		debug("Creating WasmBinaryBuilder\n");
+		// Create parser
+		wasm::WasmBinaryBuilder parser(module, binary, conf.debug);
+		debug("Parsing wasm binary...\n");
+		// Attempt to parse binary via Binaryen's AST parser
+		try {
+			parser.read();
+			parserFailed = false;
+		} catch (exception& err) {
+			cerr << "wasmdec: FAILED to parse wasm binary: " << endl;
+			cerr << err.what() << endl;
+			cerr << endl;
+			parserFailed = true;
+			return;
+		}
+	} else if (mode == DisasmMode::Wast) {
+		try {
+			debug("Starting SExpressionParser\n");
+			string binary_s(inbin->begin(), inbin->end());
+			SExpressionParser parser(const_cast<char*>(binary_s.c_str()));
+			Element& _root = *(parser.root);
+			debug("Starting SExpressionWasmBuilder\n");
+			SExpressionWasmBuilder sbuilder(module, *_root[0]);
+			parserFailed = false;
+		} catch (wasm::ParseException& err) {
+			cerr << "wasmdec: FAILED to parse wast: " << endl;
+			err.dump(cerr);
+			cerr << endl;
+			parserFailed = true;
+			return;
+		}
+	}
+	
+	#ifdef ASM_JS_DECOMP
+
+	else if (mode == DisasmMode::AsmJs) {
+		// preprocess
+		debug("Preprocessing asm.js\n");
+		Asm2WasmPreProcessor a2wp;
+		string binary_s(inbin->begin(), inbin->end());
+		char* begin = a2wp.process(const_cast<char*>(binary_s.c_str()));
+
+		// parse
+		debug("Initializing parser\n");
+		cashew::Parser<Ref, DotZeroValueBuilder> parser_builder;
+		Ref js = parser_builder.parseToplevel(begin);
+
+		// compile to wasm
+		debug("Compiling to wasm\n");
+		PassOptions popts;
+		popts.debug = isDebug;
+		Asm2WasmBuilder a2w(module,
+							a2wp,
+							isDebug,
+							TrapMode::JS,
+							popts,
+							true, true, false);
+		a2w.processAsm(js);
+		debug("Compilation finished");
+	}
+
+	#endif
+
+	debug("Parsed bin successfully.\n");
+	dctx = new DecompilerCtx();
+}
 void Decompiler::decompile() {
 	if (parserFailed) {
 		return;
