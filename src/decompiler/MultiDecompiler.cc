@@ -56,7 +56,7 @@ MultiDecompiler::MultiDecompiler(vector<string> _infiles, DisasmConfig conf) {
 		// create config
 		DisasmConfig thisConf = conf;
 		string fnPreface = getEverythingButFileExt(infiles.at(i)) + "_";
-		for (int i = 0; i < fnPreface.length(); ++i) {
+		for (uint i = 0; i < fnPreface.length(); ++i) {
 		    if (fnPreface[i] == '/')
 		      fnPreface[i] = '_';
 		}
