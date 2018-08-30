@@ -12,6 +12,7 @@ string MultiDecompiler::getFileExt(string fname) {
 }
 string MultiDecompiler::getEverythingButFileExt(string a) {
 	size_t l = a.find_last_of("."); 
+	if (l == string::npos) return "";
 	string r = a.substr(0, l); 
 	return r;
 }
@@ -56,6 +57,11 @@ MultiDecompiler::MultiDecompiler(vector<string> _infiles, DisasmConfig conf) {
 		rawFiles.push_back(raw);
 		// create config
 		DisasmConfig thisConf = conf;
+		string fnPreface = getEverythingButFileExt(infiles.at(i));
+		if (fnPreface == "")
+			fnPreface = "WASMDEC_UNKNOWN_MODULE_";
+		conf.fnPreface = fnPreface;
+		
 		if (i == 0) {
 			thisConf.includePreamble = true;
 		}
