@@ -8,7 +8,7 @@
 #include <iterator>
 
 #include "cxxopts.hpp"
-#include "decompiler/Decompiler.h"
+#include "decompiler/MultiDecompiler.h"
 
 // Global variables to be passed to the decompiler
 bool debugging = false,
@@ -125,7 +125,7 @@ int decompile(Decompiler* decompiler) {
 }
 int multiDecompile(void) {
 	DisasmConfig conf(debugging, extra, DisasmMode::Wasm);
-	MuliDecompiler m(infiles, conf);
+	MultiDecompiler m(infiles, conf);
 	string out = m.getOutput();
 	if (!writeFile(outfile, out)) {
 		std::cout << "ERROR: failed to write output file to disk!" << std::endl;
@@ -199,7 +199,7 @@ int main(int argc, char* argv[]) {
 
 	if (!memdump) {
 		if (!infile.size()) {
-			return multiDecompile(conf);
+			return multiDecompile();
 		} else {
 			// there's only one infile, use a regular decompiler
 
