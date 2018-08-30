@@ -28,6 +28,7 @@ namespace wasmdec {
 		DisasmMode mode;
 		DecompilerCtx* dctx;
 	protected:
+		string functionPreface;
 		void debug(string);
 		void debugf(string);
 		bool parserFailed;
