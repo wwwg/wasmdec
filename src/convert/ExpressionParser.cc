@@ -149,7 +149,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 			// start of switch routine
 			ret += util::tab(ctx->depth);
 			ret += "switch (";
-			ret += sval;
+			ret += getLocal(ctx->lastSetLocal);
 			ret += ") {\n";
 			ctx->depth++;
 			
