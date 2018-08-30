@@ -180,8 +180,9 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		}
 		
 		// end of switch routine
-		ret += "}\n";
 		ctx->depth--;
+		ret += util::tab(ctx->depth);
+		ret += "}\n";
 		ret += util::tab(ctx->depth) + "}\n";
 	} else if (ex->is<CallIndirect>()) {
 		CallIndirect* ci = ex->cast<CallIndirect>();
