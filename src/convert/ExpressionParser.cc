@@ -144,32 +144,30 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		*/
 		// cout << "switch!\n" << endl;
 		Switch* sw = ex->cast<Switch>();
-		if (sw->value) {
-			string sval = parseExpr(ctx, sw->value);
-			// start of switch routine
-			ret += util::tab(ctx->depth);
-			ret += "switch (";
-			ret += getLocal(ctx->lastSetLocal);
-			ret += ") {\n";
+		// start of switch routine
+		ret += util::tab(ctx->depth);
+		ret += "switch (";
+		ret += getLocal(ctx->lastSetLocal);
+		ret += ") {\n";
+		ctx->depth++;
+		
+		// routine body
+		for (unsigned int i = 0; i < sw->targets.size(); ++i) {
+			string sname = string(sw->targets[i].str);
+			ret += "case ";
+			ret += to_string(i);
+			ret += ":\n";
 			ctx->depth++;
-			
-			// routine body
-			Block* body = sw->condition->cast<Block>();
-			for (unsigned int i = 0; i < body->list.size(); ++i) {
-				string sname = string(sw->targets[i].str);
-				ret += "case ";
-				ret += sname;
-				ret += ":\n";
-				ctx->depth++;
-				Expression* thisExpr = body->list[i];
-				ret += parseExpr(ctx, thisExpr);
-				ctx->depth--;
-				ret += "\n";
-			}
-			
-			// end of switch routine
-			ret += "}\n";
+			ret += util::tab(ctx->depth);
+			ret += "goto ";
+			ret += sname;
+			ret += ";";
+			ctx->depth--;
+			ret += "\n";
 		}
+		
+		// end of switch routine
+		ret += "}\n";
 		ctx->depth--;
 		ret += util::tab(ctx->depth) + "}\n";
 	} else if (ex->is<CallIndirect>()) {
