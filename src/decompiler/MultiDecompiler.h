@@ -18,7 +18,6 @@ namespace wasmdec {
 		DisasmMode getDisasmMode(string);
 
 		vector<string> infiles;
-		vector<vector<char>> rawFiles;
 	};
 };
 
