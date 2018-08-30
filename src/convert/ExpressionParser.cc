@@ -137,7 +137,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 				i.e. switch (value) {...}
 			condition: A block of expressions that act as the case expressions
 		*/
-		cout << "switch!\n" << endl;
+		// cout << "switch!\n" << endl;
 		Switch* sw = ex->cast<Switch>();
 		if (sw->value) {
 			string sval = parseExpr(ctx, sw->value);
