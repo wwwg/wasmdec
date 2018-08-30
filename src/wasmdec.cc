@@ -124,7 +124,13 @@ int decompile(Decompiler* decompiler) {
 	return 0;
 }
 int multiDecompile(void) {
-	// TODO
+	DisasmConfig conf(debugging, extra, DisasmMode::Wasm);
+	MuliDecompiler m(infiles, conf);
+	string out = m.getOutput();
+	if (!writeFile(outfile, out)) {
+		std::cout << "ERROR: failed to write output file to disk!" << std::endl;
+		return 1;
+	}
 	return 0;
 }
 int main(int argc, char* argv[]) {
@@ -193,8 +199,7 @@ int main(int argc, char* argv[]) {
 
 	if (!memdump) {
 		if (!infile.size()) {
-			// There's more than one infile, use a multidecompiler
-			// TODO
+			return multiDecompile(conf);
 		} else {
 			// there's only one infile, use a regular decompiler
 
