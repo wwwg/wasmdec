@@ -242,6 +242,7 @@ void Decompiler::decompile() {
 		emit.ln();
 	}
 	debug("Code generation complete.\n");
+	vector<char>().swap(binary);
 }
 string Decompiler::getEmittedCode() {
 	return emit.getCode();
