@@ -215,6 +215,25 @@ string wasmdec::Convert::getDecl(wasm::Function* fn) {
 	ret += ")";
 	return ret;
 }
+string wasmdec::Convert::getDecl(wasm::Function* fn, string preface) {
+	// Get C function decloration from WASM function
+	string ret = resolveType(fn->result); // Return type
+	ret += " "; // Space between ret type and name
+	ret += preface; // function preface for decompiling multiple files
+	ret += getFName(fn->name); // name
+	ret += "("; // Argument list
+	for (unsigned int i = 0; i < fn->params.size(); ++i) {
+		ret += resolveType(fn->params.at(i));
+		ret += " ";
+		ret += getLocal(i);
+		if (i != (fn->params.size() - 1)) {
+			// Only append comma if the argument list isn't finished
+			ret += ", ";
+		}
+	}
+	ret += ")";
+	return ret;
+}
 string wasmdec::Convert::getDecl(wasm::Module* m, unique_ptr<wasm::Import>& i) {
 	// Convert WASM imports to their respective C declorations as C externs
 	string ret = "extern ";
