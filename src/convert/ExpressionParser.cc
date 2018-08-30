@@ -186,6 +186,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		int idx = util::getLocalIndex(ctx->fn, sl->index);
 		*/
 		int idx = sl->index;
+		ctx->lastSetLocal = idx;
 		ret += util::tab(ctx->depth);
 		ret += getLocal((Index)idx);
 		ret += " = ";
