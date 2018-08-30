@@ -10,6 +10,11 @@ string MultiDecompiler::getFileExt(string fname) {
 	    return "";
 	}
 }
+string MultiDecompiler::getEverythingButFileExt(string a) {
+	size_t l = a.find_last_of("."); 
+	string r = a.substr(0, l); 
+	return r;
+}
 DisasmMode MultiDecompiler::getDisasmMode(string infile) {
 	// Convert file extension to disassembler mode
 	string ext = getFileExt(infile);
