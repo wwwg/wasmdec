@@ -142,7 +142,7 @@ void Decompiler::decompile() {
 				<< "*/" << endl;
 			}
 			Context ctx = Context(fn, &module, dctx);
-			emit << Convert::getDecl(fn) << Convert::getFuncBody(ctx, emitExtraData) << endl;
+			emit << Convert::getDecl(fn, functionPreface) << Convert::getFuncBody(ctx, emitExtraData) << endl;
 		}
 	} else {
 		emit.comment("No WASM functions.");
