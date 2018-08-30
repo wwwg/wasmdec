@@ -10,7 +10,7 @@ string wasmdec::Convert::getBlockBody(Context* ctx, Block* blck) {
 	stringstream s;
 	const char* bname = blck->name.str;
 	if (bname != nullptr && strlen(bname)) {
-		s << util:tab(ctx->depth);
+		s << util::tab(ctx->depth);
 		s << blck->name.str << ":\n";
 	}
 	for (auto& expr : blck->list) {
