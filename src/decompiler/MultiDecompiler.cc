@@ -58,7 +58,7 @@ MultiDecompiler::MultiDecompiler(vector<string> _infiles, DisasmConfig conf) {
 		Decompiler d(thisConf, &raw);
 		// do decompilation
 		d.decompile();
-		if (d.failed) {
+		if (d.failed()) {
 			failed = true;
 			break;
 		}
