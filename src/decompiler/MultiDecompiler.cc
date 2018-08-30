@@ -66,7 +66,7 @@ MultiDecompiler::MultiDecompiler(vector<string> _infiles, DisasmConfig conf) {
 		}
 		thisConf.mode = getDisasmMode(infiles.at(i));
 		// create decompiler
-		Decompiler* d = new Decompiler(thisConf, &raw);
+		Decompiler* d = new Decompiler(thisConf, raw);
 		// do decompilation
 		d->decompile();
 		if (d->failed()) {
