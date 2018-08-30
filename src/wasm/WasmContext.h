@@ -17,6 +17,8 @@ namespace wasmdec {
 		Context(Module*);
 		int depth;
 
+		int lastSetLocal;
+
 		bool hasDecompilerCtx;
 		DecompilerCtx* dctx;
 	};
