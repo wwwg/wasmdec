@@ -131,8 +131,6 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		ret += "\n";
 	} else if (ex->is<Switch>()) {
 		/*
-			TODO : Write switch expression parser.
-			
 			how wasm switches work:
 
 			switch (<topmost stack variable>) {
