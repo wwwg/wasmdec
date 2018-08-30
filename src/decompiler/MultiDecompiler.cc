@@ -49,8 +49,7 @@ MultiDecompiler::MultiDecompiler(vector<string> _infiles, DisasmConfig conf) {
 	// Read all the infiles
 	for (unsigned int i = 0; i < infiles.size(); ++i) {
 		vector<char> raw;
-		bool couldWrite = readFile(&raw, infiles.at(i));
-		if (!couldWrite) {
+		if (!readFile(&raw, infiles.at(i))) {
 			failed = true;
 			break;
 		}
@@ -71,6 +70,7 @@ MultiDecompiler::MultiDecompiler(vector<string> _infiles, DisasmConfig conf) {
 		d->decompile();
 		if (d->failed()) {
 			failed = true;
+			delete d;
 			break;
 		}
 		if (i != 0)
