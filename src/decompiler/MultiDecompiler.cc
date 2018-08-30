@@ -39,6 +39,7 @@ bool MultiDecompiler::readFile(vector<char>* data, string path) {
 
 MultiDecompiler::MultiDecompiler(vector<string> _infiles, DisasmConfig conf) {
 	infiles = _infiles;
+	failed = false;
 	// Read all the infiles
 	for (unsigned int i = 0; i < infiles.size(); ++i) {
 		vector<char> raw;
