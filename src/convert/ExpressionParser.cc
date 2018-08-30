@@ -154,6 +154,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		// routine body
 		for (unsigned int i = 0; i < sw->targets.size(); ++i) {
 			string sname = string(sw->targets[i].str);
+			ret += util::tab(ctx->depth);
 			ret += "case ";
 			ret += to_string(i + 1);
 			ret += ":\n";
@@ -164,6 +165,18 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 			ret += ";";
 			ctx->depth--;
 			ret += "\n";
+		}
+		// default
+		const char* defaultName = sw->default_.str;
+		if (defaultName != nullptr && strlen(defaultName)) {
+			ret += util::tab(ctx->depth);
+			ret += "default:\n";
+			ctx->depth++;
+			ret += util::tab(ctx->depth);
+			ret += "goto ";
+			ret += defaultName;
+			ret += ";\n";
+			ctx->depth--;
 		}
 		
 		// end of switch routine
