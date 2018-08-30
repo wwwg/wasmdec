@@ -54,23 +54,22 @@ MultiDecompiler::MultiDecompiler(vector<string> _infiles, DisasmConfig conf) {
 			failed = true;
 			break;
 		}
-		rawFiles.push_back(raw);
 		// create config
 		DisasmConfig thisConf = conf;
 		string fnPreface = getEverythingButFileExt(infiles.at(i));
 		if (fnPreface == "")
 			fnPreface = "WASMDEC_UNKNOWN_MODULE_";
 		conf.fnPreface = fnPreface;
-		
+
 		if (i == 0) {
 			thisConf.includePreamble = true;
 		}
 		thisConf.mode = getDisasmMode(infiles.at(i));
 		// create decompiler
-		Decompiler d(thisConf, &raw);
+		Decompiler* d = new Decompiler(thisConf, &raw);
 		// do decompilation
-		d.decompile();
-		if (d.failed()) {
+		d->decompile();
+		if (d->failed()) {
 			failed = true;
 			break;
 		}
@@ -78,7 +77,8 @@ MultiDecompiler::MultiDecompiler(vector<string> _infiles, DisasmConfig conf) {
 			codeStream << endl << endl;
 
 		codeStream << "Module '" << infiles.at(i) << "':" << endl
-			<< d.getEmittedCode();
+			<< d->getEmittedCode();
+		delete d;
 	}
 }
 string MultiDecompiler::getOutput() {
