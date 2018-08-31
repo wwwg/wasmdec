@@ -1,5 +1,5 @@
 # wasmdec
-wasmdec is a program that converts WebAssembly binaries to pseudo-C code.
+wasmdec is a program that converts WebAssembly binaries to C.
 
 # Example
 wasmdec will translate this WebAssembly binary:
