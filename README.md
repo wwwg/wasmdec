@@ -19,6 +19,7 @@ int fn_addTwo(int arg0, int arg1) {
 	return arg0 + arg1;
 }
 ```
+<<<<<<< HEAD
 # More practical examples
 
 ### [WebAssembly.org tanks demo](https://webassembly.org/demo/) (Unity project compiled to WASM)
@@ -75,3 +76,32 @@ Where options is one of:
 - `-d` or `--debug` : Print extra debug information to stdout
 - If no output file is specified, the default is `out.c`
 - When more than one input file is provided, wasmdec will decompile each WebAssembly to the same output file. Functions from more than one file are prefixed by their module name in order to prevent ambiguous function definitions.
+=======
+# Installing with release
+
+- Grab a release on the releases page and select the correct tarball for your OS and arch.
+- Extract and run `install.sh` as root.
+
+# Installing manually
+
+## Getting the code
+Clone the repository with
+```bash
+git clone https://github.com/wwwg/wasmdec.git --recursive
+```
+Make sure the recursive flag is set to clone all the submodules.
+## Building
+To build wasmdec and install all of it's dependencies, run `sudo make all` in the `wasmdec` directory. GCC 7 or higher is reccomended.
+
+# Usage
+```bash
+wasmdec -o (output file) (options) input file
+```
+Where options is one of:
+- `-e` or `--extra` : Writes extra information about the binary to output files (Obsolete when using memdump)
+- `-m` or `--memdump` : Dumps the binary's memory to disk. Please note that if memdump ONLY dumps memory and doesn't perform any translation.
+- `-d` or `--debug` : Print extra debug information to stdout
+
+# WebAssembly Feature Support
+wasmdec supports almost every single WASM expression, with the exception of atomics. No support for atomics are planned.
+>>>>>>> 186be56d05588d7592f23625c6675b02ec3e515c
