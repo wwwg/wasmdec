@@ -19,7 +19,6 @@ int fn_addTwo(int arg0, int arg1) {
 	return arg0 + arg1;
 }
 ```
-<<<<<<< HEAD
 # More practical examples
 
 ### [WebAssembly.org tanks demo](https://webassembly.org/demo/) (Unity project compiled to WASM)

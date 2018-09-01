@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 #define __WASMDEC_VERSION "1.2.0"
-=======
-#define __WASMDEC_VERSION "1.1.0"
->>>>>>> 186be56d05588d7592f23625c6675b02ec3e515c
 
 #include <fstream>
 #include <sstream>
