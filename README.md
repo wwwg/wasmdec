@@ -63,9 +63,15 @@ To build wasmdec and install all of it's dependencies, run `sudo make all` in th
 
 # Usage
 ```bash
-wasmdec -o (output file) (options) input file
+wasmdec -o (output file) (options) [input files]
 ```
 Where options is one of:
-- `-e` or `--extra` : Writes extra information about the binary to output files (Obsolete when using memdump)
-- `-m` or `--memdump` : Dumps the binary's memory to disk. Please note that if memdump ONLY dumps memory and doesn't perform any translation.
+- `-e` or `--extra` : Emits extra function information as comments:
+    * Raw WebAssembly names of functions
+    * Number of local variables and parameters of functions
+- `-m` or `--memdump` : 
+    * Dumps the binary's memory and table to disk
+    * NOTE : memdump ONLY dumps memory and doesn't actually do any decompilation
 - `-d` or `--debug` : Print extra debug information to stdout
+- If no output file is specified, the default is `out.c`
+- When more than one input file is provided, wasmdec will decompile each WebAssembly to the same output file. Functions from more than one file are prefixed by their module name in order to prevent ambiguous function definitions.
