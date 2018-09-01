@@ -43,6 +43,3 @@ Where options is one of:
 - `-e` or `--extra` : Writes extra information about the binary to output files (Obsolete when using memdump)
 - `-m` or `--memdump` : Dumps the binary's memory to disk. Please note that if memdump ONLY dumps memory and doesn't perform any translation.
 - `-d` or `--debug` : Print extra debug information to stdout
-
-# WebAssembly Feature Support
-wasmdec supports almost every single WASM expression, with the exception of atomics. No support for atomics are planned.
