@@ -25,7 +25,7 @@ int fn_addTwo(int arg0, int arg1) {
 wasmdec is capable of decompiling the entirety of [the tanks demo on the official WebAssembly site](https://webassembly.org/demo/):
 * The main WebAssembly binary for the demo is avalible gzipped at https://webassembly.org/demo/Tanks/Build/tanks.wasm.code.unityweb 
 * After extracting, wasmdec decompiles the entire binary and produces over 6.2 million lines of C.
-* [The entire decompiled binary is avalible here](examples/tanks_decompiled.c)
+* I would include a link to the decompiled C file but it exceeds the file size of most code sharing websites (including GitHub)
 
 ### Diep.io (HTML5 web game written in C++ and compiled to WASM)
 Diep.io is a real time web game written in C++ and compiled to WebAssembly via Emscripten.
