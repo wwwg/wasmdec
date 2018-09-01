@@ -1,7 +1,7 @@
 # wasmdec
 wasmdec is a program that converts WebAssembly binaries to C.
 
-# Example
+# Simple Example
 wasmdec will translate this WebAssembly binary:
 ```wasm
 (module
@@ -19,6 +19,29 @@ int fn_addTwo(int arg0, int arg1) {
 	return arg0 + arg1;
 }
 ```
+# More practical examples
+
+### [WebAssembly.org tanks demo](https://webassembly.org/demo/) (Unity project compiled to WASM)
+wasmdec is capable of decompiling the entirety of [the tanks demo on the official WebAssembly site](https://webassembly.org/demo/):
+* The main WebAssembly binary for the demo is avalible gzipped at https://webassembly.org/demo/Tanks/Build/tanks.wasm.code.unityweb 
+* After extracting, wasmdec decompiles the entire binary and produces over 6.2 million lines of C.
+* [The entire decompiled binary is avalible here](examples/tanks_decompiled.c)
+
+### Diep.io (HTML5 web game written in C++ and compiled to WASM)
+Diep.io is a real time web game written in C++ and compiled to WebAssembly via Emscripten.
+* The WebAssembly binary is is always `http://static.diep.io/build_<BUILD HASH>.wasm.wasm`
+* wasmdec decompiles the binary and produces ~400k lines of C
+* [The decompiled binary is avalible here](examples/diep_decompiled.c)
+
+### [WebDSP](https://github.com/shamadee/web-dsp) (a signal processing library compiled to WASM)
+From the [WebDSP repository](https://github.com/shamadee/web-dsp):
+```
+WebDSP is a collection of highly performant algorithms, which are designed to be building blocks for web applications that aim to operate on media data. The methods are written in C++ and compiled to WASM, and exposed as simple vanilla Javascript functions developers can run on the client side.
+```
+* A compiled version of the library is avalible on the WebDSP demo page
+* Decompiles to ~7k lines of C
+* [The decompiled library is avalible here](examples/webdsp_decompiled.c)
+
 # Installing with release
 
 - Grab a release on the releases page and select the correct tarball for your OS and arch.
