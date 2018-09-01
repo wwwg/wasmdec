@@ -42,6 +42,9 @@ WebDSP is a collection of highly performant algorithms, which are designed to be
 * Decompiles to ~7k lines of C
 * [The decompiled library is avalible here](examples/webdsp_decompiled.c)
 
+# Applications
+[A CTF write-up which uses wasmdec to reverse engineer a WASM binary](http://maroueneboubakri.blogspot.com/2018/04/nuit-du-hack-ctf-quals-2018-assemblyme.html)
+
 # Installing with release
 
 - Grab a release on the releases page and select the correct tarball for your OS and arch.
