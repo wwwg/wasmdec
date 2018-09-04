@@ -220,24 +220,6 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		ctx->lastExpr = ex;
 		string var = parseExpr(ctx, lxp->ptr);
 		ret += util::tab(ctx->depth);
-		ret += "/*  Load:\n";
-		ctx->depth++;
-		ret += util::tab(ctx->depth) + "Offset: ";
-		ret += util::getAddrStr(&(lxp->offset));
-		ret += "\n";
-		ret += util::tab(ctx->depth) + "Align:  ";
-		ret += util::getAddrStr(&(lxp->align));
-		ret += "\n";
-		ret += util::tab(ctx->depth) + "Bytes:  ";
-		ret += util::getHex<int>(lxp->bytes);
-		ret += "\n";
-		ret += util::tab(ctx->depth) + "Atomic: ";
-		ret += util::boolStr(lxp->isAtomic);
-		ret += "\n";
-		ret += util::tab(ctx->depth) + "Signed: ";
-		ret += util::boolStr(lxp->signed_);
-		ctx->depth--;
-		ret += "  */\n";
 		ret += var;
 	} else if (ex->is<Store>()) {
 		Store* sxp = ex->cast<Store>();
