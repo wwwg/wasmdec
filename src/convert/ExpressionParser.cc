@@ -227,24 +227,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		string var = parseExpr(ctx, sxp->ptr);
 		ctx->lastExpr = ex;
 		string val = parseExpr(ctx, sxp->value);
-		// Append information about the expression
-		ret += util::tab(ctx->depth);
-		ret += "/*  Store:\n";
-		ctx->depth++;
-		ret += util::tab(ctx->depth) + "Offset: ";
-		ret += util::getAddrStr(&(sxp->offset));
-		ret += "\n";
-		ret += util::tab(ctx->depth) + "Align:  ";
-		ret += util::getAddrStr(&(sxp->align));
-		ret += "\n";
-		ret += util::tab(ctx->depth) + "Bytes:  ";
-		ret += util::getHex<int>(sxp->bytes);
-		ret += "\n";
-		ret += util::tab(ctx->depth) + "Atomic: ";
-		ret += util::boolStr(sxp->isAtomic);
-		ctx->depth--;
-		ret += "  */\n";
-		// Append C representation
+		
 		ret += util::tab(ctx->depth) + var + " = " + val + "; \n";
 	} else if (ex->is<Unary>()) {
 		Unary* uex = ex->cast<Unary>();
