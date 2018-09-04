@@ -13,7 +13,9 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 	} else if (ex->is<Binary>()) {
 		// Binary operations, including conditionals and arithmetic
 		Binary* spex = ex->cast<Binary>();
+		ctx->lastExpr = ex;
 		string e1 = parseExpr(ctx, spex->left);
+		ctx->lastExpr = ex;
 		string e2 = parseExpr(ctx, spex->right);
 		ret += getBinOperator(e1, spex->op, e2);
 	} else if (ex->is<GetLocal>()) {
@@ -30,13 +32,16 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		if (spex->value) {
 			// Insert expression as function return value
 			ret += "return ";
+			ctx->lastExpr = ex;
 			ret += parseExpr(ctx, spex->value) + ";\n";
 		} else {
 			ret += "return;\n"; // For void functions
 		}
 	} else if (ex->is<If>()) {
 		If* ife = ex->cast<If>();
+		ctx->lastExpr = ex;
 		string cond = parseExpr(ctx, ife->condition);
+		ctx->lastExpr = ex;
 		string trueBlock = parseExpr(ctx, ife->ifTrue);
 		ret += util::tab(ctx->depth);
 		ret += "if (" + cond + ") {\n";
@@ -44,6 +49,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		ret += "\n" + util::tab(ctx->depth) + "} ";
 		if (ife->ifFalse) {
 			// Insert else block
+			ctx->lastExpr = ex;
 			string falseBlock = parseExpr(ctx, ife->ifFalse);
 			ret += "else {\n";
 			ret += util::tab(ctx->depth) + falseBlock + "\n";
@@ -67,18 +73,21 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		SetGlobal* gex = ex->cast<SetGlobal>();
 		ret += util::tab(ctx->depth) + gex->name.str + " = ";
 		// The value is an expression
+		ctx->lastExpr = ex;
 		ret += parseExpr(ctx, gex->value) + ";\n";
 	} else if (ex->is<Break>()) {
 		Break* br = ex->cast<Break>();
 		ret += util::tab(ctx->depth);
 		if (br->condition) {
 			// Conditional breaking
+			ctx->lastExpr = ex;
 			ret += "if (" + parseExpr(ctx, br->condition) + ") break;";
 		} else {
 			// Literal breaking
 			ret += "break;";
 		}
 		if (br->value) {
+			ctx->lastExpr = ex;
 			string val = parseExpr(ctx, br->value);
 			// TODO : parse break values
 			// cout << "Break val: " << val << endl;
@@ -115,6 +124,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		}
 		ret += "\n";
 		ctx->depth -= 1;
+		ctx->lastExpr = ex;
 		ret += parseExpr(ctx, lex->body);
 		ret += "\n";
 		if (ctx->depth < 1) {
@@ -183,6 +193,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		ret += "}\n";
 	} else if (ex->is<CallIndirect>()) {
 		CallIndirect* ci = ex->cast<CallIndirect>();
+		ctx->lastExpr = ex;
 		string _icall = parseExpr(ctx, ci->target);
 		ret += "// Indirect call:\n";
 		ret += "(" + _icall + ")";
@@ -200,11 +211,13 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		ret += getLocal((Index)idx);
 		ret += " = ";
 		// Resolve the value to be set
+		ctx->lastExpr = ex;
 		ret += parseExpr(ctx, sl->value);
 		ret += ";\n";
 	} else if (ex->is<Load>()) {
 		// Memory loading
 		Load* lxp = ex->cast<Load>();
+		ctx->lastExpr = ex;
 		string var = parseExpr(ctx, lxp->ptr);
 		ret += util::tab(ctx->depth);
 		ret += "/*  Load:\n";
@@ -228,7 +241,9 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		ret += var;
 	} else if (ex->is<Store>()) {
 		Store* sxp = ex->cast<Store>();
+		ctx->lastExpr = ex;
 		string var = parseExpr(ctx, sxp->ptr);
+		ctx->lastExpr = ex;
 		string val = parseExpr(ctx, sxp->value);
 		// Append information about the expression
 		ret += util::tab(ctx->depth);
@@ -251,6 +266,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		ret += util::tab(ctx->depth) + var + " = " + val + "; \n";
 	} else if (ex->is<Unary>()) {
 		Unary* uex = ex->cast<Unary>();
+		ctx->lastExpr = ex;
 		string unaryEx = parseExpr(ctx, uex->value);
 		ret += getUnary(unaryEx, uex->op);
 	} else if (ex->is<AtomicRMW>()) {
@@ -262,14 +278,18 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 	} else if (ex->is<Select>()) {
 		// Select is the WASM equivalent of C's ternary operator.
 		Select* slex = ex->cast<Select>();
+		ctx->lastExpr = ex;
 		string cond = parseExpr(ctx, slex->condition);
+		ctx->lastExpr = ex;
 		string ifTrue = parseExpr(ctx, slex->ifTrue);
+		ctx->lastExpr = ex;
 		string ifFalse = parseExpr(ctx, slex->ifFalse);
 		ret += "(" + cond + ") ? (" + ifTrue + ") : (" + ifFalse + ");\n";
 	} else if (ex->is<Drop>()) {
 		Drop* dex = ex->cast<Drop>();
 		ret += util::tab(1);
 		ret += "/* Drop routine */\n";
+		ctx->lastExpr = ex;
 		ret += parseExpr(ctx, dex->value);
 		ret += util::tab(1);
 		ret += "/* End of drop routine */\n";
