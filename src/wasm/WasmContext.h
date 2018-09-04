@@ -21,6 +21,7 @@ namespace wasmdec {
 
 		bool hasDecompilerCtx;
 		DecompilerCtx* dctx;
+		Expression* lastExpr;
 	};
 } // namespace wasmdec
 
