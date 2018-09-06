@@ -19,7 +19,7 @@ $(OUT): $(OBJS)
 	@echo $<
 	$(CC) $(CCOPTS) $< -o $@
 wasm:
-	make wasmBinaryen
+	# make wasmBinaryen
 	EMCC_DEBUG=1 em++ external/binaryen/lib/libinaryen.bc $(EMCC_SRC) \
 		-std=c++14 -Iexternal/binaryen/src -Iexternal/cxxopts/include -Wall -g3 \
 		-Wall -o wasmdec.js \
