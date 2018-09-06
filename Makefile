@@ -1,4 +1,4 @@
-SRC=$(wildcard src/*.cc src/**/*.cc)
+SRC=$(wildcard src/*.cc src/**/*.cc !(src/wasm_api.cc))
 OBJS=$(SRC:.cc=.o)
 OUT=wasmdec
 CC=g++
