@@ -27,7 +27,7 @@ extern "C" {
 			return nullptr;
 		} else {
 			string out = d.getEmittedCode();
-			size_t ret_s = out.length() + 2;
+			size_t ret_s = out.length() + 1;
 			char* ret = malloc(ret_s);
 			memset(ret, 0x0, ret_s);
 			for (unsigned int i = 0; i < out.size(); ++i) {
