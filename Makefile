@@ -19,6 +19,7 @@ $(OUT): $(OBJS)
 	@echo $<
 	$(CC) $(CCOPTS) $< -o $@
 wasm:
+	make wasmBinaryen
 	EMCC_DEBUG=1 em++ $(EMCC_SRC) external/binaryen/lib/libbinaryen.so \
 		-std=c++14 -Iexternal/binaryen/src -Iexternal/cxxopts/include -Wall \
 		-Wall -o wasmdec.js \
@@ -34,6 +35,9 @@ clean:
 # To build binaryen
 binaryen:
 	cd external/binaryen && cmake . && make
+# To build binaryen as a webassembly library
+wasmBinaryen:
+	cd external/binaryen && emconfigure cmake . && emmake make
 
 # To install binaryen
 installBinaryen:
