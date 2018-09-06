@@ -2,7 +2,10 @@
 #include "decompiler/MultiDecompiler.h"
 
 extern "C" {
-	char* wasmdec_decompile(char* in_raw, int ftype) {
-		//
+	char* wasmdec_decompile(char* in_raw, bool in_is_bin) {
+		/*
+			in_raw: raw binary / text to be disassembled
+			in_type: whether or not the input is a webassembly binary or AST
+		*/
 	} 
 }
