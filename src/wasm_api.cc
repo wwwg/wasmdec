@@ -34,6 +34,7 @@ extern "C" {
 				char c = out.at(i);
 				ret[i] = c;
 			}
+			return ret;
 		}
 	} 
 }
