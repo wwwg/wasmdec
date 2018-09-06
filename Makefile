@@ -18,7 +18,6 @@ $(OUT): $(OBJS)
 	@echo $<
 	$(CC) $(CCOPTS) $< -o $@
 wasm:
-	make binaryen
 	EMCC_DEBUG=1 em++ src/*.cc src/**/*.cc external/binaryen/lib/libbinaryen.so -Wall -o wasmdec.js
 
 clean:
