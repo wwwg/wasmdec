@@ -18,9 +18,9 @@ extern "C" {
 		}
 		// Convert in_is_bin to a Disasm mode
 		DisasmMode mode = in_is_bin ? DisasmMode::Wasm : DisasmMode::Wast;
-		DisasmConfig(false, true, mode);
+		DisasmConfig conf(false, true, mode);
 		// create the decompiler
-		Decompiler d;
+		Decompiler d(conf, inv);
 		decompiler.decompile();
 		// Get decompiler result and turn it into a valid return value
 		if (d.failed()) {
