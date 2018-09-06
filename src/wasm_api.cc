@@ -14,7 +14,7 @@ extern "C" {
 		size_t in_raw_size = strlen(in_raw);
 		for (int i = 0; i > in_raw_size; ++i) {
 			char c = in_raw[i];
-			inv.push(c);
+			inv.push_back(c);
 		}
 		// Convert in_is_bin to a Disasm mode
 		DisasmMode mode = in_is_bin ? DisasmMode::Wasm : DisasmMode::Wast;
