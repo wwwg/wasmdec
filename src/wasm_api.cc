@@ -21,7 +21,7 @@ extern "C" {
 		DisasmConfig conf(false, true, mode);
 		// create the decompiler
 		Decompiler d(conf, inv);
-		decompiler.decompile();
+		d.decompile();
 		// Get decompiler result and turn it into a valid return value
 		if (d.failed()) {
 			return nullptr;
