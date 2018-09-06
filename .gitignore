@@ -13,3 +13,4 @@ wasmdec*.wasm
 wasmdec*.js
 wasmdec*.wast
 wasmdec*.map
+emcc_out/

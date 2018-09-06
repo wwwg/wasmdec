@@ -23,6 +23,8 @@ wasm:
 		-std=c++14 -Iexternal/binaryen/src -Iexternal/cxxopts/include -Wall \
 		-Wall -o wasmdec.js \
 		-s EXPORTED_FUNCTIONS='["_wasmdec_decompile"]' -s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]'
+	mkdir -p emcc_out
+	mv wasmdec.js wasmdec.wasm emcc_out/
 
 clean:
 	rm -f *.o wasmdec
