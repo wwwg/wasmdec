@@ -17,7 +17,7 @@ public:
     DisasmMode mode;
     inline DisasmConfig(bool _debug, bool _extra, DisasmMode _mode) {
         debug = _debug;
-        extra = extra;
+        extra = _extra;
         mode = _mode;
         includePreamble = true;
         fnPreface = "";
