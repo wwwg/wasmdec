@@ -18,7 +18,9 @@ $(OUT): $(OBJS)
 	@echo $<
 	$(CC) $(CCOPTS) $< -o $@
 wasm:
-	EMCC_DEBUG=1 em++ src/*.cc src/**/*.cc external/binaryen/lib/libbinaryen.so -Wall -o wasmdec.js \
+	EMCC_DEBUG=1 em++ src/*.cc src/**/*.cc external/binaryen/lib/libbinaryen.so \
+		-std=c++14 -Iexternal/binaryen/src -Iexternal/cxxopts/include -Wall \
+		-Wall -o wasmdec.js \
 		-s EXPORTED_FUNCTIONS='["_wasmdec_decompile"]' -s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]'
 
 clean:
