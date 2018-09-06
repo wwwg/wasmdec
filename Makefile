@@ -21,7 +21,7 @@ $(OUT): $(OBJS)
 wasm:
 	make wasmBinaryen
 	EMCC_DEBUG=1 em++ $(EMCC_SRC) external/binaryen/lib/libbinaryen.so \
-		-std=c++14 -Iexternal/binaryen/src -Iexternal/cxxopts/include -Wall \
+		-std=c++14 -Iexternal/binaryen/src -Iexternal/cxxopts/include -Wall -O3 \
 		-Wall -o wasmdec.js \
 		-s EXPORTED_FUNCTIONS='["_wasmdec_decompile"]' -s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]'
 	mkdir -p emcc_out
