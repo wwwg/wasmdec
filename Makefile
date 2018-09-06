@@ -37,7 +37,7 @@ binaryen:
 	cd external/binaryen && make clean && cmake . && make
 # To build binaryen as a webassembly library
 wasmBinaryen:
-	cd external/binaryen && make clean && emconfigure cmake . && emmake make
+	cd external/binaryen && make clean && emconfigure cmake . && CC=emcc CXX=em++ emmake make
 
 # To install binaryen
 installBinaryen:
