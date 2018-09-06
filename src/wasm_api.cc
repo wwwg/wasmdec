@@ -18,5 +18,21 @@ extern "C" {
 		}
 		// Convert in_is_bin to a Disasm mode
 		DisasmMode mode = in_is_bin ? DisasmMode::Wasm : DisasmMode::Wast;
+		DisasmConfig(false, true, mode);
+		// create the decompiler
+		Decompiler d;
+		decompiler.decompile();
+		// Get decompiler result and turn it into a valid return value
+		if (d.failed()) {
+			return nullptr;
+		} else {
+			string out = d.getEmittedCode();
+			size_t ret_s = out.length() + 2;
+			char* ret = malloc(ret_s);
+			for (unsigned int i = 0; i < out.size(); ++i) {
+				char c = out.at(i);
+				ret[i] = c;
+			}
+		}
 	} 
 }
