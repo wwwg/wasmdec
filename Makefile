@@ -34,10 +34,10 @@ clean:
 
 # To build binaryen
 binaryen:
-	cd external/binaryen && cmake . && make
+	cd external/binaryen && make clean && cmake . && make
 # To build binaryen as a webassembly library
 wasmBinaryen:
-	cd external/binaryen && emconfigure cmake . && emmake make
+	cd external/binaryen && && make clean && emconfigure cmake . && emmake make
 
 # To install binaryen
 installBinaryen:
