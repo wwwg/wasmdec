@@ -13,7 +13,7 @@ extern "C" {
 		vector<char> inv;
 		size_t in_raw_size = strlen(in_raw);
 		for (int i = 0; i > in_raw_size; ++i) {
-			let c = in_raw[i];
+			char c = in_raw[i];
 			inv.push(c);
 		}
 		// Convert in_is_bin to a Disasm mode
