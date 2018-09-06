@@ -1,4 +1,5 @@
 SRC=$(wildcard src/*.cc src/**/*.cc !(src/wasm_api.cc))
+EMCC_SRC=$(wildcard src/*.cc src/**/*.cc !(src/wasmdec.cc))
 OBJS=$(SRC:.cc=.o)
 OUT=wasmdec
 CC=g++
@@ -18,7 +19,7 @@ $(OUT): $(OBJS)
 	@echo $<
 	$(CC) $(CCOPTS) $< -o $@
 wasm:
-	EMCC_DEBUG=1 em++ src/*.cc src/**/*.cc external/binaryen/lib/libbinaryen.so \
+	EMCC_DEBUG=1 em++ $(EMCC_SRC) external/binaryen/lib/libbinaryen.so \
 		-std=c++14 -Iexternal/binaryen/src -Iexternal/cxxopts/include -Wall \
 		-Wall -o wasmdec.js \
 		-s EXPORTED_FUNCTIONS='["_wasmdec_decompile"]' -s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]'
