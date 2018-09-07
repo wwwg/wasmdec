@@ -73,10 +73,23 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 	} else if (ex->is<SetGlobal>()) {
 		// Set global variable
 		SetGlobal* gex = ex->cast<SetGlobal>();
+		bool isInline = false;
+		if (ctx->lastExpr) {
+			if (ctx->isIfCondition) {
+				isInline = true;
+			}
+		}
+		bool isInPolyAssignment = (ctx->lastExpr->is<SetLocal>()
+								|| ctx->lastExpr->is<SetGlobal>()
+								|| ctx->lastExpr->is<Store>());
+
 		ret += util::tab(ctx->depth) + gex->name.str + " = ";
 		// The value is an expression
 		ctx->lastExpr = ex;
-		ret += parseExpr(ctx, gex->value) + ";\n";
+		ret += parseExpr(ctx, gex->value);
+		if (!isInline && !isInPolyAssignment && !ctx->isIfCondition) {
+			ret += ";\n";
+		}
 	} else if (ex->is<Break>()) {
 		Break* br = ex->cast<Break>();
 		ret += util::tab(ctx->depth);
