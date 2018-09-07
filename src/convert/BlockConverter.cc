@@ -14,6 +14,7 @@ string wasmdec::Convert::getBlockBody(Context* ctx, Block* blck) {
 		s << blck->name.str << ":\n";
 	}
 	for (auto& expr : blck->list) {
+		ctx->lastExpr = blck;
 		s << Convert::parseExpr(ctx, expr);
 	}
 	return s.str();
