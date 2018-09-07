@@ -254,7 +254,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		
 		bool isInline = false;
 		if (ctx->lastExpr) {
-			if (ctx->lastExpr->isIfCondition) {
+			if (ctx->isIfCondition) {
 				isInline = true;
 			}
 		}
