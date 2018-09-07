@@ -11,6 +11,7 @@ namespace wasmdec {
 	class Context {
 	public:
 		bool isGlobal;
+		bool isIfCondition;
 		Function* fn;
 		Module* mod;
 		Context(Function*, Module*, DecompilerCtx*);

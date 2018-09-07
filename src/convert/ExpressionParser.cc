@@ -40,7 +40,9 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 	} else if (ex->is<If>()) {
 		If* ife = ex->cast<If>();
 		ctx->lastExpr = ex;
+		ctx->isIfCondition = true;
 		string cond = parseExpr(ctx, ife->condition);
+		ctx->isIfCondition = false;
 		ctx->lastExpr = ex;
 		string trueBlock = parseExpr(ctx, ife->ifTrue);
 		ret += util::tab(ctx->depth);
@@ -204,7 +206,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		SetLocal* sl = ex->cast<SetLocal>();
 		bool isInline = false;
 		if (ctx->lastExpr) {
-			if (ctx->lastExpr->is<If>()) {
+			if (ctx->isIfCondition) {
 				isInline = true;
 			}
 		}
@@ -252,7 +254,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		
 		bool isInline = false;
 		if (ctx->lastExpr) {
-			if (ctx->lastExpr->is<If>()) {
+			if (ctx->lastExpr->isIfCondition) {
 				isInline = true;
 			}
 		}
