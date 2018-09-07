@@ -206,10 +206,6 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		if (ctx->lastExpr) {
 			if (ctx->lastExpr->is<If>()) {
 				isInline = true;
-			} else if (ctx->lastExpr->is<Return>()) {
-				isInline = true;
-			} else if (ctx->lastExpr->is<Select>()) {
-				isInline = true;
 			}
 		}
 		bool isInPolyAssignment = (ctx->lastExpr->is<SetLocal>()
@@ -228,9 +224,14 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		ret += getLocal((Index)idx);
 		ret += " = ";
 		// Resolve the value to be set
+		bool valueIsAssignment = (sl->value->is<SetLocal>()
+								|| sl->value->is<SetGlobal>()
+								|| sl->value->is<Store>());
 		ctx->lastExpr = ex;
 		ret += parseExpr(ctx, sl->value);
-		if (!isInline) ret += ";\n";
+		if (!isInline && !valueIsAssignment) {
+			ret += ";\n";
+		}
 	} else if (ex->is<Load>()) {
 		// Memory loading
 		Load* lxp = ex->cast<Load>();
@@ -244,14 +245,14 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		string var = parseExpr(ctx, sxp->ptr);
 		ctx->lastExpr = ex;
 		string val = parseExpr(ctx, sxp->value);
+
+		bool valueIsAssignment = (sxp->value->is<SetLocal>()
+								|| sxp->value->is<SetGlobal>()
+								|| sxp->value->is<Store>());
 		
 		bool isInline = false;
 		if (ctx->lastExpr) {
 			if (ctx->lastExpr->is<If>()) {
-				isInline = true;
-			} else if (ctx->lastExpr->is<Return>()) {
-				isInline = true;
-			} else if (ctx->lastExpr->is<Select>()) {
 				isInline = true;
 			}
 		}
@@ -267,7 +268,11 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		ret += var;
 		ret += " = ";
 		ret += val;
-		if (!isInline) "; \n";
+		if (!isInline) {
+			if (!valueIsAssignment) {
+				ret += "; \n";;
+			}
+		}
 	} else if (ex->is<Unary>()) {
 		Unary* uex = ex->cast<Unary>();
 		ctx->lastExpr = ex;
