@@ -19,7 +19,7 @@ extern "C" {
 		}
 		// Convert in_is_bin to a Disasm mode
 		DisasmMode mode = in_is_bin ? DisasmMode::Wasm : DisasmMode::Wast;
-		DisasmConfig conf(false, true, mode);
+		DisasmConfig conf(true, true, mode);
 		// create the decompiler
 		printf("starting decompiler\n");
 		Decompiler d(conf, inv);
