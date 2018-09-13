@@ -41,8 +41,13 @@ wasmBinaryen:
 
 # To install binaryen
 installBinaryen:
-	if [ -d "/usr/lib64" ]; then cp external/binaryen/lib/libbinaryen.so /usr/lib64/; else cp external/binaryen/lib/libbinaryen.so /usr/lib/; fi
-
+	if [[ "$OSTYPE" == "linux-gnu" ]];
+		if [ -d "/usr/lib64" ]; then cp external/binaryen/lib/libbinaryen.so /usr/lib64/; else cp external/binaryen/lib/libbinaryen.so /usr/lib/; fi
+	elif [[ "$OSTYPE" == "darwin"* ]]; then
+		cp external/binaryen/lib/libbinaryen.dylib /usr/local/lib/
+	else
+		echo "WARN: I don't know how to install libraries in your system, you must install binaryen manually"
+	fi
 # To install wasmdec
 install:
 	cp ./wasmdec /usr/bin
