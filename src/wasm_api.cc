@@ -51,7 +51,7 @@ extern "C" {
 		if (decomp == nullptr)
 			return false;
 		decomp->decompile();
-		if (decomp.failed()) {
+		if (decomp->failed()) {
 			return false;
 		}
 		return true;
@@ -64,7 +64,7 @@ extern "C" {
 		return value: resulting decompiled C code
 	*/
 	char* wasmdec_get_decompiled_code(Decompiler* decomp) {
-		if (decomp.failed())
+		if (decomp->failed())
 			return nullptr;
 		string emitted = decomp->getEmittedCode();
 		size_t ret_size = emitted.size() + 1;
