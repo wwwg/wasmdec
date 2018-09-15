@@ -3,6 +3,16 @@
 #include <cstdlib>
 
 extern "C" {
+	/*
+		Creates a wasmdec decompiler
+
+		debug: log debug information
+		extra: output extra binary information in the decompilation
+		mode: "wasm" or "wast", whether or not the input is an ast or binary
+		input: the input binary / webassembly text
+
+		return value: a pointer to the configured decompiler (for use in other wasmdec api functions)
+	*/
 	Decompiler* wasmdec_create_decompiler(bool debug, bool extra,
 																			char* mode, char* input) {
 		// convert mode to a DisasmMode
@@ -16,6 +26,8 @@ extern "C" {
 			printf("WARN: wasmdec: invalid input mode");
 			return nullptr;
 		}
+		// Create the config
+		DisasmConfig conf(debug, extra, dmode);
 
 		// Convert input char* to vector<char> for decompiler class
 		vector<char> inv;
@@ -24,6 +36,9 @@ extern "C" {
 			char c = input[i];
 			inv.push_back(c);
 		}
+		// Create decompiler
+		Decompiler* ret = new Decompiler(conf, inv);
+		return ret;
 	}
 	char* wasmdec_decompile(char* in_raw, bool in_is_bin) {
 		/*
