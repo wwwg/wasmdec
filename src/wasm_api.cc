@@ -3,6 +3,19 @@
 #include <cstdlib>
 
 extern "C" {
+	Decompiler* wasmdec_create_decompiler(bool debug, bool extra, char* mode) {
+		// convert mode to a DisasmMode
+		string smode = string(mode);
+		DisasmMode dmode = DisasmMode::None;
+		if (smode == "wasm") {
+			dmode = DisasmMode::Wasm;
+		} else if (smode == "wast") {
+			dmode = DisasmMode::Wast;
+		} else {
+			printf("WARN: wasmdec: invalid input mode");
+			return nullptr;
+		}
+	}
 	char* wasmdec_decompile(char* in_raw, bool in_is_bin) {
 		/*
 			in_raw: raw binary / text to be decompiled
