@@ -7,7 +7,8 @@
 			}
 	}
 	window.Wasmdec = {
-		ready: false
+		ready: false,
+		Decompiler: Decompiler
 	};
 	let glue = document.createElement('script');
 	glue.src = 'https://rawgit.com/wwwg/wasmdec/master/wasmdec.js/wasmdec.wasm.js';
