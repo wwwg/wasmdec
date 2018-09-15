@@ -19,6 +19,7 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 	isDebug = conf.debug;
 	emitExtraData = conf.extra;
 	mode = conf.mode;
+
 	if (mode == DisasmMode::Wasm) {
 		debug("Creating WasmBinaryBuilder\n");
 		// Create parser

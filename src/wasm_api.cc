@@ -13,7 +13,7 @@ extern "C" {
 		printf("setting vector\n");
 		vector<char> inv;
 		size_t in_raw_size = strlen(in_raw);
-		for (unsigned int i = 0; i > in_raw_size; ++i) {
+		for (unsigned int i = 0; i < in_raw_size; ++i) {
 			char c = in_raw[i];
 			inv.push_back(c);
 		}
