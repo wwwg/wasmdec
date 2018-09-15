@@ -75,4 +75,12 @@ extern "C" {
 		}
 		return ret;
 	}
+	/*
+		Delete decompiler
+
+		decomp: the decompiler generated in wasmdec_create_decompiler()
+	*/
+	void wasmdec_destroy_decompiler(Decompiler* decomp) {
+		delete decomp;
+	}
 }
