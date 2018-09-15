@@ -1,4 +1,11 @@
 (() => {
+	class Decompiler {
+		constructor(enableDebugLogging, emitExtraInfo,
+			inputType, input) {
+				this._ptr = Wasmdec._wasmdec_create_decompiler(enableDebugLogging, emitExtraInfo,
+					inputType, input);
+			}
+	}
 	window.Wasmdec = {
 		ready: false
 	};
