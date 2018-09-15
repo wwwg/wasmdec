@@ -9,8 +9,6 @@ release/wasmdec
 release/libbinaryen.so
 release*.tar.gz
 wasmdec*.tar.gz
-wasmdec*.wasm
-wasmdec*.js
 wasmdec*.wast
 wasmdec*.map
 emcc_out/
