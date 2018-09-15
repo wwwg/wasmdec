@@ -7,7 +7,7 @@
 	document.head.appendChild(glue);
 	glue.onload = () => {
 		let intv = setInterval(() => {
-			if (Module["_wasmdec_create_decompiler"]) {
+			if (Wasmdec.Module["_wasmdec_create_decompiler"]) {
 				init();
 				clearInterval(intv);
 				return;
