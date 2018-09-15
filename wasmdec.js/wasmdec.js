@@ -5,6 +5,16 @@
 				this._ptr = Wasmdec._wasmdec_create_decompiler(enableDebugLogging, emitExtraInfo,
 					inputType, input);
 			}
+			decompile() {
+				return Wasmdec._wasmdec_decompile(this._ptr);
+			}
+			getDecompiledCode() {
+				return Wasmdec._wasmdec_get_decompiled_code(this._ptr);
+			}
+			destroy() {
+				// MUST be called to free wasm memory
+				Wasmdec._wasmdec_destroy_decompiler(this._ptr);
+			}
 	}
 	window.Wasmdec = {
 		ready: false,
