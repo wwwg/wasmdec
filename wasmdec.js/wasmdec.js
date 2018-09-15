@@ -29,10 +29,10 @@
 	let init = () => {
 		Wasmdec.ready = true;
 		// bind wasm functions to javascript
-		Wasmdec._wasmdec_create_decompiler = Module.cwrap('wasmdec_create_decompiler', 'number',
+		Wasmdec._wasmdec_create_decompiler = Wasmdec.Module.cwrap('wasmdec_create_decompiler', 'number',
                                                                                                     ['bool', 'bool', 'string', 'string']);
-		Wasmdec._wasmdec_decompile = Module.cwrap('wasmdec_decompile', 'bool', ['number']);
-		Wasmdec._wasmdec_get_decompiled_code = Module.cwrap('wasmdec_get_decompiled_code', 'string', ['number']);
-		Wasmdec._wasmdec_destroy_decompiler = Module.cwrap('wasmdec_destroy_decompiler', 'void', ['number']);
+		Wasmdec._wasmdec_decompile = Wasmdec.Module.cwrap('wasmdec_decompile', 'bool', ['number']);
+		Wasmdec._wasmdec_get_decompiled_code = Wasmdec.Module.cwrap('wasmdec_get_decompiled_code', 'string', ['number']);
+		Wasmdec._wasmdec_destroy_decompiler = Wasmdec.Module.cwrap('wasmdec_destroy_decompiler', 'void', ['number']);
 	}
 })();
