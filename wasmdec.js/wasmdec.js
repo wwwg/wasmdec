@@ -16,8 +16,12 @@
 	glue.onload = () => {
 		let intv = setInterval(() => {
 			if (Wasmdec.Module["_wasmdec_create_decompiler"]) {
-				init();
 				clearInterval(intv);
+				if (!Wasmdec.ready) {
+					init();
+				} else {
+					clearInterval(intv);
+				}
 				return;
 			}
 		});
