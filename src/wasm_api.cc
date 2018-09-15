@@ -56,4 +56,23 @@ extern "C" {
 		}
 		return true;
 	}
+	/*
+		Gets the decompiler's output
+
+		decomp: the decompiler generated in wasmdec_create_decompiler()
+
+		return value: resulting decompiled C code
+	*/
+	char* wasmdec_get_decompiled_code(Decompiler* decomp) {
+		if (decomp.failed())
+			return nullptr;
+		string emitted = decomp->getEmittedCode();
+		size_t ret_size = emitted.size() + 1;
+		char* ret = malloc(ret_size);
+		memset(ret, 0x0, ret_size);
+		for (int i = 0 ; i < emitted.size(); ++i) {
+			ret[i] = emitted.at(i);
+		}
+		return ret;
+	}
 }
