@@ -21,22 +21,14 @@ int fn_addTwo(int arg0, int arg1) {
 ```
 # More practical examples
 
-### [WebAssembly.org tanks demo](https://webassembly.org/demo/) (Unity project compiled to WASM)
-wasmdec is capable of decompiling the entirety of [the tanks demo on the official WebAssembly site](https://webassembly.org/demo/):
-* The main WebAssembly binary for the demo is avalible gzipped at https://webassembly.org/demo/Tanks/Build/tanks.wasm.code.unityweb 
-* After extracting, wasmdec decompiles the entire binary and produces over 6.2 million lines of C.
-* I would include a link to the decompiled C file but it exceeds the file size of most code sharing websites (including GitHub)
-
 ### [Diep.io](https://diep.io) (HTML5 web game written in C++ and compiled to WASM)
 Diep.io is a real time web game written in C++ and compiled to WebAssembly via Emscripten.
 * The WebAssembly binary is is always `http://static.diep.io/build_<BUILD HASH>.wasm.wasm`
-* wasmdec decompiles the binary and produces ~400k lines of C
 * [The decompiled binary is avalible here](examples/diep_decompiled.c)
 
-### wasmdec (WebAssembly to C decompiler)
+### wasmdec
 wasmdec is capable of decompiling itself back to C.
 * The makefile has a `wasm` target that uses [Emscripten](https://github.com/kripken/emscripten) to compile wasmdec to WebAssembly
-* wasmdec decompiles itself and produces ~220k lines of C
 * [The decompiled binary is avalible here](examples/wasmdec_decompiled.c)
 
 ### [WebDSP](https://github.com/shamadee/web-dsp) (a signal processing library compiled to WASM)
@@ -45,7 +37,6 @@ From the [WebDSP repository](https://github.com/shamadee/web-dsp):
 WebDSP is a collection of highly performant algorithms, which are designed to be building blocks for web applications that aim to operate on media data. The methods are written in C++ and compiled to WASM, and exposed as simple vanilla Javascript functions developers can run on the client side.
 ```
 * A compiled version of the library is avalible on the WebDSP demo page
-* Decompiles to ~7k lines of C
 * [The decompiled library is avalible here](examples/webdsp_decompiled.c)
 
 # Applications
