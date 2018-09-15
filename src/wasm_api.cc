@@ -3,7 +3,8 @@
 #include <cstdlib>
 
 extern "C" {
-	Decompiler* wasmdec_create_decompiler(bool debug, bool extra, char* mode) {
+	Decompiler* wasmdec_create_decompiler(bool debug, bool extra,
+																			char* mode, char* input) {
 		// convert mode to a DisasmMode
 		string smode = string(mode);
 		DisasmMode dmode = DisasmMode::None;
@@ -14,6 +15,14 @@ extern "C" {
 		} else {
 			printf("WARN: wasmdec: invalid input mode");
 			return nullptr;
+		}
+
+		// Convert input char* to vector<char> for decompiler class
+		vector<char> inv;
+		size_t input_size = strlen(input);
+		for (unsigned int i = 0; i < input_size; ++i) {
+			char c = input[i];
+			inv.push_back(c);
 		}
 	}
 	char* wasmdec_decompile(char* in_raw, bool in_is_bin) {
