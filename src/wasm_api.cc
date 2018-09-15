@@ -40,4 +40,20 @@ extern "C" {
 		Decompiler* ret = new Decompiler(conf, inv);
 		return ret;
 	}
+	/*
+		Decompiles the input binary / ast
+
+		decomp: the decompiler generated in wasmdec_create_decompiler()
+
+		return value: whether or not the decompiler succeeded
+	*/
+	bool wasmdec_decompile(Decompiler* decomp) {
+		if (decomp == nullptr)
+			return false;
+		decomp->decompile();
+		if (decomp.failed()) {
+			return false;
+		}
+		return true;
+	}
 }
