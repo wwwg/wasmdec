@@ -363,13 +363,15 @@ string wasmdec::Convert::getUnary(string exp, UnaryOp op) {
 }
 string wasmdec::Convert::getHostFunc(HostOp hop) {
 	switch (hop) {
+  /*
 		case PageSize:
 			return "host_get_page_size";
 			break;
 		case HasFeature:
 			return "host_has_feature";
 			break;
-		case GrowMemory:
+	*/
+    case GrowMemory:
 			return "host_grow_memory";
 			break;
 		case CurrentMemory:
