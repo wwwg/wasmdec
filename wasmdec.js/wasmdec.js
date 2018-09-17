@@ -18,6 +18,7 @@
 	}
 	window.Wasmdec = {
 		ready: false,
+		onReady: null,
 		Decompiler: Decompiler
 	};
 	let glue = document.createElement('script');
@@ -30,6 +31,9 @@
 				if (!Wasmdec.ready) {
 					init();
 				} else {
+					if (Wasmdec.onReady) {
+						Wasmdec.onReady();
+					}
 					clearInterval(intv);
 				}
 				return;
