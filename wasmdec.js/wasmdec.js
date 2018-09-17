@@ -25,7 +25,7 @@
 	glue.src = 'https://rawgit.com/wwwg/wasmdec/master/wasmdec.js/wasmdec.wasm.js';
 	document.head.appendChild(glue);
 	glue.onload = () => {
-		let intv = setInterval(() => {
+		var intv = setInterval(() => {
 			if (Wasmdec.Module["_wasmdec_create_decompiler"]) {
 				clearInterval(intv);
 				if (!Wasmdec.ready) {
