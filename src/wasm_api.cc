@@ -70,7 +70,7 @@ extern "C" {
 		size_t ret_size = emitted.size() + 1;
 		char* ret = (char*)malloc(ret_size);
 		memset(ret, 0x0, ret_size);
-		for (int i = 0 ; i < emitted.size(); ++i) {
+		for (unsigned int i = 0 ; i < emitted.size(); ++i) {
 			ret[i] = emitted.at(i);
 		}
 		return ret;
