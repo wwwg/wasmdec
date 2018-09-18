@@ -79,9 +79,10 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 				isInline = true;
 			}
 		}
-		bool isInPolyAssignment = (ctx->lastExpr->is<SetLocal>()
+		bool isInPolyAssignment = ((ctx->lastExpr != nullptr)
+								&& (ctx->lastExpr->is<SetLocal>()
 								|| ctx->lastExpr->is<SetGlobal>()
-								|| ctx->lastExpr->is<Store>());
+								|| ctx->lastExpr->is<Store>()));
 
 		ret += util::tab(ctx->depth) + gex->name.str + " = ";
 		// The value is an expression
@@ -223,9 +224,10 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 				isInline = true;
 			}
 		}
-		bool isInPolyAssignment = (ctx->lastExpr->is<SetLocal>()
+		bool isInPolyAssignment = ((ctx->lastExpr != nullptr)
+								&& (ctx->lastExpr->is<SetLocal>()
 								|| ctx->lastExpr->is<SetGlobal>()
-								|| ctx->lastExpr->is<Store>());
+								|| ctx->lastExpr->is<Store>()));
 		/*
 		int idx = util::getLocalIndex(ctx->fn, sl->index);
 		*/
@@ -271,9 +273,10 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 				isInline = true;
 			}
 		}
-		bool isInPolyAssignment = (ctx->lastExpr->is<SetLocal>()
+		bool isInPolyAssignment = ((ctx->lastExpr != nullptr)
+								&& (ctx->lastExpr->is<SetLocal>()
 								|| ctx->lastExpr->is<SetGlobal>()
-								|| ctx->lastExpr->is<Store>());
+								|| ctx->lastExpr->is<Store>()));
 
 		if (!isInline) {
 			if (!isInPolyAssignment) {
