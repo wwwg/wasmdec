@@ -79,10 +79,12 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 				isInline = true;
 			}
 		}
-		bool isInPolyAssignment = ((ctx->lastExpr != nullptr)
-								&& (ctx->lastExpr->is<SetLocal>()
+		bool isInPolyAssignment = false;
+		if (ctx->lastExpr != nullptr) {
+			isInPolyAssignment = (ctx->lastExpr->is<SetLocal>()
 								|| ctx->lastExpr->is<SetGlobal>()
-								|| ctx->lastExpr->is<Store>()));
+								|| ctx->lastExpr->is<Store>());
+		}
 
 		ret += util::tab(ctx->depth) + gex->name.str + " = ";
 		// The value is an expression
