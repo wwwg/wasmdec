@@ -81,7 +81,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		SetGlobal* gex = ex->cast<SetGlobal>();
 		bool isInline = false;
 		bool isInPolyAssignment = false;
-		if (ctx->lastExpr) {
+		if (ctx->lastExpr && !ctx->functionLevelExpression) {
 			if (ctx->isIfCondition) {
 				isInline = true;
 			}
