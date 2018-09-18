@@ -26,6 +26,7 @@ wasm:
 		-Wall -o emcc_out/wasmdec.js \
 		-s EXPORTED_FUNCTIONS='["_wasmdec_create_decompiler", "_wasmdec_decompile", "_wasmdec_get_decompiled_code", "_wasmdec_destroy_decompiler"]' \
 		-s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]'
+	cp emcc_out/wasmdec.wasm wasmdec.js/
 
 clean:
 	rm -f *.o wasmdec
