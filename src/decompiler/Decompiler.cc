@@ -172,6 +172,7 @@ void Decompiler::decompile() {
 	debug("Starting code generation...\n");
 	// Process imports
 	if (module.imports.size()) {
+		debug("Processing imports...\n");
 		emit.comment("WASM imports:");
 		for (auto& i : module.imports) {
 			// cout << "Got import: " << i->name << endl;
@@ -183,13 +184,16 @@ void Decompiler::decompile() {
 			string decl = Convert::getDecl(&module, i);
 			emit << decl << endl;
 		}
+		debug("Processed imports\n");
 	} else {
+		debug("No wasm imports detected\n");
 		// No imports, so just leave a comment
 		emit.comment("No WASM imports.");
 		emit.ln();
 	}
 	// Process globals
 	if (module.globals.size()) {
+		debug("Processing globals...\n");
 		Context gctx = Context(&module); // Initialize a global context to parse expressions with
 		gctx.isGlobal = true;
 		emit.comment("WASM globals:");
@@ -201,16 +205,22 @@ void Decompiler::decompile() {
 			}
 			emit << globalType << " " << glb->name.str << " = " << globalInitializer << ";" << endl;
 		}
+		debug("Processed globals.\n");
 	} else {
+		debug("No wasm globals.\n");
 		// No globals, so just leave a comment
 		emit.comment("No WASM globals.");
 	}
 	emit.ln();
 	// Process functions
 	if (module.functions.size()) {
+		debug("Processing wasm functions...\n");
 		emit.comment("WASM functions:");
 		emit.ln();
+		int funcNumber = 0;
 		for (const auto &func : module.functions) {
+			emit.comment("Processing function #" + to_string(funcNumber));
+			funcNumber++;
 			Function* fn = func.get();
 			if (emitExtraData) {
 				// Emit information about the function as a comment
@@ -229,6 +239,7 @@ void Decompiler::decompile() {
 	}
 	// Process exports
 	if (module.exports.size()) {
+		debug("Processing wasm exports...\n");
 		emit << "\n/*" << endl
 		<< "\tExported WASM functions:" << endl;
 		for (const auto& expt : module.exports) {
@@ -238,6 +249,7 @@ void Decompiler::decompile() {
 				<< "\t\tExport name: '" << expt->name.str << "'" << endl << endl;
 		}
 		emit << "*/" << endl;
+		debug("Processed wasm exports.\n");
 	} else {
 		emit.comment("No WASM exports.");
 		emit.ln();
@@ -246,6 +258,7 @@ void Decompiler::decompile() {
 	vector<char>().swap(binary);
 }
 string Decompiler::getEmittedCode() {
+	debug("Exporting emitted code.\n");
 	return emit.getCode();
 }
 // Debug functions
