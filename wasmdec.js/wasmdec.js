@@ -17,7 +17,7 @@
 			}
 	}
 	window.Wasmdec = {
-		VERSION: "1.2.1",
+		VERSION: "1.2.1b2",
 		ready: false,
 		onReady: null,
 		Decompiler: Decompiler
