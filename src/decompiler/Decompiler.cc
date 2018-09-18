@@ -220,7 +220,7 @@ void Decompiler::decompile() {
 		int funcNumber = 0;
 		for (const auto &func : module.functions) {
 			Function* fn = func.get();
-			debug("Processing function #" + to_string(funcNumber));
+			debug("Processing function #" + to_string(funcNumber) + "\n");
 			debug(" (name: '" + string(fn->name.str) + "')\n");
 			funcNumber++;
 			if (emitExtraData) {
