@@ -20,13 +20,12 @@ $(OUT): $(OBJS)
 	$(CC) $(CCOPTS) $< -o $@
 wasm:
 	# make wasmBinaryen
+	mkdir -p emcc_out
 	EMCC_DEBUG=1 em++ external/binaryen/lib/libbinaryen.so $(EMCC_SRC) \
 		-std=c++14 -Iexternal/binaryen/src -Iexternal/cxxopts/include -Wall -g3 \
-		-Wall -o wasmdec.js \
+		-Wall -o emcc_out/wasmdec.js \
 		-s EXPORTED_FUNCTIONS='["_wasmdec_create_decompiler", "_wasmdec_decompile", "_wasmdec_get_decompiled_code", "_wasmdec_destroy_decompiler"]' \
 		-s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]'
-	mkdir -p emcc_out
-	mv wasmdec.js wasmdec.wasm emcc_out/
 
 clean:
 	rm -f *.o wasmdec
