@@ -25,7 +25,7 @@ wasm:
 		-std=c++14 -Iexternal/binaryen/src -Iexternal/cxxopts/include -Wall -g3 \
 		-Wall -o emcc_out/wasmdec.js \
 		-s EXPORTED_FUNCTIONS='["_wasmdec_create_decompiler", "_wasmdec_decompile", "_wasmdec_get_decompiled_code", "_wasmdec_destroy_decompiler"]' \
-		-s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]' -s ASSERTIONS=1 -s SAFE_HEAP=1 -s BINARYEN_ASYNC_COMPILATION=0
+		-s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]' -s ASSERTIONS=1 -s SAFE_HEAP=1
 	cp emcc_out/wasmdec.wasm wasmdec.js/
 
 clean:
