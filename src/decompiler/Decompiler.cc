@@ -33,7 +33,7 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 			cerr << "wasmdec: FAILED to parse wasm binary: " << endl;
 			cerr << err.what() << endl;
 			cerr << endl;
-			parserFailed = true;
+			fail();
 			return;
 		}
 	} else if (mode == DisasmMode::Wast) {
@@ -49,7 +49,7 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 			cerr << "wasmdec: FAILED to parse wast: " << endl;
 			err.dump(cerr);
 			cerr << endl;
-			parserFailed = true;
+			fail();
 			return;
 		}
 	}
@@ -87,6 +87,10 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char>* inbin)
 	debug("Parsed bin successfully.\n");
 	dctx = new DecompilerCtx();
 }
+void Decompiler::fail() {
+	debug("Decompiler::fail() called!\n");
+	parserFailed = true;
+}
 Decompiler::Decompiler(DisasmConfig conf, vector<char> inbin)
 : binary(inbin) {
 	if (conf.includePreamble) {
@@ -111,7 +115,7 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char> inbin)
 			cerr << "wasmdec: FAILED to parse wasm binary: " << endl;
 			cerr << err.what() << endl;
 			cerr << endl;
-			parserFailed = true;
+			fail();
 			return;
 		}
 	} else if (mode == DisasmMode::Wast) {
@@ -127,7 +131,7 @@ Decompiler::Decompiler(DisasmConfig conf, vector<char> inbin)
 			cerr << "wasmdec: FAILED to parse wast: " << endl;
 			err.dump(cerr);
 			cerr << endl;
-			parserFailed = true;
+			fail();
 			return;
 		}
 	}
