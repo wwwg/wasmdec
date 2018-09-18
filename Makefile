@@ -22,11 +22,15 @@ wasm:
 	# make wasmBinaryen
 	mkdir -p emcc_out
 	EMCC_DEBUG=1 em++ external/binaryen/lib/libbinaryen.so $(EMCC_SRC) \
-		-std=c++14 -Iexternal/binaryen/src -Iexternal/cxxopts/include -Wall -g3 \
+		-std=c++14 -Iexternal/binaryen/src -Iexternal/cxxopts/include -Wall -O3 \
 		-Wall -o emcc_out/wasmdec.js \
 		-s EXPORTED_FUNCTIONS='["_wasmdec_create_decompiler", "_wasmdec_decompile", "_wasmdec_get_decompiled_code", "_wasmdec_destroy_decompiler"]' \
 		-s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]' -s ASSERTIONS=1 -s SAFE_HEAP=1
 	cp emcc_out/wasmdec.wasm wasmdec.js/
+	echo "(function(){" > wasmdec.js/wasmdec.wasm.js
+	cat emcc_out/wasmdec.js >> wasmdec.js/wasmdec.wasm.js
+	sed -i -e 's/rrides={};/rrides={};window\.Wasmdec\.Module=Module;/g' wasmdec.js/wasmdec.wasm.js
+	echo "})();" >> wasmdec.js/wasmdec.wasm.js
 
 clean:
 	rm -f *.o wasmdec
