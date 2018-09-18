@@ -219,7 +219,7 @@ void Decompiler::decompile() {
 		emit.ln();
 		int funcNumber = 0;
 		for (const auto &func : module.functions) {
-			emit.comment("Processing function #" + to_string(funcNumber));
+			debug("Processing function #" + to_string(funcNumber));
 			funcNumber++;
 			Function* fn = func.get();
 			if (emitExtraData) {
