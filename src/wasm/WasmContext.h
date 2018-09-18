@@ -23,6 +23,8 @@ namespace wasmdec {
 		bool hasDecompilerCtx;
 		DecompilerCtx* dctx;
 		Expression* lastExpr;
+		// Whether or not the expression is exactly one layer below a function
+		bool functionLevelExpression;
 	};
 } // namespace wasmdec
 

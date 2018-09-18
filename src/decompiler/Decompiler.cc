@@ -236,6 +236,7 @@ void Decompiler::decompile() {
 				<< "*/" << endl;
 			}
 			Context ctx = Context(fn, &module, dctx);
+			ctx.functionLevelExpression = true;
 			emit << Convert::getDecl(fn, functionPreface) << Convert::getFuncBody(ctx, emitExtraData) << endl;
 		}
 	} else {

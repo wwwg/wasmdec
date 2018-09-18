@@ -14,8 +14,10 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		// Binary operations, including conditionals and arithmetic
 		Binary* spex = ex->cast<Binary>();
 		ctx->lastExpr = ex;
+		ctx->functionLevelExpression = false;
 		string e1 = parseExpr(ctx, spex->left);
 		ctx->lastExpr = ex;
+		ctx->functionLevelExpression = false;
 		string e2 = parseExpr(ctx, spex->right);
 		ret += getBinOperator(e1, spex->op, e2);
 	} else if (ex->is<GetLocal>()) {
@@ -33,6 +35,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 			// Insert expression as function return value
 			ret += "return ";
 			ctx->lastExpr = ex;
+			ctx->functionLevelExpression = false;
 			ret += parseExpr(ctx, spex->value) + ";\n";
 		} else {
 			ret += "return;\n"; // For void functions
@@ -41,9 +44,11 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		If* ife = ex->cast<If>();
 		ctx->lastExpr = ex;
 		ctx->isIfCondition = true;
+		ctx->functionLevelExpression = false;
 		string cond = parseExpr(ctx, ife->condition);
 		ctx->isIfCondition = false;
 		ctx->lastExpr = ex;
+		ctx->functionLevelExpression = false;
 		string trueBlock = parseExpr(ctx, ife->ifTrue);
 		ret += util::tab(ctx->depth);
 		ret += "if (" + cond + ") {\n";
@@ -52,6 +57,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		if (ife->ifFalse) {
 			// Insert else block
 			ctx->lastExpr = ex;
+			ctx->functionLevelExpression = false;
 			string falseBlock = parseExpr(ctx, ife->ifFalse);
 			ret += "else {\n";
 			ret += util::tab(ctx->depth) + falseBlock + "\n";
@@ -74,20 +80,21 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		// Set global variable
 		SetGlobal* gex = ex->cast<SetGlobal>();
 		bool isInline = false;
+		bool isInPolyAssignment = false;
 		if (ctx->lastExpr) {
 			if (ctx->isIfCondition) {
 				isInline = true;
 			}
-		}
-		bool isInPolyAssignment = false;
-		if (ctx->lastExpr != nullptr) {
-			isInPolyAssignment = ( ctx->lastExpr->is<Store>()
-								|| ctx->lastExpr->is<SetLocal>()
-								|| ctx->lastExpr->is<SetGlobal>());
+			if (ctx->lastExpr != nullptr) {
+				isInPolyAssignment = (ctx->lastExpr->is<Store>()
+									|| ctx->lastExpr->is<SetLocal>()
+									|| ctx->lastExpr->is<SetGlobal>());
+			}
 		}
 
 		ret += util::tab(ctx->depth) + gex->name.str + " = ";
 		// The value is an expression
+		ctx->functionLevelExpression = false;
 		ctx->lastExpr = ex;
 		ret += parseExpr(ctx, gex->value);
 		if (!isInline && !isInPolyAssignment && !ctx->isIfCondition) {
@@ -99,6 +106,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		if (br->condition) {
 			// Conditional breaking
 			ctx->lastExpr = ex;
+			ctx->functionLevelExpression = false;
 			ret += "if (" + parseExpr(ctx, br->condition) + ") break;";
 		} else {
 			// Literal breaking
@@ -106,6 +114,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		}
 		if (br->value) {
 			ctx->lastExpr = ex;
+			ctx->functionLevelExpression = false;
 			string val = parseExpr(ctx, br->value);
 			// TODO : parse break values
 			// cout << "Break val: " << val << endl;
@@ -143,6 +152,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		ret += "\n";
 		ctx->depth -= 1;
 		ctx->lastExpr = ex;
+		ctx->functionLevelExpression = false;
 		ret += parseExpr(ctx, lex->body);
 		ret += "\n";
 		if (ctx->depth < 1) {
@@ -212,6 +222,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 	} else if (ex->is<CallIndirect>()) {
 		CallIndirect* ci = ex->cast<CallIndirect>();
 		ctx->lastExpr = ex;
+		ctx->functionLevelExpression = false;
 		string _icall = parseExpr(ctx, ci->target);
 		ret += "// Indirect call:\n";
 		ret += "(" + _icall + ")";
@@ -247,6 +258,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 								|| sl->value->is<SetGlobal>()
 								|| sl->value->is<Store>());
 		ctx->lastExpr = ex;
+		ctx->functionLevelExpression = false;
 		ret += parseExpr(ctx, sl->value);
 		if (!isInline && !valueIsAssignment) {
 			ret += ";\n";
@@ -255,14 +267,17 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		// Memory loading
 		Load* lxp = ex->cast<Load>();
 		ctx->lastExpr = ex;
+		ctx->functionLevelExpression = false;
 		string var = parseExpr(ctx, lxp->ptr);
 		ret += util::tab(ctx->depth);
 		ret += var;
 	} else if (ex->is<Store>()) {
 		Store* sxp = ex->cast<Store>();
 		ctx->lastExpr = ex;
+		ctx->functionLevelExpression = false;
 		string var = parseExpr(ctx, sxp->ptr);
 		ctx->lastExpr = ex;
+		ctx->functionLevelExpression = false;
 		string val = parseExpr(ctx, sxp->value);
 
 		bool valueIsAssignment = (sxp->value->is<SetLocal>()
@@ -296,6 +311,7 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 	} else if (ex->is<Unary>()) {
 		Unary* uex = ex->cast<Unary>();
 		ctx->lastExpr = ex;
+		ctx->functionLevelExpression = false;
 		string unaryEx = parseExpr(ctx, uex->value);
 		ret += getUnary(unaryEx, uex->op);
 	} else if (ex->is<AtomicRMW>()) {
@@ -308,16 +324,20 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		// Select is the WASM equivalent of C's ternary operator.
 		Select* slex = ex->cast<Select>();
 		ctx->lastExpr = ex;
+		ctx->functionLevelExpression = false;
 		string cond = parseExpr(ctx, slex->condition);
 		ctx->lastExpr = ex;
+		ctx->functionLevelExpression = false;
 		string ifTrue = parseExpr(ctx, slex->ifTrue);
 		ctx->lastExpr = ex;
+		ctx->functionLevelExpression = false;
 		string ifFalse = parseExpr(ctx, slex->ifFalse);
 		ret += "(" + cond + ") ? (" + ifTrue + ") : (" + ifFalse + ");\n";
 	} else if (ex->is<Drop>()) {
 		Drop* dex = ex->cast<Drop>();
 		ret += util::tab(1);
 		ret += "/* Drop routine */\n";
+		ctx->functionLevelExpression = false;
 		ctx->lastExpr = ex;
 		ret += parseExpr(ctx, dex->value);
 		ret += util::tab(1);
