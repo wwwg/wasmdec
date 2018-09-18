@@ -81,9 +81,9 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		}
 		bool isInPolyAssignment = false;
 		if (ctx->lastExpr != nullptr) {
-			isInPolyAssignment = (ctx->lastExpr->is<SetLocal>()
-								|| ctx->lastExpr->is<SetGlobal>()
-								|| ctx->lastExpr->is<Store>());
+			isInPolyAssignment = ( ctx->lastExpr->is<Store>()
+								|| ctx->lastExpr->is<SetLocal>()
+								|| ctx->lastExpr->is<SetGlobal>());
 		}
 
 		ret += util::tab(ctx->depth) + gex->name.str + " = ";
