@@ -17,7 +17,7 @@
 			}
 	}
 	window.Wasmdec = {
-		VERSION: "1.2.1b11",
+		VERSION: "1.2.1b12",
 		ready: false,
 		onReady: null,
 		Decompiler: Decompiler
@@ -26,20 +26,7 @@
 	glue.src = 'https://rawgit.com/wwwg/wasmdec/master/wasmdec.js/wasmdec.wasm.js';
 	document.head.appendChild(glue);
 	glue.onload = () => {
-		var intv = setInterval(() => {
-			if (Wasmdec.Module["_wasmdec_create_decompiler"]) {
-				clearInterval(intv);
-				if (!Wasmdec.ready) {
-					init();
-				} else {
-					if (Wasmdec.onReady) {
-						Wasmdec.onReady();
-					}
-					clearInterval(intv);
-				}
-				return;
-			}
-		});
+		Wasmdec.Module.addOnPostRun(init);
 	}
 	let init = () => {
 		Wasmdec.ready = true;
