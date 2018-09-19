@@ -252,15 +252,17 @@ void Decompiler::decompile() {
 	// Process exports
 	if (module.exports.size()) {
 		debug("Processing wasm exports...\n");
-		emit << "\n/*" << endl
-		<< "\tExported WASM functions:" << endl;
-		for (const auto& expt : module.exports) {
-			// Stringify export to comment
-			emit << "\tFunction '" << Convert::getFName(expt->value) << "':" << endl
-				<< "\t\tWASM name: '" << expt->value.str << "'" << endl
-				<< "\t\tExport name: '" << expt->name.str << "'" << endl << endl;
+		if (emitExtraData) {
+			emit << "\n/*" << endl
+			<< "\tExported WASM functions:" << endl;
+			for (const auto& expt : module.exports) {
+				// Stringify export to comment
+				emit << "\tFunction '" << Convert::getFName(expt->value) << "':" << endl
+					<< "\t\tWASM name: '" << expt->value.str << "'" << endl
+					<< "\t\tExport name: '" << expt->name.str << "'" << endl << endl;
+			}
+			emit << "*/" << endl;
 		}
-		emit << "*/" << endl;
 		debug("Processed wasm exports.\n");
 	} else {
 		emit.comment("No WASM exports.");
