@@ -1,6 +1,9 @@
 # wasmdec
 wasmdec is a program that converts WebAssembly binaries to C.
 
+# Demo
+[An online real-time WebAssembly decompiler utilizing wasmdec is avalible here](https://wwwg.github.io/web-wasmdec/)
+
 # Simple Example
 wasmdec will translate this WebAssembly binary:
 ```wasm
