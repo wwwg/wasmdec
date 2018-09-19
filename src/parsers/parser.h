@@ -31,3 +31,5 @@ namespace wasmdec {
         WasmParser unreachable;
     }
 }
+
+#endif
