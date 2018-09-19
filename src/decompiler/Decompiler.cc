@@ -223,8 +223,10 @@ void Decompiler::decompile() {
 	// Process functions
 	if (module.functions.size()) {
 		debug("Processing wasm functions...\n");
+		/*
 		emit.comment("WASM functions:");
 		emit.ln();
+		*/
 		int funcNumber = 0;
 		for (const auto &func : module.functions) {
 			Function* fn = func.get();
