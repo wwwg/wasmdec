@@ -1,4 +1,5 @@
 #include "Conversion.h"
+#include "../parsers/parser.h"
 using namespace std;
 using namespace wasm;
 
