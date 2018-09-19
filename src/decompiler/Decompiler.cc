@@ -214,8 +214,10 @@ void Decompiler::decompile() {
 		debug("Processed globals.\n");
 	} else {
 		debug("No wasm globals.\n");
+		/*
 		// No globals, so just leave a comment
 		emit.comment("No WASM globals.");
+		*/
 	}
 	emit.ln();
 	// Process functions
