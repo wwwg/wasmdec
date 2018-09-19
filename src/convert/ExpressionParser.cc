@@ -232,15 +232,17 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 		// Resolve variable's C name
 		SetLocal* sl = ex->cast<SetLocal>();
 		bool isInline = false;
-		if (ctx->lastExpr) {
+		bool isInPolyAssignment = false;
+		if (ctx->lastExpr && !ctx->functionLevelExpression) {
 			if (ctx->isIfCondition) {
 				isInline = true;
-			}
-		}
-		bool isInPolyAssignment = ((ctx->lastExpr != nullptr)
+				isInPolyAssignment = ((ctx->lastExpr != nullptr)
 								&& (ctx->lastExpr->is<SetLocal>()
 								|| ctx->lastExpr->is<SetGlobal>()
 								|| ctx->lastExpr->is<Store>()));
+			}
+		}
+
 		/*
 		int idx = util::getLocalIndex(ctx->fn, sl->index);
 		*/
@@ -285,16 +287,17 @@ string wasmdec::Convert::parseExpr(Context* ctx, Expression* ex) {
 								|| sxp->value->is<Store>());
 		
 		bool isInline = false;
-		if (ctx->lastExpr) {
+		bool isInPolyAssignment = false;
+		if (ctx->lastExpr && !ctx->functionLevelExpression) {
 			if (ctx->isIfCondition) {
 				isInline = true;
 			}
+			isInPolyAssignment = ((ctx->lastExpr != nullptr)
+				&& (ctx->lastExpr->is<SetLocal>()
+				|| ctx->lastExpr->is<SetGlobal>()
+				|| ctx->lastExpr->is<Store>()));
 		}
-		bool isInPolyAssignment = ((ctx->lastExpr != nullptr)
-								&& (ctx->lastExpr->is<SetLocal>()
-								|| ctx->lastExpr->is<SetGlobal>()
-								|| ctx->lastExpr->is<Store>()));
-
+		
 		if (!isInline) {
 			if (!isInPolyAssignment) {
 				ret += util::tab(ctx->depth);
