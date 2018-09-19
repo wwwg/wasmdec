@@ -191,9 +191,11 @@ void Decompiler::decompile() {
 		debug("Processed imports\n");
 	} else {
 		debug("No wasm imports detected\n");
+		/*
 		// No imports, so just leave a comment
 		emit.comment("No WASM imports.");
 		emit.ln();
+		*/
 	}
 	// Process globals
 	if (module.globals.size()) {
