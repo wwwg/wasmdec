@@ -14,7 +14,7 @@ string wasmdec::parsers::_return(Context* ctx, Expression* ex) {
 		ret += "return ";
 		ctx->lastExpr = ex;
 		ctx->functionLevelExpression = false;
-		ret += parseExpr(ctx, spex->value) + ";\n";
+		ret += Convert::parseExpr(ctx, spex->value) + ";\n";
 	} else {
 		ret += "return;\n"; // For void functions
 	}

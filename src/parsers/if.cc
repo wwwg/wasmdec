@@ -7,11 +7,11 @@ string wasmdec::parsers::_if(Context* ctx, Expression* ex) {
 	ctx->lastExpr = ex;
 	ctx->isIfCondition = true;
 	ctx->functionLevelExpression = false;
-	string cond = parseExpr(ctx, ife->condition);
+	string cond = Convert::parseExpr(ctx, ife->condition);
 	ctx->isIfCondition = false;
 	ctx->lastExpr = ex;
 	ctx->functionLevelExpression = false;
-	string trueBlock = parseExpr(ctx, ife->ifTrue);
+	string trueBlock = Convert::parseExpr(ctx, ife->ifTrue);
 	ret += util::tab(ctx->depth);
 	ret += "if (" + cond + ") {\n";
 	ret += trueBlock;
@@ -20,7 +20,7 @@ string wasmdec::parsers::_if(Context* ctx, Expression* ex) {
 		// Insert else block
 		ctx->lastExpr = ex;
 		ctx->functionLevelExpression = false;
-		string falseBlock = parseExpr(ctx, ife->ifFalse);
+		string falseBlock = Convert::parseExpr(ctx, ife->ifFalse);
 		ret += "else {\n";
 		ret += util::tab(ctx->depth) + falseBlock + "\n";
 		ret += util::tab(ctx->depth) + "}";
