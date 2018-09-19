@@ -4,9 +4,9 @@
 #include "../convert/Conversion.h"
 
 namespace wasmdec {
-    string (*WasmParser) (Context*, Expression*);
+    typedef string (*WasmParser) (Context*, Expression*);
     namespace parsers {
-        //
+        WasmParser block;
     };
 };
 
