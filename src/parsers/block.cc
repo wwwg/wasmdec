@@ -5,7 +5,7 @@ string wasmdec::parsers::block(Context* ctx, Expression* ex) {
 	string ret;
 	Block* blck = ex->cast<Block>();
 	ctx->depth++;
-	ret += Convert.getBlockBody(ctx, blck);
+	ret += Convert::getBlockBody(ctx, blck);
 	ctx->depth--;
 	return ret;
 }
