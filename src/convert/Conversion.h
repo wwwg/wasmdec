@@ -25,7 +25,6 @@ namespace wasmdec {
 		static string getDecl(wasm::Function*, string);
 		static string getDecl(wasm::Module* m, unique_ptr<wasm::Import>& i);
 
-		static string parseExpr(Context*, wasm::Expression*);
 		static string getBlockBody(Context*, wasm::Block*);
 		static string getFuncBody(Context, bool);
 		static string parseOperandList(Context*, wasm::ExpressionList*);
