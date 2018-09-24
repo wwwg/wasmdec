@@ -7,10 +7,10 @@ string wasmdec::parsers::call_indirect(Context* ctx, Expression* ex) {
     CallIndirect* ci = ex->cast<CallIndirect>();
     ctx->lastExpr = ex;
     ctx->functionLevelExpression = false;
-    string _icall = parseExpr(ctx, ci->target);
+    string _icall = Convert::parseExpr(ctx, ci->target);
     ret += "// Indirect call:\n";
     ret += "(" + _icall + ")";
-    ret += parseOperandList(ctx, &(ci->operands));
+    ret += Convert::parseOperandList(ctx, &(ci->operands));
     ret += "; \n";
 
 	return ret;
