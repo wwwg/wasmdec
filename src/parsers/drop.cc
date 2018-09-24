@@ -9,7 +9,7 @@ string wasmdec::parsers::drop(Context* ctx, Expression* ex) {
     ret += "/* Drop routine */\n";
     ctx->functionLevelExpression = false;
     ctx->lastExpr = ex;
-    ret += parseExpr(ctx, dex->value);
+    ret += Convert::parseExpr(ctx, dex->value);
     ret += util::tab(1);
     ret += "/* End of drop routine */\n";
 
