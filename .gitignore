@@ -12,3 +12,4 @@ wasmdec*.tar.gz
 wasmdec*.wast
 wasmdec*.map
 emcc_out/
+.vscode/
