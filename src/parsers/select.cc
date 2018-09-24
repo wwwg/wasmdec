@@ -1,7 +1,7 @@
 #include "parser.h"
 using namespace wasmdec;
 
-string wasmdec::parsers::binary(Context* ctx, Expression* ex) {
+string wasmdec::parsers::select(Context* ctx, Expression* ex) {
 	string ret;
 	// Select is the WASM equivalent of C's ternary operator.
     Select* slex = ex->cast<Select>();
