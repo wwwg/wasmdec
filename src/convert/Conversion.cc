@@ -1,7 +1,9 @@
 #include "Conversion.h"
 
 string wasmdec::Convert::parseExpr(Context* ctx, wasm::Expression* e) {
-	return wasmdec::parsers::expression(ctx, e);
+	string ret;
+	ret = wasmdec::parsers::expression(ctx, e);
+	return ret;
 }
 string wasmdec::Convert::getFName(wasm::Name name) {
 	// Convert WASM names to C function names

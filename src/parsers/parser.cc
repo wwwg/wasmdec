@@ -30,5 +30,30 @@ string wasmdec::parsers::expression(Context* ctx, Expression* ex) {
 		return wasmdec::parsers::host(ctx, ex);
 	} else if (ex->is<Unreachable>()) {
 		return wasmdec::parsers::unreachable(ctx, ex);
+	} else if (ex->is<SetGlobal>()) {
+		return wasmdec::parsers::set_global(ctx, ex);
+	} else if (ex->is<GetGlobal>()) {
+		return wasmdec::parsers::get_global(ctx, ex);
+	} else if (ex->is<Loop>()) {
+		return wasmdec::parsers::loop(ctx, ex);
+	} else if (ex->is<Switch>()) {
+		return wasmdec::parsers::_switch(ctx, ex);
+	} else if (ex->is<Call>()) {
+		return wasmdec::parsers::call(ctx, ex);
+	} else if (ex->is<If>()) {
+		return wasmdec::parsers::_if(ctx, ex);
+	} else if (ex->is<Nop>()) {
+		return wasmdec::parsers::nop(ctx, ex);
+	} else if (ex->is<If>()) {
+		return wasmdec::parsers::_if(ctx, ex);
+	} else if (ex->is<Const>()) {
+		return wasmdec::parsers::_const(ctx, ex);
+	} else if (ex->is<Return>()) {
+		return wasmdec::parsers::_return(ctx, ex);
+	} else if (ex->is<Break>()) {
+		return wasmdec::parsers::_break(ctx, ex);
+	} else if (ex->is<CallImport>()) {
+		return wasmdec::parsers::call_import(ctx, ex);
 	}
+	return "/* UNKNOWN EXPRESSION */";
 }
