@@ -2,34 +2,35 @@
 #define _WASMDEC_PARSER_H
 
 #include "../convert/Conversion.h"
+using namespace std;
 
 namespace wasmdec {
     namespace parsers {
-        string block(Context*, Expression*);
-        string binary(Context*, Expression*);
-        string get_local(Context*, Expression*);
-        string _return(Context*, Expression*);
-        string _if(Context*, Expression*);
-        string _const(Context*, Expression*);
-        string nop(Context*, Expression*);
-        string get_global(Context*, Expression*);
-        string set_global(Context*, Expression*);
-        string _break(Context*, Expression*);
-        string call(Context*, Expression*);
-        string call_import(Context*, Expression*);
-        string loop(Context*, Expression*);
-        string _switch(Context*, Expression*);
-        string call_indirect(Context*, Expression*);
-        string set_local(Context*, Expression*);
-        string load(Context*, Expression*);
-        string store(Context*, Expression*);
-        string unary(Context*, Expression*);
-        string select(Context*, Expression*);
-        string drop(Context*, Expression*);
-        string host(Context*, Expression*);
-        string unreachable(Context*, Expression*);
-        string atomics(Context*, Expression*);
-        string expression(Context*, Expression*);
+        std::string block(Context*, Expression*);
+        std::string binary(Context*, Expression*);
+        std::string get_local(Context*, Expression*);
+        std::string _return(Context*, Expression*);
+        std::string _if(Context*, Expression*);
+        std::string _const(Context*, Expression*);
+        std::string nop(Context*, Expression*);
+        std::string get_global(Context*, Expression*);
+        std::string set_global(Context*, Expression*);
+        std::string _break(Context*, Expression*);
+        std::string call(Context*, Expression*);
+        std::string call_import(Context*, Expression*);
+        std::string loop(Context*, Expression*);
+        std::string _switch(Context*, Expression*);
+        std::string call_indirect(Context*, Expression*);
+        std::string set_local(Context*, Expression*);
+        std::string load(Context*, Expression*);
+        std::string store(Context*, Expression*);
+        std::string unary(Context*, Expression*);
+        std::string select(Context*, Expression*);
+        std::string drop(Context*, Expression*);
+        std::string host(Context*, Expression*);
+        std::string unreachable(Context*, Expression*);
+        std::string atomics(Context*, Expression*);
+        std::string expression(Context*, Expression*);
     }
 }
 

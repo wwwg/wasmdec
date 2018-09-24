@@ -1,7 +1,7 @@
 #include "parser.h"
 using namespace std;
 
-string wasmdec::parsers::expression(Context* ctx, Expression* ex) {
+std::string wasmdec::parsers::expression(Context* ctx, Expression* ex) {
 	if (ex->is<Block>()) {
 		return wasmdec::parsers::block(ctx, ex);
 	} else if (ex->is<Binary>()) {
