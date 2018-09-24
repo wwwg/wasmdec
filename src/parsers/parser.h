@@ -29,6 +29,7 @@ namespace wasmdec {
         string host(Context*, Expression*);
         string unreachable(Context*, Expression*);
         string atmoics(Context*, Expression*);
+        string expression(Context*, Expression*);
     }
 }
 
