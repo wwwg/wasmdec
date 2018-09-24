@@ -7,6 +7,7 @@
 #include "wasm-s-parser.h"
 #include "../wasm/WasmUtils.h"
 #include "../wasm/WasmContext.h"
+#include "../parsers/parser.h"
 using namespace std;
 
 namespace wasmdec {
@@ -24,7 +25,7 @@ namespace wasmdec {
 		static string getDecl(wasm::Function*);
 		static string getDecl(wasm::Function*, string);
 		static string getDecl(wasm::Module* m, unique_ptr<wasm::Import>& i);
-
+		static string parseExpr(Context*, wasm::Expression*);
 		static string getBlockBody(Context*, wasm::Block*);
 		static string getFuncBody(Context, bool);
 		static string parseOperandList(Context*, wasm::ExpressionList*);
