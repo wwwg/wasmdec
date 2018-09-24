@@ -28,6 +28,7 @@ namespace wasmdec {
         string drop(Context*, Expression*);
         string host(Context*, Expression*);
         string unreachable(Context*, Expression*);
+        string atmoics(Context*, Expression*);
     }
 }
 
