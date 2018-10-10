@@ -174,31 +174,6 @@ void Decompiler::decompile() {
 		return;
 	}
 	debug("Starting code generation...\n");
-	// Process imports
-	if (module.imports.size()) {
-		debug("Processing imports...\n");
-		emit.comment("WASM imports:");
-		for (auto& i : module.imports) {
-			// cout << "Got import: " << i->name << endl;
-			if (emitExtraData) {
-				emit << "/*" << endl
-				<< "\tImport '" << i->name.str << "':" << endl
-				<< "\tModule: '" << i->module.str << "'" << endl
-				<< "\tBase: '" << i->base.str << "'" << endl
-				<< "*/" << endl;
-			}
-			string decl = Convert::getDecl(&module, i);
-			emit << decl << endl;
-		}
-		debug("Processed imports\n");
-	} else {
-		debug("No wasm imports detected\n");
-		/*
-		// No imports, so just leave a comment
-		emit.comment("No WASM imports.");
-		emit.ln();
-		*/
-	}
 	// Process globals
 	if (module.globals.size()) {
 		debug("Processing globals...\n");
@@ -293,7 +268,7 @@ bool Decompiler::failed() {
 	return parserFailed;
 }
 vector<char> Decompiler::dumpMemory() {
-	if (module.memory.exists && module.memory.imported) {
+	if (module.memory.exists && module.memory.imported()) {
 		for (const auto &seg : module.memory.segments) {
 			// Push each raw byte from each segment into raw memory vector
 			for (const char byte : seg.data) {
@@ -306,7 +281,7 @@ vector<char> Decompiler::dumpMemory() {
 	}
 }
 vector<char> Decompiler::dumpTable() {
-	if (module.table.exists && module.table.imported) {
+	if (module.table.exists && module.table.imported()) {
 		for (const auto &seg : module.table.segments) {
 			for (const auto &name : seg.data) {
 				const char* _data = name.c_str();
