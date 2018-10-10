@@ -239,32 +239,6 @@ string wasmdec::Convert::getDecl(wasm::Function* fn, string preface) {
 	ret += ")";
 	return ret;
 }
-string wasmdec::Convert::getDecl(wasm::Module* m, unique_ptr<wasm::Import>& i) {
-	// Convert WASM imports to their respective C declorations as C externs
-	string ret = "extern ";
-	if (i->kind == wasm::ExternalKind::Function) {
-		// Function
-		wasm::FunctionType* ft = util::resolveFType(m, i->functionType); // Lookup module types for this function's type
-		ret += getDecl(ft, i->name); // Append its decloration
-	} else if (i->kind == wasm::ExternalKind::Global) {
-		// Global import variable
-		ret += resolveType(i->globalType);
-		ret += " ";
-		ret += i->name.str;
-		ret += ";";
-	} else if (i->kind == wasm::ExternalKind::Memory) {
-		// WASM memory is just a giant char array
-		ret += "const char* ";
-		ret += i->name.str;
-		ret += "; // <Imported memory>";
-	} else if (i->kind == wasm::ExternalKind::Table) {
-		// TODO: More advanced table functionality
-		ret += "wasm_table_t ";
-		ret += i->name.str;
-		ret += "; // <Imported table>";
-	}
-	return ret;
-}
 string wasmdec::Convert::parseOperandList(Context* ctx, ExpressionList* list) {
 	if (list->size()) {
 		string ret = "(";
