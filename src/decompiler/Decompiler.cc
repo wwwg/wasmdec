@@ -192,6 +192,7 @@ void Decompiler::decompile() {
 			} else {
 				emit << "extern "
 					<< globalType
+					<< " "
 					<< glb->name.str
 					<< "; /* import */"
 					<< endl;
@@ -216,20 +217,30 @@ void Decompiler::decompile() {
 		int funcNumber = 0;
 		for (const auto &func : module.functions) {
 			Function* fn = func.get();
-			debug("Processing function #" + to_string(funcNumber) + "\n");
-			debug(" (name: '" + string(fn->name.str) + "')\n");
-			funcNumber++;
-			if (emitExtraData) {
-				// Emit information about the function as a comment
-				emit << "/*" << endl
-				<< "\tFunction '" << fn->name << "'" << endl
-				<< "\tLocal variables: " << fn->vars.size() << endl
-				<< "\tParameters: " << fn->params.size() << endl
-				<< "*/" << endl;
+			if (fn->imported()) {
+				debug("Processing function (import) #" + to_string(funcNumber) + "\n");
+				debug(" (name: '" + string(fn->name.str) + "')\n");
+				string signature = Convert::getDecl(fn, functionPreface);
+				emit << "extern "
+					<< signature
+					<< "; /* import */"
+					<< endl;
+			} else {
+				debug("Processing function #" + to_string(funcNumber) + "\n");
+				debug(" (name: '" + string(fn->name.str) + "')\n");
+				funcNumber++;
+				if (emitExtraData) {
+					// Emit information about the function as a comment
+					emit << "/*" << endl
+					<< "\tFunction '" << fn->name << "'" << endl
+					<< "\tLocal variables: " << fn->vars.size() << endl
+					<< "\tParameters: " << fn->params.size() << endl
+					<< "*/" << endl;
+				}
+				Context ctx = Context(fn, &module, dctx);
+				ctx.functionLevelExpression = true;
+				emit << Convert::getDecl(fn, functionPreface) << Convert::getFuncBody(ctx, emitExtraData) << endl;
 			}
-			Context ctx = Context(fn, &module, dctx);
-			ctx.functionLevelExpression = true;
-			emit << Convert::getDecl(fn, functionPreface) << Convert::getFuncBody(ctx, emitExtraData) << endl;
 		}
 	} else {
 		emit.comment("No WASM functions.");
