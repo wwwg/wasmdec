@@ -6,7 +6,7 @@ string wasmdec::parsers::store(Context* ctx, Expression* ex) {
 	Store* sxp = ex->cast<Store>();
     ctx->lastExpr = ex;
     ctx->functionLevelExpression = false;
-    string var = Convert::parseExpr(ctx, sxp->ptr);
+    string _offset = Convert::parseExpr(ctx, sxp->ptr);
     ctx->lastExpr = ex;
     ctx->functionLevelExpression = false;
     string val = Convert::parseExpr(ctx, sxp->value);
@@ -32,8 +32,9 @@ string wasmdec::parsers::store(Context* ctx, Expression* ex) {
             ret += util::tab(ctx->depth);
         }
     }
-    ret += var;
-    ret += " = ";
+    ret += "*("
+    ret += _offset;
+    ret += ") = ";
     ret += val;
     if (!isInline) {
         if (!valueIsAssignment) {
