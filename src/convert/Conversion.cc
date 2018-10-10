@@ -42,7 +42,7 @@ string wasmdec::Convert::getBinOperator(string e1, wasm::BinaryOp bop, string e2
 			break;
 		case OrInt64:
 		case OrInt32:
-			op = "||"; return e1 + " " + op + " " + e2;
+			op = "|"; return e1 + " " + op + " " + e2;
 			break;
 		case MulInt32:
 		case MulInt64:
@@ -64,7 +64,7 @@ string wasmdec::Convert::getBinOperator(string e1, wasm::BinaryOp bop, string e2
 			break;
 		case AndInt32:
 		case AndInt64:
-			op = "&&"; return e1 + " " + op + " " + e2;
+			op = "&"; return e1 + " " + op + " " + e2;
 			break;
 		case LeSInt64:
 		case LeSInt32:
