@@ -52,8 +52,6 @@ std::string wasmdec::parsers::expression(Context* ctx, Expression* ex) {
 		return wasmdec::parsers::_return(ctx, ex);
 	} else if (ex->is<Break>()) {
 		return wasmdec::parsers::_break(ctx, ex);
-	} else if (ex->is<CallImport>()) {
-		return wasmdec::parsers::call_import(ctx, ex);
 	}
 	return "/* UNKNOWN EXPRESSION */";
 }
