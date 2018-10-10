@@ -181,12 +181,21 @@ void Decompiler::decompile() {
 		gctx.isGlobal = true;
 		emit.comment("WASM globals:");
 		for (auto& glb : module.globals) {
+			bool isImported = glb->imported();
 			string globalType = Convert::resolveType(glb->type);
-			string globalInitializer = Convert::parseExpr(&gctx, glb->init);
-			if (!glb->mutable_) { // Non-mutable global is represented by const
-				emit << "const ";
+			if (!isImported) {
+				string globalInitializer = Convert::parseExpr(&gctx, glb->init);
+				if (!glb->mutable_) { // Non-mutable global is represented by const
+					emit << "const ";
+				}
+				emit << globalType << " " << glb->name.str << " = " << globalInitializer << ";" << endl;
+			} else {
+				emit << "extern "
+					<< globalType
+					<< glb->name.str
+					<< "; /* import */"
+					<< endl;
 			}
-			emit << globalType << " " << glb->name.str << " = " << globalInitializer << ";" << endl;
 		}
 		debug("Processed globals.\n");
 	} else {
