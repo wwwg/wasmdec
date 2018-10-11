@@ -7,7 +7,8 @@ string wasmdec::Convert::parseExpr(Context* ctx, wasm::Expression* e) {
 }
 string wasmdec::Convert::getFName(wasm::Name name) {
 	// Convert WASM names to C function names
-	return /* "fn_" + */ string(name.str);
+	// an 'f' is prepended because webassembly function names can be numbers
+	return "f" + string(name.str);
 }
 string wasmdec::Convert::getLocal(wasm::Index argIdx) {
 	// Convert WASM function locals to C variable names
