@@ -32,7 +32,7 @@ string wasmdec::parsers::store(Context* ctx, Expression* ex) {
             ret += util::tab(ctx->depth);
         }
     }
-    ret += "*(";
+    ret += "*((void*)(";
     ret += _offset;
     ret += ") = ";
     ret += val;
