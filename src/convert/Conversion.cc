@@ -12,7 +12,7 @@ string wasmdec::Convert::getFName(wasm::Name name) {
 }
 string wasmdec::Convert::getLocal(wasm::Index argIdx) {
 	// Convert WASM function locals to C variable names
-	return "local_" + to_string((int)argIdx);
+	return "local" + to_string((int)argIdx);
 }
 string wasmdec::Convert::voidCall(wasm::Function* fn) {
 	// Call a void function
