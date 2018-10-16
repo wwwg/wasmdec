@@ -4,3 +4,6 @@
 [submodule "cxxopts"]
 	path = external/cxxopts
 	url = https://github.com/jarro2783/cxxopts.git
+[submodule "testsuite"]
+	path = external/testsuite
+	url = https://github.com/webassembly/testsuite
