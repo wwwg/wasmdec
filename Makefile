@@ -56,7 +56,11 @@ installBinaryenDarwin:
 
 # To install wasmdec
 install:
+	make install`(uname -s)`
+installLinux:
 	cp ./wasmdec /usr/bin
+installDarwin:
+	cp ./wasmdec /usr/local/bin
 
 # To build and install everything
 all:
