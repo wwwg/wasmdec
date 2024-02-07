@@ -41,16 +41,6 @@ From the [WebDSP repository](https://github.com/shamadee/web-dsp):
 ```
 WebDSP is a collection of highly performant algorithms, which are designed to be building blocks for web applications that aim to operate on media data. The methods are written in C++ and compiled to WASM, and exposed as simple vanilla Javascript functions developers can run on the client side.
 ```
-* A compiled version of the library is avalible on the WebDSP demo page
-* [The decompiled library is avalible here](examples/webdsp_decompiled.c)
-
-## Applications
-[A CTF write-up which uses wasmdec to reverse engineer a WASM binary](http://maroueneboubakri.blogspot.com/2018/04/nuit-du-hack-ctf-quals-2018-assemblyme.html)
-
-# Installing with release
-
-- Grab a release on the releases page and select the correct tarball for your OS and arch.
-- Extract and run `install.sh` as root.
 
 ## Installing manually
 
@@ -61,7 +51,8 @@ git clone https://github.com/wwwg/wasmdec.git --recursive
 ```
 Make sure the recursive flag is set to clone all the submodules.
 ## Building
-First of all if u don't have /usr/local/lib folder, create it.
+First of all if u don't have /usr/local/lib folder, create it. And install pyenv with homebrew `brew install pyenv` and install python 2.7.18 with `pyenv install 2.7.18` run `pyenv global 2.7.18` `export PATH="$(pyenv root)/shims:$PATH"
+eval "$(pyenv init -)"` add this to your terminal preferences file. Then type `source <path of your terminal preferences file>`. Restart your terminal and check python version with `python --version` if you see Python 2.7.18 now you are ready for build!
 To build wasmdec and install all of it's dependencies, run `sudo make all` in the `wasmdec` directory. GCC 7 or higher is reccomended.
 
 ## Usage
