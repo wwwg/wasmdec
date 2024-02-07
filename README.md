@@ -51,8 +51,21 @@ git clone https://github.com/wwwg/wasmdec.git --recursive
 ```
 Make sure the recursive flag is set to clone all the submodules.
 ## Building
-First of all if u don't have /usr/local/lib folder, create it. And install pyenv with homebrew `brew install pyenv` and install python 2.7.18 with `pyenv install 2.7.18` run `pyenv global 2.7.18` `export PATH="$(pyenv root)/shims:$PATH"
-eval "$(pyenv init -)"` add this to your terminal preferences file. Then type `source <path of your terminal preferences file>`. Restart your terminal and check python version with `python --version` if you see Python 2.7.18 now you are ready for build!
+First of all if u don't have /usr/local/lib folder, create it.
+
+Install pyenv with homebrew `brew install pyenv` 
+
+Install python 2.7.18 with `pyenv install 2.7.18`
+
+Run `pyenv global 2.7.18` `export PATH="$(pyenv root)/shims:$PATH"
+eval "$(pyenv init -)"` 
+
+Add these lines to your terminal preferences file.
+
+Then type `source <path of your terminal preferences file>`. 
+
+Restart your terminal and check python version with `python --version` if you see Python 2.7.18 now you are ready for build!
+
 To build wasmdec and install all of it's dependencies, run `sudo make all` in the `wasmdec` directory. GCC 7 or higher is reccomended.
 
 ## Usage
