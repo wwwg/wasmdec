@@ -1,10 +1,12 @@
-# wasmdec
+## Bu depo bir çataldır ve Web-Assembly dosyalarını okunabilecek seviyede C diline dönüştürür. Bu depo normalde Silikon Mac'ler üzerinde çalışmayacak kodun güncellenmiş ve kullanıma hazır hale getirilmiş halidir.
+
+## wasmdec
 wasmdec is a program that converts WebAssembly binaries to C.
 
-# Demo
+## Demo
 [An online real-time WebAssembly decompiler utilizing wasmdec is avalible here](https://wwwg.github.io/web-wasmdec/)
 
-# Simple Example
+## Simple Example
 wasmdec will translate this WebAssembly binary:
 ```wasm
 (module
@@ -22,7 +24,7 @@ int fn_addTwo(int arg0, int arg1) {
 	return arg0 + arg1;
 }
 ```
-# More practical examples
+## More practical examples
 
 ### [Diep.io](https://diep.io) (HTML5 web game written in C++ and compiled to WASM)
 Diep.io is a real time web game written in C++ and compiled to WebAssembly via Emscripten.
@@ -42,7 +44,7 @@ WebDSP is a collection of highly performant algorithms, which are designed to be
 * A compiled version of the library is avalible on the WebDSP demo page
 * [The decompiled library is avalible here](examples/webdsp_decompiled.c)
 
-# Applications
+## Applications
 [A CTF write-up which uses wasmdec to reverse engineer a WASM binary](http://maroueneboubakri.blogspot.com/2018/04/nuit-du-hack-ctf-quals-2018-assemblyme.html)
 
 # Installing with release
@@ -50,7 +52,7 @@ WebDSP is a collection of highly performant algorithms, which are designed to be
 - Grab a release on the releases page and select the correct tarball for your OS and arch.
 - Extract and run `install.sh` as root.
 
-# Installing manually
+## Installing manually
 
 ## Getting the code
 Clone the repository with
@@ -61,7 +63,7 @@ Make sure the recursive flag is set to clone all the submodules.
 ## Building
 To build wasmdec and install all of it's dependencies, run `sudo make all` in the `wasmdec` directory. GCC 7 or higher is reccomended.
 
-# Usage
+## Usage
 ```bash
 wasmdec -o (output file) (options) [input files]
 ```
