@@ -61,6 +61,7 @@ git clone https://github.com/wwwg/wasmdec.git --recursive
 ```
 Make sure the recursive flag is set to clone all the submodules.
 ## Building
+First of all if u don't have /usr/local/lib folder, create it.
 To build wasmdec and install all of it's dependencies, run `sudo make all` in the `wasmdec` directory. GCC 7 or higher is reccomended.
 
 ## Usage
