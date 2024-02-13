@@ -1,10 +1,12 @@
-# wasmdec
+## Bu depo bir çataldır ve Web-Assembly dosyalarını okunabilecek seviyede C diline dönüştürür. Bu depo normalde Silikon Mac'ler üzerinde çalışmayacak kodun güncellenmiş ve kullanıma hazır hale getirilmiş halidir.
+
+## wasmdec
 wasmdec is a program that converts WebAssembly binaries to C.
 
-# Demo
+## Demo
 [An online real-time WebAssembly decompiler utilizing wasmdec is avalible here](https://wwwg.github.io/web-wasmdec/)
 
-# Simple Example
+## Simple Example
 wasmdec will translate this WebAssembly binary:
 ```wasm
 (module
@@ -22,7 +24,7 @@ int fn_addTwo(int arg0, int arg1) {
 	return arg0 + arg1;
 }
 ```
-# More practical examples
+## More practical examples
 
 ### [Diep.io](https://diep.io) (HTML5 web game written in C++ and compiled to WASM)
 Diep.io is a real time web game written in C++ and compiled to WebAssembly via Emscripten.
@@ -39,18 +41,8 @@ From the [WebDSP repository](https://github.com/shamadee/web-dsp):
 ```
 WebDSP is a collection of highly performant algorithms, which are designed to be building blocks for web applications that aim to operate on media data. The methods are written in C++ and compiled to WASM, and exposed as simple vanilla Javascript functions developers can run on the client side.
 ```
-* A compiled version of the library is avalible on the WebDSP demo page
-* [The decompiled library is avalible here](examples/webdsp_decompiled.c)
 
-# Applications
-[A CTF write-up which uses wasmdec to reverse engineer a WASM binary](http://maroueneboubakri.blogspot.com/2018/04/nuit-du-hack-ctf-quals-2018-assemblyme.html)
-
-# Installing with release
-
-- Grab a release on the releases page and select the correct tarball for your OS and arch.
-- Extract and run `install.sh` as root.
-
-# Installing manually
+## Installing manually
 
 ## Getting the code
 Clone the repository with
@@ -59,9 +51,24 @@ git clone https://github.com/wwwg/wasmdec.git --recursive
 ```
 Make sure the recursive flag is set to clone all the submodules.
 ## Building
+First of all if u don't have /usr/local/lib folder, create it.
+
+Install pyenv with homebrew `brew install pyenv` 
+
+Install python 2.7.18 with `pyenv install 2.7.18`
+
+Run `pyenv global 2.7.18` `export PATH="$(pyenv root)/shims:$PATH"
+eval "$(pyenv init -)"` 
+
+Add these lines to your terminal preferences file.
+
+Then type `source <path of your terminal preferences file>`. 
+
+Restart your terminal and check python version with `python --version` if you see Python 2.7.18 now you are ready for build!
+
 To build wasmdec and install all of it's dependencies, run `sudo make all` in the `wasmdec` directory. GCC 7 or higher is reccomended.
 
-# Usage
+## Usage
 ```bash
 wasmdec -o (output file) (options) [input files]
 ```
