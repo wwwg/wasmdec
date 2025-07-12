@@ -32,13 +32,15 @@ string wasmdec::parsers::store(Context* ctx, Expression* ex) {
             ret += util::tab(ctx->depth);
         }
     }
-    ret += "*((void*)(";
+    ret += "*((";
+    ret += Convert::resolveType(sxp->value->type);
+    ret += "*)(";
     ret += _offset;
-    ret += ") = ";
+    ret += ")) = ";
     ret += val;
     if (!isInline) {
         if (!valueIsAssignment) {
-            ret += "; \n";;
+            ret += ";\n";;
         }
     }
 	return ret;

@@ -9,7 +9,9 @@ string wasmdec::parsers::load(Context* ctx, Expression* ex) {
     ctx->functionLevelExpression = false;
     string var = Convert::parseExpr(ctx, lxp->ptr);
     ret += util::tab(ctx->depth);
-    ret += "*(void*)(";
+    ret += "*(";
+    ret += Convert::resolveType(lxp->type);
+    ret += "*)(";
     ret += var;
     ret += ")";
 	return ret;
