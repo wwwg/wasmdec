@@ -10,21 +10,21 @@ namespace wasmdec {
 	// Context is a union between WASM functions and modules
 	class Context {
 	public:
-		bool isGlobal;
-		bool isIfCondition;
-		Function* fn;
-		Module* mod;
+		bool isGlobal = false;
+		bool isIfCondition = false;
+		Function* fn = nullptr;
+		Module* mod = nullptr;
 		Context(Function*, Module*, DecompilerCtx*);
 		Context(Module*);
-		int depth;
+		int depth = 0;
 
-		int lastSetLocal;
+		int lastSetLocal = 0;
 
-		bool hasDecompilerCtx;
-		DecompilerCtx* dctx;
-		Expression* lastExpr;
+		bool hasDecompilerCtx = false;
+		DecompilerCtx* dctx = nullptr;
+		Expression* lastExpr = nullptr;
 		// Whether or not the expression is exactly one layer below a function
-		bool functionLevelExpression;
+		bool functionLevelExpression = false;
 	};
 } // namespace wasmdec
 
