@@ -1,5 +1,3 @@
-## Bu depo bir çataldır ve Web-Assembly dosyalarını okunabilecek seviyede C diline dönüştürür. Bu depo normalde Silikon Mac'ler üzerinde çalışmayacak kodun güncellenmiş ve kullanıma hazır hale getirilmiş halidir.
-
 ## wasmdec
 wasmdec is a program that converts WebAssembly binaries to C.
 
