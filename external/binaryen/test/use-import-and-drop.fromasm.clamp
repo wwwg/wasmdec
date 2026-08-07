@@ -1,0 +1,5 @@
+(module
+ (import "env" "memory" (memory $memory 256 256))
+ (data (get_global $__memory_base) "use-import-and-drop.asm.js")
+ (import "env" "__memory_base" (global $__memory_base i32))
+)

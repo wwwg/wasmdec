@@ -3,8 +3,8 @@ EMCC_SRC=$(wildcard src/*.cc src/**/*.cc !(src/wasmdec.cc))
 OBJS=$(SRC:.cc=.o)
 OUT=wasmdec
 CC=g++
-CCOPTS=-std=c++14 -Iexternal/binaryen/src -Iexternal/cxxopts/include -c -Wall -g
-RELEASE_CCOPTS=-std=c++14 -Iexternal/binaryen/src -c -Wall -O3
+CCOPTS=-std=c++11 -Iexternal/binaryen/src -Iexternal/cxxopts/include -c -Wall -g
+RELEASE_CCOPTS=-std=c++11 -Iexternal/binaryen/src -c -Wall -O3
 LDOPTS=-Lexternal/binaryen/lib -lbinaryen -lpthread
 
 default: $(SRC) $(OUT)
@@ -22,7 +22,7 @@ wasm:
 	# make wasmBinaryen
 	mkdir -p emcc_out
 	EMCC_DEBUG=1 em++ external/binaryen/lib/libbinaryen.so $(EMCC_SRC) \
-		-std=c++14 -Iexternal/binaryen/src -Iexternal/cxxopts/include -Wall -O3 \
+		-std=c++11 -Iexternal/binaryen/src -Iexternal/cxxopts/include -Wall -O3 \
 		-Wall -o emcc_out/wasmdec.js \
 		-s EXPORTED_FUNCTIONS='["_wasmdec_create_decompiler", "_wasmdec_decompile", "_wasmdec_get_decompiled_code", "_wasmdec_destroy_decompiler"]' \
 		-s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap", "addOnPostRun"]' -s ASSERTIONS=1 -s SAFE_HEAP=1
